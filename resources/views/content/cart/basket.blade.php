@@ -109,8 +109,30 @@
                                     <a href="category.html" class="btn btn-default"><i class="fa fa-chevron-left"></i> Continue shopping</a>
                                 </div>
                                 <div class="pull-right">
+                                    @if(Auth::user() == null)
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                      Proceed to checkout
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Warning</h4>
+                                          </div>
+                                          <div class="modal-body">
+                                            You must log in first
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    @else
                                     <button type="submit" class="btn btn-primary">Proceed to checkout <i class="fa fa-chevron-right"></i>
                                     </button>
+                                    @endif
                                 </div>
                             </div>
 
@@ -127,90 +149,39 @@
                             </div>
                         </div>
 
+                        @foreach($product1 as $key => $product)
                         <div class="col-md-3 col-sm-6">
                             <div class="product same-height">
                                 <div class="flip-container">
                                     <div class="flipper">
                                         <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product2.jpg" alt="" class="img-responsive">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
+                                                <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
                                             </a>
                                         </div>
                                         <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product2_2.jpg" alt="" class="img-responsive">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
+                                                <img src="{{ url('pict_product2/'.$product->pict_product2) }}" alt="" class="img-responsive" style="height: 235px;">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product2.jpg" alt="" class="img-responsive">
+                                <a href="{{ url('/products/'.$product->slug) }}" class="invisible">
+                                    <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
                                 </a>
                                 <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
+                                    <h3><a href="{{ url('/products/'.$product->slug) }}">{{$product->name}}</a></h3>
+                                    <p class="price">{{ "Rp.".number_format($product->price,0,',','.').",-" }}</p>
                                 </div>
                             </div>
                             <!-- /.product -->
                         </div>
+                        @endforeach
 
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product1.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product1_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product1.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product3.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product3_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product3.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
 
                     </div>
+
+
 
 
                 </div>

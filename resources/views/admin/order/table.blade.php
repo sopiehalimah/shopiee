@@ -35,24 +35,62 @@
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>Code</th>
-                                        <th>Name</th>
-                                        <th>Pict</th>
+                                        <th>Code Order</th>
+                                        <th>Name User</th>
+                                        <th>Code Product</th>
+                                        <th>Name Product</th>
+                                        <th>Pict Product</th>
                                         <th>Price</th>
-                                        <th>Desc</th>
-                                        <th>Action</th>
+                                        <th>Kuantitas</th>
+                                        <th>SubTotal</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($data as $product)
+                                @foreach($data as $order)
                                     <tr>
-                                        <td>{{$product->code}}</td>
-                                        <td>{{$product->name}}</td>
-                                        <td><img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" style="max-width:100%;height: 40px;"></td>
-                                        <td>{{$product->price}}</td>
-                                        <td><?php echo substr("$product->desc", 0,100);?>...</td>
-                                        <td><a href="{{ url('/product/edit/'.$product->id) }}"><i class="material-icons">mode_edit</i></a>
-                                          <a href="{{ url('/product/delete/'.$product->id) }}" onclick="return confirm('Delete?')"><i class="material-icons">delete_forever</i></a></td>
+                                        <td>{{$order->code_order}}</td>
+                                        <td>{{$order->id_user}}</td>
+                                        <td>{{$order->code}}</td>
+                                        <td>{{$order->name}}</td>
+                                        <td><img src="{{ url('pict_product1/'.$order->pict_product1) }}" alt="" style="max-width:100%;height: 40px;"></td>
+                                        <td>{{$order->price}}</td>
+                                        <td>{{$order->kuantitas}}</td>
+                                        <td>{{$order->subtotal}}</td>
+                                        <td>
+                                            @if($order->status == 'pending')
+                                            <form action="{{url('/accept/'.$order->code_order)}}" method="post">
+                                                {!! csrf_field() !!}
+
+                                            <input type="hidden" name="status" value="accepted">
+                                            <button type="submit" class="btn btn-success waves-effect">Accept</button>
+                                            <input type="hidden" name="id" value="{{ $order->id }}">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="id_user" value="{{$order->id_user}}">
+                                            <input type="hidden" name="code_order" value="{{$order->code_order}}">
+                                            <input type="hidden" name="code" value="{{$order->code}}">
+                                            <input type="hidden" name="code_parent" value="{{$order->code_parent}}">
+                                            <input type="hidden" name="code_kind" value="{{$order->code_kind}}">
+                                            <input type="hidden" name="code_type" value="{{$order->code_type}}">
+                                            <input type="hidden" name="code_merk" value="{{$order->code_merk}}">
+                                            <input type="hidden" name="pict_product1" value="{{$order->pict_product1}}">
+                                            <input type="hidden" name="pict_product2" value="{{$order->pict_product2}}">
+                                            <input type="hidden" name="name" value="{{$order->name}}">
+                                            <input type="hidden" name="desc" value="{{$order->desc}}">
+                                            <input type="hidden" name="price" value="{{$order->price}}">
+                                            <input type="hidden" name="slug" value="{{$order->slug}}">
+                                            <input type="hidden" name="status" value="accepted">
+                                            <input type="hidden" name="kuantitas" value="{{$order->kuantitas}}">
+
+                                            <input type="hidden" name="subtotal" value="{{$order->subtotal}}">
+                                            <input type="hidden" name="total" value="{{$order->total}}">
+                                            <input type="hidden" name="status" value="{{$order->accepted}}">
+
+                                            </form>
+                                            @else
+                                            <button type="button" class="btn bg-grey waves-effect">Accepted</button>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->text('desc');
             $table->string('price');
             $table->string('slug');
+            $table->string('status');
             $table->integer('kuantitas');
             $table->decimal('subtotal', 10, 2);
             $table->decimal('total', 10, 2);

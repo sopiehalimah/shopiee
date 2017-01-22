@@ -22,7 +22,9 @@
                         <form method="post" action="{{url('/checkout/order/save')}}" enctype="multipart/form-data">
                         {!! csrf_field() !!}
                         
-                         <input type="hidden" class="form-control" name="id_user" value="{{ Auth::user()->id }}" required>
+                         <input type="hidden" class="form-control" name="id_user" value="{{ Auth::user()->email }}" required>
+                         <input type="hidden" class="form-control" name="status" value="pending" required>
+
 
                                         <?php
                                             $a = rand(0,999);
@@ -121,16 +123,16 @@
                                             <!-- <td>Rp.{{ $cart[$key]['price'] }},-</td> -->
                                             <td>{{ "Rp.".number_format($cart[$key]['price'],0,',','.').",-" }}</td>
                                             <td>
-                                                <input id="total_nominal" type="hidden"  name="total_{{$cart[$key]['id']}}" for="a kuantitas" value="{{ $cart[$key]['total'] }}">
-                                                <p id="total_nominal" name="total_{{$cart[$key]['id']}}" for="a kuantitas" value="{{ $cart[$key]['total'] }}">
-                                                {{ "Rp.".number_format($cart[$key]['total'],0,',','.').",-" }}
+                                                <input id="total_nominal" type="hidden"  name="subtotal_{{$cart[$key]['id']}}" for="a kuantitas" value="{{ $cart[$key]['subtotal'] }}">
+                                                <p id="total_nominal" name="subtotal_{{$cart[$key]['id']}}" for="a kuantitas" value="{{ $cart[$key]['subtotal'] }}">
+                                                {{ "Rp.".number_format($cart[$key]['subtotal'],0,',','.').",-" }}
                                                 </p>
-                                                </form>
+                                               
                                             </td>
                                             <td><a href="{{url('/hapuscart/'.$key)}}"><i class="fa fa-trash-o"></i></a>
                                             </td>
                                             <?php
-                                            $grandtotal+=$cart[$key]['total'];
+                                            $grandtotal+=$cart[$key]['subtotal'];
                                             ?>
                                         </tr>
                                         @endforeach
@@ -180,22 +182,28 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>
+                                 @if(count($cart))
+                                    
+                                    <?php
+                                        $grandtotal=0;
+                                    ?>
+                                @foreach($cart as $key => $cart2)
                                     <tr>
                                         <td>Order subtotal</td>
-                                        <th>$446.00</th>
+                                        <th><?php
+                                            $grandtotal+=$cart[$key]['subtotal'];
+                                            ?></th>
                                     </tr>
                                     <tr>
                                         <td>Shipping and handling</td>
-                                        <th>$10.00</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Tax</td>
-                                        <th>$0.00</th>
+                                        <th></th>
                                     </tr>
                                     <tr class="total">
                                         <td>Total</td>
                                         <th>$456.00</th>
                                     </tr>
+                                @endforeach
+                                @endif 
                                 </tbody>
                             </table>
                         </div>

@@ -22,8 +22,8 @@ class CreateShippingsTable extends Migration
             $table->string('state');
             $table->string('country');
             $table->string('email');
-            $table->string('delivery');
-            $table->string('payment');
+            $table->string('delivery')->nullable();
+            $table->string('payment')->nullable();
             $table->timestamps();
         });
     }

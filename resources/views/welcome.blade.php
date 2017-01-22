@@ -91,19 +91,19 @@
                                 <div class="flip-container">
                                     <div class="flipper">
                                         <div class="front">
-                                            <a href="detail.html">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
                                                 <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
                                             </a>
                                         </div>
                                         <div class="back">
-                                            <a href="detail.html">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
                                                 <img src="{{ url('pict_product2/'.$product->pict_product2) }}" alt="" class="img-responsive" style="height: 235px;">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product1.jpg" alt="" class="img-responsive">
+                                <a href="{{ url('/products/'.$product->slug) }}" class="invisible">
+                                    <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
                                 </a>
                                 <div class="text">
                                     <h3><a href="{{ url('/products/'.$product->slug) }}">{{$product->name}}</a></h3>

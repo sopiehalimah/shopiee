@@ -42,6 +42,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if(count($data))
+
                                 <?php $i = 1; ?>
                                 @foreach($data as $parent)
                                     <tr>
@@ -52,6 +54,7 @@
                                           <a href="{{ url('/master_parent/delete/'.$parent->id) }}" onclick="return confirm('Delete?')"><i class="material-icons">delete_forever</i></a></td>
                                     </tr>
                                 @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>

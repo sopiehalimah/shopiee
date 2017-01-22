@@ -77,7 +77,7 @@
                                     <select class="form-control show-tick" name="code_kind">
                                         <option value="">Select Kind</option>
                                         @foreach($master_kinds as $key => $master_kind)
-                                        <option value="{{ $master_kind->code }}">{{ $master_kind->name }}</option>
+                                        <option value="{{ $master_kind->code }}">{{ $master_kind->code }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -85,7 +85,7 @@
                                     <select class="form-control show-tick" name="code_type">
                                         <option value="">Select Type</option>
                                         @foreach($master_types as $key => $master_type)
-                                        <option value="{{ $master_type->code }}">{{ $master_type->name }}</option>
+                                        <option value="{{ $master_type->code }}">{{ $master_type->code }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -93,7 +93,7 @@
                                     <select class="form-control show-tick" name="code_merk">
                                         <option value="">Select Merk</option>
                                         @foreach($master_merks as $key => $master_merk)
-                                        <option value="{{ $master_merk->code }}">{{ $master_merk->name }}</option>
+                                        <option value="{{ $master_merk->name }}">{{ $master_merk->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

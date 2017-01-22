@@ -45,8 +45,8 @@
                                 </div>
 			                	<div class="form-group form-float">
                                     <label>Category</label>
-                                    <select class="form-control show-tick" name="id_category">
-                                        <option value="{{$data->id_category}}">{{$data->id_category}}</option>
+                                    <select class="form-control show-tick" name="category">
+                                        <option value="{{$data->category}}">{{$data->category}}</option>
                                         @foreach($master_blogs as $key => $master_blog)
                                         <option value="{{ $master_blog->category }}">{{ $master_blog->category }}</option>
                                         @endforeach

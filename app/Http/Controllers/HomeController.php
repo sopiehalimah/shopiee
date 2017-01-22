@@ -105,7 +105,7 @@ class HomeController extends Controller
     {
         $data = new blog;
         $data->title = Input::get('title');
-        $data->id_category = Input::get('id_category');
+        $data->category = Input::get('category');
         $data->content = Input::get('content');
         $data->slug = str_slug(Input::get('title'));
         $data->author = Input::get('author');
@@ -136,7 +136,7 @@ class HomeController extends Controller
     {
         $data = blog::find(Input::get('id'));
         $data->title = Input::get('title');
-        $data->id_category = Input::get('id_category');
+        $data->category = Input::get('category');
         $data->content = Input::get('content');
         $data->author = Input::get('author');
 
@@ -181,7 +181,7 @@ class HomeController extends Controller
     public function advertisement_save()
     {
         $data = new advertisement;
-        $data->id_category = Input::get('id_category');
+        $data->category = Input::get('category');
 
         if(Input::hasFile('pict_ad')){
             $pict_ad = date('YmdHis')
@@ -208,7 +208,7 @@ class HomeController extends Controller
     public function advertisement_update() 
     {
         $data = advertisement::find(Input::get('id'));
-        $data->id_category = Input::get('id_category');
+        $data->category = Input::get('category');
 
         if(Input::hasFile('pict_ad')){
             $pict_ad = date('YmdHis')
@@ -238,7 +238,8 @@ class HomeController extends Controller
 
     public function master_parent_add()
     {
-        return view('/admin/master_parent/add');
+        $data = array('data'=>master_parent::all());
+        return view('/admin/master_parent/add')->with($data);
     }
 
     public function master_parent_table() 
@@ -551,8 +552,37 @@ class HomeController extends Controller
     //ORDER
     public function order_table()
     {
-        return view('admin/order/table');
+        $data = array('data'=>order::all());
+        return view('admin/order/table')->with($data);
     }
+
+
+    public function accept_order(Request $r ,$code_order)
+    {
+        $select_order = order::where('code_order',$code_order)->update(['status'=>'accepted']);
+        // $order  = order::find($select_order->id);
+        // $order->status = 'accepted';
+        // $order->save();
+
+        // $r->save()->put('order',  $array);
+        return redirect()->back();
+
+    }
+
+     //ORDER
+    public function mail_order()
+    {
+        $data = array('data'=>order::all());
+        return view('admin/order/info')->with($data);
+    }
+
+     public function mailinfo_order($code_order)
+    {
+        $data = array('data'=>order::find($code_order));
+        return view('admin/order/info')->with($data);
+    }
+
+
 
 
 

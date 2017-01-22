@@ -21,7 +21,7 @@
                         <form method="post" action="{{url('/checkout/address/save')}}" enctype="multipart/form-data">
                         {!! csrf_field() !!}
                         
-                         <input type="hidden" class="form-control" name="id_user" value="{{ Auth::user()->id }}" required>
+                         <input type="hidden" class="form-control" name="id_user" value="{{ Auth::user()->email }}" required>
 
                             <h1>Checkout</h1>
                             <ul class="nav nav-pills nav-justified">
@@ -48,7 +48,7 @@
                                             <label for="state">State</label>
                                             <select class="form-control" name="state" id="state" required>
                                                 
-                                                <option>klk</option>
+                                                <option>Indonesia</option>
                                             </select>
                                         </div>
                                     </div>
@@ -64,14 +64,18 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" name="email"  class="form-control" id="email" required>
+                                            <input type="email" name="email"  class="form-control" id="email" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="country">Country</label>
                                             <select class="form-control" name="country" id="country" required>
-                                                <option>klk</option>
+                                                <option>DKI Jakarta</option>
+                                                <option>Bogor</option>
+                                                <option>Depok</option>
+                                                <option>Tangerang</option>
+                                                <option>Bekasi</option>
                                             </select>
                                         </div>
                                     </div>

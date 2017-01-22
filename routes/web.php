@@ -34,14 +34,70 @@ Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout');
 
 
+	Route::get('attach/roles','TestController@attachRole');
+	Route::get('roles','TestController@roles');
+
+Route::get('/pict/{filename}',
+	function ($filename)
+
+	{
+		$path = storage_path() . '/' . $filename;
+		$file = File::get($path);
+		$type = File::mimeType($path);
+
+		$response = Response::make($file, 200);
+		$response->header("content-Type", $type);
+
+		return $response;
+});
+
+Route::get('/pict_ad/{filename}',
+	function ($filename)
+
+	{
+		$path = storage_path() . '/' . $filename;
+		$file = File::get($path);
+		$type = File::mimeType($path);
+
+		$response = Response::make($file, 200);
+		$response->header("content-Type", $type);
+
+		return $response;
+});
+Route::get('/pict_product1/{filename}',
+	function ($filename)
+
+	{
+		$path = storage_path() . '/' . $filename;
+		$file = File::get($path);
+		$type = File::mimeType($path);
+
+		$response = Response::make($file, 200);
+		$response->header("content-Type", $type);
+
+		return $response;
+	});
+Route::get('/pict_product2/{filename}',
+	function ($filename)
+
+	{
+		$path = storage_path() . '/' . $filename;
+		$file = File::get($path);
+		$type = File::mimeType($path);
+
+		$response = Response::make($file, 200);
+		$response->header("content-Type", $type);
+
+		return $response;
+	});
+
+
 
 // Route::group(['middleware'=>'role:member'],function(){
 
 	// Route::get('/home', 'HomeController@index')->middleware('CheckRole');
 
 
-	Route::get('attach/roles','TestController@attachRole');
-	Route::get('roles','TestController@roles');
 
 
 	Route::post('uploadimagedrag', 'ImageController@uploadDragAndDropCKEDITOR');
@@ -110,14 +166,12 @@ Route::post('/logout', 'Auth\LoginController@logout');
 
 	Route::get('/orders/history','WelcomeController@orders_history');
 
+	Route::get('brand/{name}','ProductController@brand');
+	Route::get('category/{code}','ProductController@category_type');
+	Route::get('categorys/{code}','ProductController@category_parent');
+	Route::get('categoryss/{code}','ProductController@category_kind');
+	Route::get('category/blog/{category}','BlogController@category');
 
-	Route::get('OBLONG','ProductController@OBLONG');
-	Route::get('SHOES','ProductController@SHOES');
-
-	Route::get('SPORT','ProductController@SPORT');
-	Route::get('T-SHIRT','ProductController@T-SHIRT');
-
-	Route::get('MAN','ProductController@MAN');
 
 	Route::get('search','SearchController@search');
 // });
@@ -135,19 +189,6 @@ Route::group(['middleware'=>'role:admin'],function(){
 	Route::post('/advertisement/update','HomeController@advertisement_update');
 	Route::get('/advertisement/delete/{id}','HomeController@advertisement_delete');
 
-	Route::get('/pict_ad/{filename}',
-		function ($filename)
-
-		{
-			$path = storage_path() . '/' . $filename;
-			$file = File::get($path);
-			$type = File::mimeType($path);
-
-			$response = Response::make($file, 200);
-			$response->header("content-Type", $type);
-
-			return $response;
-		});
 
 
 	//BLOG
@@ -159,19 +200,7 @@ Route::group(['middleware'=>'role:admin'],function(){
 	Route::post('/blog/update','HomeController@blog_update');
 	Route::get('/blog/delete/{id}','HomeController@blog_delete');
 
-	Route::get('/pict/{filename}',
-		function ($filename)
 
-		{
-			$path = storage_path() . '/' . $filename;
-			$file = File::get($path);
-			$type = File::mimeType($path);
-
-			$response = Response::make($file, 200);
-			$response->header("content-Type", $type);
-
-			return $response;
-		});
 
 
 	//MASTER BLOG
@@ -233,32 +262,13 @@ Route::group(['middleware'=>'role:admin'],function(){
 	Route::get('/product/edit/{id}','HomeController@product_edit');
 	Route::post('/product/update','HomeController@product_update');
 	Route::get('/product/delete/{id}','HomeController@product_delete');
-	Route::get('/pict_product1/{filename}',
-		function ($filename)
-
-		{
-			$path = storage_path() . '/' . $filename;
-			$file = File::get($path);
-			$type = File::mimeType($path);
-
-			$response = Response::make($file, 200);
-			$response->header("content-Type", $type);
-
-			return $response;
-		});
-	Route::get('/pict_product2/{filename}',
-		function ($filename)
-
-		{
-			$path = storage_path() . '/' . $filename;
-			$file = File::get($path);
-			$type = File::mimeType($path);
-
-			$response = Response::make($file, 200);
-			$response->header("content-Type", $type);
-
-			return $response;
-		});
 
 	Route::get('/order/table','HomeController@order_table');
+	Route::post('/accept/{code_order}','HomeController@accept_order');
+	Route::get('/order/mail','HomeController@mail_order');
+	Route::get('/order/mail/{code_order}','HomeController@mailinfo_order');
+
+
+
+	
 });

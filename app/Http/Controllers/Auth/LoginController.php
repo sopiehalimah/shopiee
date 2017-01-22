@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Auth;
-use RoleUser;
+use App\Role;
 
 class LoginController extends Controller
 {
@@ -50,13 +50,13 @@ class LoginController extends Controller
         $password = $r->input('password');
         
         if (Auth::attempt(['email'=>$email,'password'=>$password])) {
-            $role = RoleUser::where('role_id',Auth::user()->role_id)->first();
-            if ($role==1) {
-                return redirect(url('/home'));
+            $role = Role::where('name',Auth::user()->role)->first();
+            if ($role->id==1) {
+                return redirect(url('/'));
             }
             
-            elseif ($role==2) {
-                return redirect(url('/'));
+            elseif ($role->id==2) {
+                return redirect(url('/home'));
             }
         }
         else{

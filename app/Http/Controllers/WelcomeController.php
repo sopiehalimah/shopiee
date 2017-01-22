@@ -24,7 +24,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $master_parent = master_parent::orderBy('id','desc')->with('class')->with('class.class2')->limit(5)->get();
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
         $master_kind = array('master_kind'=>master_kind::all());
         $master_type = array('master_type'=>master_type::all());
         $master_merk = master_merk::all();
@@ -55,13 +55,16 @@ class WelcomeController extends Controller
     public function blogs()
     {
         $master_parent = master_parent::with('class')->with('class.class2')->get();
-        $master_kind = master_kind::all();
-        $master_type = master_type::all();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
         $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
+        $product = array('product'=>product::all());
+        $cart = session('cart');
         $blog = array('blog'=>blog::orderBy('id','desc')->paginate(2));
         $category = master_blog::all();
-        $cart = session('cart');
-        return view('content/blog_app/blog')->with($blog)->with('categorys',$category)->with('master_parents', $master_parent)->with('master_kinds',$master_kind)->with('master_types',$master_type)->with('master_merks', $master_merk)->with('cart',$cart);
+        return view('content/blog_app/blog')->with($blog)->with('categorys',$category)->with('master_parents', $master_parent)->with('master_kinds',$master_kind)->with('master_types',$master_type)->with('master_merks', $master_merk)->with('cart',$cart)->with($advertisement);
     }
 
     public function blogs_detail($slug)
@@ -71,12 +74,13 @@ class WelcomeController extends Controller
         $master_type = array('master_type'=>master_type::all());
         $master_merk = master_merk::all();
         $master_blog = master_blog::all();
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
         $blog = blog::all();
         $product = array('product'=>product::all());
-        $datas = array('datas'=>product::where('code_parent', '=', 'MAN')->orderBy('id','desc')->paginate(12));
-        $data = array('data'=>blog::where('slug',$slug)->first());
         $cart = session('cart');
-        return view('content/blog_app/detail')->with($data)->with($datas)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with('cart',$cart);
+        $category = master_blog::all();
+        $data = array('data'=>blog::where('slug',$slug)->first());
+        return view('content/blog_app/detail')->with($data)->with('categorys',$category)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with('cart',$cart)->with($advertisement);
     }
 
 
@@ -88,9 +92,11 @@ class WelcomeController extends Controller
         $master_merk = master_merk::all();
         $master_blog = master_blog::all();
         $blog = blog::all();
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
         $product = array('product'=>product::where('slug',$slug)->first());
+        $product1 = array('product1'=>product::orderBy('id','desc')->limit(3)->get());
         $cart = session('cart');
-        return view('content/product_app/detail')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with('cart',$cart);
+        return view('content/product_app/detail')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($product1)->with('cart',$cart)->with($advertisement);
     }
 
     public function carts()
@@ -101,9 +107,10 @@ class WelcomeController extends Controller
         $master_merk = master_merk::all();
         $master_blog = master_blog::all();
         $blog = blog::all();
+        $product1 = array('product1'=>product::orderBy('id','desc')->limit(3)->get());
         $product = array('product'=>product::all());
         $cart = session('cart');
-        return view('content/cart/basketempty')->with('cart',$cart)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product);
+        return view('content/cart/basketempty')->with('cart',$cart)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($product1);
     }
 
     public function cart()
@@ -114,9 +121,10 @@ class WelcomeController extends Controller
         $master_merk = master_merk::all();
         $master_blog = master_blog::all();
         $blog = blog::all();
+        $product1 = array('product1'=>product::orderBy('id','desc')->limit(3)->get());
         $product = array('product'=>product::all());
         $cart = session('cart');
-        return view('content/cart/basket')->with('cart',$cart)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product);
+        return view('content/cart/basket')->with('cart',$cart)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($product1);
     }
 
     public function save_cart(Request $r)
@@ -303,6 +311,7 @@ class WelcomeController extends Controller
                 $order->desc = $r->input('desc_'.$cart[$key]['id']);
                 $order->price = $r->input('price_'.$cart[$key]['id']);
                 $order->slug = $r->input('slug_'.$cart[$key]['id']);
+                $order->status = Input::get('status');
                 $order->kuantitas = $r->input('kuantitas_'.$cart[$key]['id']);
                 $order->subtotal = $r->input('subtotal_'.$cart[$key]['id']);
                 $order->total = $r->input('total_'.$cart[$key]['id']);

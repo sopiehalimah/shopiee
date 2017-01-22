@@ -49,11 +49,11 @@
                                     <tr>
                                         <td>{{$i++}}.</td>
                                         <td>{{$blog->title}}</td>
-                                        <td>{{$blog->id_category}}</td>
+                                        <td>{{$blog->category}}</td>
                                         <td><img src="{{ url('pict/'.$blog->pict) }}" alt="" style="max-width:100%;height: 40px;"></td>
                                         <td><?php echo substr("$blog->content", 0,100);?>...</td>
-                                        <td><a href="{{ url('/blog/edit/'.$blog->id) }}"><i class="material-icons">mode_edit</i></a>
-                                          <a href="{{ url('/blog/delete/'.$blog->id) }}" onclick="return confirm('Delete?')"><i class="material-icons">delete_forever</i></a></td>
+                                        <td><a href="{{ url('/blog/edit/'.$blog->id) }}">Edit</a>
+                                          <a href="{{ url('/blog/delete/'.$blog->id) }}" onclick="return confirm('Delete?')">Delete</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

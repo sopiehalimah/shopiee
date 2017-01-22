@@ -46,8 +46,11 @@
                                     <tr>
                                         <td>{{$i++}}.</td>
                                         <td>{{$category->category}}</td>
-                                        <td><a href="{{ url('/master_blog/edit/'.$category->id) }}"><i class="material-icons">mode_edit</i></a>
-                                          <a href="{{ url('/master_blog/delete/'.$category->id) }}" onclick="return confirm('Delete?')"><i class="material-icons">delete_forever</i></a></td>
+                                        <td>
+                                        <center><a href="{{ url('/master_blog/edit/'.$category->id) }}">Edit</a>
+                                          <a href="{{ url('/master_blog/delete/'.$category->id) }}" onclick="return confirm('Delete?')">Delete</a>
+                                        </td>
+                                        </center>
                                     </tr>
                                 @endforeach
                                 </tbody>

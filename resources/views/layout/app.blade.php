@@ -58,7 +58,7 @@
                     @if (Auth::guest())
                     <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
                     </li>
-                    <li><a href="{{ url('/register') }}">Register</a>
+                    <li><a href="#" data-toggle="modal" data-target="#register-modal">Register</a>
                     </li>
                     @else
                     <li class="dropdown">
@@ -124,7 +124,73 @@
                         </form>
 
                         <p class="text-center text-muted">Not registered yet?</p>
-                        <p class="text-center text-muted"><a href="{{ url('/register') }}"><strong>Register now</strong></a>! It is easy and done in 1&nbsp;minute and gives you access to special discounts and much more!</p>
+                        <p class="text-center text-muted"><a href="{{ url('/') }}"><strong>Register now</strong></a>! It is easy and done in 1&nbsp;minute and gives you access to special discounts and much more!</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="Register" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="Register">Customer Register</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h1>New account</h1>
+
+                        <p class="lead">Not our registered customer yet?</p>
+                        <p>With registration with us new world of fashion, fantastic discounts and much more opens to you! The whole process will not take you more than a minute!</p>
+                        <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
+
+                        <hr>
+                        <form method="POST" action="{{ url('/register') }}">
+                        {{ csrf_field() }}
+
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required autofocus>
+
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+
+                            </div>
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email"  name="email" value="{{ old('email') }}" required>
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+
+                            </div>
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+
+                            </div>
+                             <div class="form-group">
+                                <label for="password">Confirm Password</label>
+                                <input type="password" class="form-control" id="password-confirm" name="password_confirmation" required>
+
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i> Register</button>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
@@ -143,8 +209,8 @@
             <div class="navbar-header">
 
                 <a class="navbar-brand home" href="{{url('/')}}" data-animate-hover="bounce">
-                    <img src="img/sh.png" alt="Obaju logo" class="hidden-xs" style="width: 150px;">
-                    <img src="img/sh.png" alt="Obaju logo" class="visible-xs" style="width: 100px;"><span class="sr-only">Shopier - go to homepage</span>
+                    <img src="{{url('img/sh.png')}}" alt="Obaju logo" class="hidden-xs" style="width: 150px;">
+                    <img src="{{url('img/sh.png')}}" alt="Obaju logo" class="visible-xs" style="width: 100px;"><span class="sr-only">Shopier - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
@@ -171,7 +237,7 @@
             <div class="navbar-collapse collapse" id="navigation">
 
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="active"><a href="index.html">Home</a>
+                    <li class="active"><a href="{{url('/')}}">Home</a>
                     </li>
                     @foreach($master_parents as $key => $master_parent)
                     @if($master_parent->class == null)
@@ -190,11 +256,11 @@
                                             <ul>
                                             @foreach($clas->class2 as $clas2)
                                             @if($clas2->class3 == null)
-                                                <li><a href="{{ url($clas2->name) }}">{{ $clas2->name }}</a>
+                                                <li><a href="{{ url('category/'.$clas2->code) }}">{{ $clas2->name }}</a>
                                                 </li>
                                             @else
                                             @foreach($clas2->class3 as $class4)
-                                                 <li><a href="{{ url($class4->name) }}">{{ $class4->name }}</a>
+                                                 <li><a href="{{ url('category/'.$class4->name) }}">{{ $class4->name }}</a>
                                                 </li>
                                             @endforeach
                                             @endif
@@ -212,82 +278,6 @@
                     @endif
                     @endforeach
 
-                    <li class="dropdown yamm-fw">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Template <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="yamm-content">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <h5>Shop</h5>
-                                            <ul>
-                                                <li><a href="index.html">Homepage</a>
-                                                </li>
-                                                <li><a href="category.html">Category - sidebar left</a>
-                                                </li>
-                                                <li><a href="category-right.html">Category - sidebar right</a>
-                                                </li>
-                                                <li><a href="category-full.html">Category - full width</a>
-                                                </li>
-                                                <li><a href="detail.html">Product detail</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <h5>User</h5>
-                                            <ul>
-                                                <li><a href="register.html">Register / login</a>
-                                                </li>
-                                                <li><a href="customer-orders.html">Orders history</a>
-                                                </li>
-                                                <li><a href="customer-order.html">Order history detail</a>
-                                                </li>
-                                                <li><a href="customer-wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li><a href="customer-account.html">Customer account / change password</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <h5>Order process</h5>
-                                            <ul>
-                                                <li><a href="basket.html">Shopping cart</a>
-                                                </li>
-                                                <li><a href="checkout1.html">Checkout - step 1</a>
-                                                </li>
-                                                <li><a href="checkout2.html">Checkout - step 2</a>
-                                                </li>
-                                                <li><a href="checkout3.html">Checkout - step 3</a>
-                                                </li>
-                                                <li><a href="checkout4.html">Checkout - step 4</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <h5>Pages and blog</h5>
-                                            <ul>
-                                                <li><a href="blog.html">Blog listing</a>
-                                                </li>
-                                                <li><a href="post.html">Blog Post</a>
-                                                </li>
-                                                <li><a href="faq.html">FAQ</a>
-                                                </li>
-                                                <li><a href="text.html">Text page</a>
-                                                </li>
-                                                <li><a href="text-right.html">Text page - right sidebar</a>
-                                                </li>
-                                                <li><a href="404.html">404 page</a>
-                                                </li>
-                                                <li><a href="contact.html">Contact</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /.yamm-content -->
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
 
             </div>

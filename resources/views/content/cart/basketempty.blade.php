@@ -37,7 +37,6 @@
                     </div>
                     <!-- /.box -->
 
-
                     <div class="row same-height-row">
                         <div class="col-md-3 col-sm-6">
                             <div class="box same-height">
@@ -45,90 +44,39 @@
                             </div>
                         </div>
 
+                        @foreach($product1 as $key => $product)
                         <div class="col-md-3 col-sm-6">
                             <div class="product same-height">
                                 <div class="flip-container">
                                     <div class="flipper">
                                         <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product2.jpg" alt="" class="img-responsive">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
+                                                <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
                                             </a>
                                         </div>
                                         <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product2_2.jpg" alt="" class="img-responsive">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
+                                                <img src="{{ url('pict_product2/'.$product->pict_product2) }}" alt="" class="img-responsive" style="height: 235px;">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product2.jpg" alt="" class="img-responsive">
+                                <a href="{{ url('/products/'.$product->slug) }}" class="invisible">
+                                    <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
                                 </a>
                                 <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
+                                    <h3><a href="{{ url('/products/'.$product->slug) }}">{{$product->name}}</a></h3>
+                                    <p class="price">{{ "Rp.".number_format($product->price,0,',','.').",-" }}</p>
                                 </div>
                             </div>
                             <!-- /.product -->
                         </div>
+                        @endforeach
 
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product1.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product1_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product1.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product3.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product3_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product3.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
 
                     </div>
+
+
 
 
                 </div>

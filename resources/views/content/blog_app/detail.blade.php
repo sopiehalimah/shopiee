@@ -12,11 +12,9 @@
 
                     <ul class="breadcrumb">
 
-                        <li><a href="index.html">Home</a>
-                        </li>
-                        <li><a href="blog.html">Blog</a>
-                        </li>
-                        <li>{{$data->id_category}}</li>
+                        <li><a href="{{url('/')}}">Home</a></li>
+                        <li><a href="{{url('/blogs')}}">Blog</a></li>
+                        <li><a href="{{url('category/blog/'.$data->category)}}">{{$data->category}}</a></li>
                         <li>{{$data->title}}</li>
                     </ul>
                 </div>
@@ -153,19 +151,12 @@
 
                         <div class="panel-body">
 
-                            <ul class="nav nav-pills nav-stacked">
+                             <ul class="nav nav-pills nav-stacked">
+                                @foreach($categorys as $key => $category)
                                 <li>
-                                    <a href="blog.html">About us</a>
+                                    <a href="{{url('category/blog/'.$category->category)}}">{{$category->category}}</a>
                                 </li>
-                                <li class="active">
-                                    <a href="blog.html">Fashion</a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">News and gossip</a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Design</a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
 
@@ -174,11 +165,18 @@
 
                     <!-- *** BLOG MENU END *** -->
 
-                    <div class="banner">
+                        <div class="banner">
                         <a href="#">
-                            <img src="img/banner.jpg" alt="sales 2014" class="img-responsive">
+                            @foreach($advertisement as $key => $advertisement )
+                            @if($key == 0)
+                            <img src="{{url('/pict_ad/'.$advertisement->pict_ad)}}" alt="" style="width: 100%; height: 300px;" alt="sales 2014" class="img-responsive">
+                            @else
+                            <img src="{{url('/pict_ad/'.$advertisement->pict_ad)}}" alt="" style="width: 100%; height: 300px;" alt="sales 2014" class="img-responsive">
+                            @endif
+                            @endforeach
+
                         </a>
-                    </div>
+                        </div>
                 </div>
 
 

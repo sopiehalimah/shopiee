@@ -471,6 +471,9 @@
                             <li>
                                 <a href="{{url('/order/table')}}">Data Orders</a>
                             </li>
+                            <li>
+                                <a href="{{url('/order/mail')}}">Order Mail Info</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -696,6 +699,7 @@
 
     <!-- TinyMCE -->
     <script src="{{url('admin/plugins/tinymce/tinymce.js')}}"></script>
+
      <script type="text/javascript">
         if ( typeof CKEDITOR == 'undefined' ){
         document.write(
@@ -705,6 +709,7 @@
         CKFinder.setupCKEditor( editor, '' ) ;
         }
     </script>
+    
 </body>
 
 </html>

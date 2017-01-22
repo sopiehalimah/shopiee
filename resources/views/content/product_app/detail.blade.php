@@ -9,13 +9,12 @@
 
                 <div class="col-md-12">
                     <ul class="breadcrumb">
-                        <li><a href="#">Home</a>
+                        <li><a href="{{url('/')}}">Home</a>
                         </li>
-                        <li><a href="#">Ladies</a>
-                        </li>
-                        <li><a href="#">Tops</a>
-                        </li>
-                        <li>White Blouse Armani</li>
+                        <li><a href="{{ url('categorys/'.$product->code_parent) }}">{{$product->code_parent}}</a></li>
+                        <li><a href="{{ url('categoryss/'.$product->code_kind) }}">{{$product->code_kind}}</a></li>
+                        <li><a href="{{ url('category/'.$product->code_type) }}">{{$product->code_type}}</a></li>
+                        <li>{{$product->name}}</li>
                     </ul>
 
                 </div>
@@ -34,24 +33,25 @@
                             @foreach($master_parents as $key => $master_parent)
                             @if($master_parent->class == null)
                             <li class="active">
-                                    <a href="{{ url($master_parent->name) }}">{{ $master_parent->name }}<span class="badge pull-right">{!! $master_parents->count() !!}</span></a>
+                                    <a href="{{ url('categorys/'.$master_parent->code) }}">{{ $master_parent->name }}</a>
                                     <ul>
                                     @foreach($master_parent->class as $clas)
-                                        <li><a href="{{ url($clas->name) }}">{{$clas->name}}</a>
+                                        <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
                                         </li>
                                     @endforeach 
                                     </ul>
                             </li>
                             @else
-                                <li>
-                                    <a href="{{ url($master_parent->name) }}">{{ $master_parent->name }}<span class="badge pull-right">{!! $master_parents->count() !!}</span></a>
+                            <li>
+                                    <a href="{{ url('categorys/'.$master_parent->code) }}">{{ $master_parent->name }}
+                                    </a>
                                     <ul>
                                     @foreach($master_parent->class as $clas)
-                                        <li><a href="{{ url($clas->name) }}">{{$clas->name}}<span class="badge pull-right">{!! $clas->count() !!}</span></a>
+                                        <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
                                         </li>
                                     @endforeach 
                                     </ul>
-                                </li>
+                            </li>
                             @endif
                             @endforeach
                             </ul>
@@ -62,91 +62,36 @@
                     <div class="panel panel-default sidebar-menu">
 
                         <div class="panel-heading">
-                            <h3 class="panel-title">Brands <a class="btn btn-xs btn-danger pull-right" href="#"><i class="fa fa-times-circle"></i> Clear</a></h3>
+                            <h3 class="panel-title">Brands</h3>
                         </div>
 
                         <div class="panel-body">
-
-                            <form>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">Armani (10)
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">Versace (12)
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">Carlo Bruni (15)
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">Jack Honey (14)
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
-
-                            </form>
-
+                             <ul class="nav nav-pills nav-stacked category-menu">
+                                @foreach($master_merks as $key => $master_merk)
+                                @if($master_merk->class == null)
+                                <li><a href="{{url('brand/'.$master_merk->name) }}">{{$master_merk->name}}</a>
+                                </li>
+                                @else
+                                <li><a href="{{url('brand/'.$master_merk->name) }}">{{$master_merk->name}}</a>
+                                </li>
+                                @endif
+                                @endforeach
+                             </ul>
                         </div>
                     </div>
 
-                    <div class="panel panel-default sidebar-menu">
-
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Colours <a class="btn btn-xs btn-danger pull-right" href="#"><i class="fa fa-times-circle"></i> Clear</a></h3>
-                        </div>
-
-                        <div class="panel-body">
-
-                            <form>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> <span class="colour white"></span> White (14)
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> <span class="colour blue"></span> Blue (10)
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> <span class="colour green"></span> Green (20)
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> <span class="colour yellow"></span> Yellow (13)
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> <span class="colour red"></span> Red (10)
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
-
-                            </form>
-
-                        </div>
-                    </div>
 
                     <!-- *** MENUS AND FILTERS END *** -->
 
                     <div class="banner">
                         <a href="#">
-                            <img src="img/banner.jpg" alt="sales 2014" class="img-responsive">
+                            @foreach($advertisement as $key => $advertisement )
+                            @if($key == 0)
+                            <img src="{{url('/pict_ad/'.$advertisement->pict_ad)}}" alt="" style="width: 100%; height: 300px;" alt="sales 2014" class="img-responsive">
+                            @else
+                            <img src="{{url('/pict_ad/'.$advertisement->pict_ad)}}" alt="" style="width: 100%; height: 300px;" alt="sales 2014" class="img-responsive">
+                            @endif
+                            @endforeach
                         </a>
                     </div>
                 </div>
@@ -174,7 +119,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="box">
-                                <h1 class="text-center">White Blouse Armani</h1>
+                                <h1 class="text-center">{{$product->name}}</h1>
                                 <p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
                                 </p>
                                 <p class="price">{{ "Rp.".number_format($product->price,0,',','.').",-" }}</p>
@@ -259,183 +204,39 @@
                             </div>
                         </div>
 
+                        @foreach($product1 as $key => $product)
                         <div class="col-md-3 col-sm-6">
                             <div class="product same-height">
                                 <div class="flip-container">
                                     <div class="flipper">
                                         <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product2.jpg" alt="" class="img-responsive">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
+                                                <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
                                             </a>
                                         </div>
                                         <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product2_2.jpg" alt="" class="img-responsive">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
+                                                <img src="{{ url('pict_product2/'.$product->pict_product2) }}" alt="" class="img-responsive" style="height: 235px;">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product2.jpg" alt="" class="img-responsive">
+                                <a href="{{ url('/products/'.$product->slug) }}" class="invisible">
+                                    <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
                                 </a>
                                 <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
+                                    <h3><a href="{{ url('/products/'.$product->slug) }}">{{$product->name}}</a></h3>
+                                    <p class="price">{{ "Rp.".number_format($product->price,0,',','.').",-" }}</p>
                                 </div>
                             </div>
                             <!-- /.product -->
                         </div>
+                        @endforeach
 
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product1.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product1_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product1.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product3.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product3_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product3.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">{{$product->price}}</p>
-
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
 
                     </div>
 
-                    <div class="row same-height-row">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="box same-height">
-                                <h3>Products viewed recently</h3>
-                            </div>
-                        </div>
 
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product2_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product2.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product1.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product1_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product1.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="img/product3.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="img/product3_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="img/product3.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">{{$product->price}}</p>
-
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                    </div>
 
                 </div>
                 <!-- /.col-md-9 -->

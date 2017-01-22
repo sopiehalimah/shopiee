@@ -30,6 +30,11 @@
                                 </li>
                             </ul>
                         </div>
+                        @if(count($data) == 5)
+                        <div class="body">
+                        tidak bisa lebih dari 5
+                        </div>
+                        @else
                         <div class="body">
                         <form method="post" action="{{url('/master_parent/save')}}" enctype="multipart/form-data">
                         {!! csrf_field() !!}
@@ -50,6 +55,7 @@
                                 
                         </form>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
