@@ -12,7 +12,7 @@
     <meta name="keywords" content="">
 
     <title>
-        SHOPIEE
+        Shopiee
     </title>
 
     <meta name="keywords" content="">
@@ -34,7 +34,7 @@
 
     <script src="{{url('js/respond.min.js')}}"></script>
 
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="{{url('img/s.png')}}">
 
 
 

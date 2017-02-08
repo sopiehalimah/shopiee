@@ -646,7 +646,7 @@ class HomeController extends Controller
           $a->Password = "chanyeol";
           $a->SetFrom("sopiehalimah@gmail.com","Sopie Halimah");
           $a->Subject = "Detail Pemesanan";
-          $a->MsgHTML('<h1>'.'#'.'<a href="http://localhost:8000/orders/confirm/">'.$code_order.'</a>'.'</h1>'
+          $a->MsgHTML('<h1>'.'#'.'<a href="http://shopiee.tk/orders/confirm/">'.$code_order.'</a>'.'</h1>'
                         // '<br>'.
                         // '<table border="1" style="width:500px;text-align:center;">'.
                         //         '<thead>'.
