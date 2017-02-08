@@ -15,7 +15,7 @@
                     </ul>
                 </div>
 
-                <div class="col-md-9" id="checkout">
+                <div class="col-md-12" id="checkout">
 
                     <div class="box">
                         <form method="post" action="{{('/checkout/payment/save')}}">
@@ -30,6 +30,8 @@
                             <input type="hidden" name="country" value="{{ $data->country }}">
                             <input type="hidden" name="email" value="{{ $data->email }}">
                             <input type="hidden" name="delivery" value="{{ $data->delivery }}">
+                            <input type="hidden" name="code_shipping" value="{{ $data->code_shipping }}">
+
 
 
                             <h1>Checkout - Payment method</h1>
@@ -49,26 +51,13 @@
                                     <div class="col-sm-6">
                                         <div class="box payment-method">
 
-                                            <h4>Paypal</h4>
-
-                                            <p>We like it all.</p>
-
-                                            <div class="box-footer text-center">
-
-                                                <input type="radio" name="payment" value="paypal">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="box payment-method">
-
                                             <h4>Payment gateway</h4>
 
-                                            <p>VISA and Mastercard only.</p>
+                                            <p>Bank Transfer</p>
 
                                             <div class="box-footer text-center">
 
-                                                <input type="radio" name="payment" value="payment">
+                                                <input type="radio" name="payment" value="Transfer">
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +71,7 @@
 
                                             <div class="box-footer text-center">
 
-                                                <input type="radio" name="payment" value="cod">
+                                                <input type="radio" name="payment" value="Cash On Delivery">
                                             </div>
                                         </div>
                                     </div>
@@ -93,9 +82,7 @@
                             <!-- /.content -->
 
                             <div class="box-footer">
-                                <div class="pull-left">
-                                    <a href="basket.html" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to Shipping method</a>
-                                </div>
+                                
                                 <div class="pull-right">
                                     <button type="submit" class="btn btn-primary">Continue to Order review<i class="fa fa-chevron-right"></i>
                                     </button>
@@ -109,41 +96,6 @@
                 </div>
                 <!-- /.col-md-9 -->
 
-                <div class="col-md-3">
-
-                    <div class="box" id="order-summary">
-                        <div class="box-header">
-                            <h3>Order summary</h3>
-                        </div>
-                        <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
-
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>Order subtotal</td>
-                                        <th>$446.00</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping and handling</td>
-                                        <th>$10.00</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Tax</td>
-                                        <th>$0.00</th>
-                                    </tr>
-                                    <tr class="total">
-                                        <td>Total</td>
-                                        <th>$456.00</th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- /.col-md-3 -->
 
             </div>
             <!-- /.container -->

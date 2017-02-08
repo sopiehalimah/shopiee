@@ -6,7 +6,6 @@
             <div class="block-header">
                 <h2>
                     DATATABLES
-                    <small>TABLE ADVERTISEMENT</small>
                 </h2>
             </div>
 
@@ -15,18 +14,16 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                EXPORTABLE TABLE
+                            <h2 style="color: #006064;">
+                                TABLE ADVERTISEMENT
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
+                                        <i class="material-icons">library_add</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                        <li><a href="{{url('/advertisement/add')}}">Add Advertisement</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -46,10 +43,12 @@
                                 @foreach($data as $advertisement)
                                     <tr>
                                         <td>{{$i++}}.</td>
-                                        <td>{{$advertisement->id_category}}</td>
+                                        <td>{{$advertisement->category}}</td>
                                         <td><img src="{{ url('pict_ad/'.$advertisement->pict_ad) }}" alt="" style="max-width:100%;height: 40px;"></td>
-                                        <td><a href="{{ url('/advertisement/edit/'.$advertisement->id) }}"><i class="material-icons">mode_edit</i></a>
-                                          <a href="{{ url('/advertisement/delete/'.$advertisement->id) }}" onclick="return confirm('Delete?')"><i class="material-icons">delete_forever</i></a></td>
+                                        <td>
+                                            <a href="{{ url('/advertisement/edit/'.$advertisement->id) }}" class="btn btn-primary waves-effect">Edit</a>
+                                            <a href="{{ url('/advertisement/delete/'.$advertisement->id) }}" onclick="return confirm('Delete?')" class="btn bg-red waves-effect">Delete</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -58,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <!-- #END# Exportable Table -->
+            <!-- #END# Exportable Table
         </div>
     </section>
 

@@ -15,7 +15,7 @@
                     </ul>
                 </div>
 
-                <div class="col-md-9" id="checkout">
+                <div class="col-md-12" id="checkout">
 
                     <div class="box">
                         <form method="post" action="{{url('/checkout/delivery/save')}}">
@@ -29,6 +29,8 @@
                         <input type="hidden" name="state" value="{{ $data->state }}">
                         <input type="hidden" name="country" value="{{ $data->country }}">
                         <input type="hidden" name="email" value="{{ $data->email }}">
+                        <input type="hidden" name="code_shipping" value="{{ $data->code_shipping }}">
+
 
                             <h1>Checkout - Delivery method</h1>
                             <ul class="nav nav-pills nav-justified">
@@ -48,40 +50,26 @@
                                     <div class="col-sm-6">
                                         <div class="box shipping-method">
 
-                                            <h4>USPS Next Day</h4>
+                                            <h4>Standard Delivery</h4>
 
                                             <p>Get it right on next day - fastest option possible.</p>
 
                                             <div class="box-footer text-center">
 
-                                                <input type="radio" name="delivery" value="delivery1">
+                                                <input type="radio" name="delivery" value="Standard Delivery">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="box shipping-method">
 
-                                            <h4>USPS Next Day</h4>
+                                            <h4>Express Delivery</h4>
 
                                             <p>Get it right on next day - fastest option possible.</p>
 
                                             <div class="box-footer text-center">
 
-                                                <input type="radio" name="delivery" value="delivery2">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <div class="box shipping-method">
-
-                                            <h4>USPS Next Day</h4>
-
-                                            <p>Get it right on next day - fastest option possible.</p>
-
-                                            <div class="box-footer text-center">
-
-                                                <input type="radio" name="delivery" value="delivery3">
+                                                <input type="radio" name="delivery" value="Express Delivery">
                                             </div>
                                         </div>
                                     </div>
@@ -92,9 +80,7 @@
                             <!-- /.content -->
 
                             <div class="box-footer">
-                                <div class="pull-left">
-                                    <a href="basket.html" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to Addresses</a>
-                                </div>
+                                
                                 <div class="pull-right">
                                     <button type="submit" class="btn btn-primary">Continue to Payment Method<i class="fa fa-chevron-right"></i>
                                     </button>
@@ -108,42 +94,7 @@
                 </div>
                 <!-- /.col-md-9 -->
 
-                <div class="col-md-3">
-
-                    <div class="box" id="order-summary">
-                        <div class="box-header">
-                            <h3>Order summary</h3>
-                        </div>
-                        <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
-
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>Order subtotal</td>
-                                        <th>$446.00</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping and handling</td>
-                                        <th>$10.00</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Tax</td>
-                                        <th>$0.00</th>
-                                    </tr>
-                                    <tr class="total">
-                                        <td>Total</td>
-                                        <th>$456.00</th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- /.col-md-3 -->
-
+                
             </div>
             <!-- /.container -->
         </div>

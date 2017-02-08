@@ -15,8 +15,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                EXPORTABLE TABLE
+                            <h2 style="color: #006064;"">
+                                Detail Order Info
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -32,59 +32,91 @@
                             </ul>
                         </div>
                         <div class="body">
+                        @foreach($data1 as $to)
+                        <form method="post" action="{{url('/email/send/'.$to->code_order)}}" enctype="multipart/form-data" style="padding-bottom: 30px;">
+                        {!! csrf_field() !!}
+                            
+                                <div class="form-group form-float">
+
+                                    <div class="form-line">
+
+                                        <label>To</label>
+                                        
+                                        <input type="text" class="form-control" name="id_user" value="{{ $to->id_user }}" required>
+                                       
+                                    </div>
+                                </div>
+
+                                <br>
+                                <h1>
+                                    <input type="hidden" class="form-control" name="code_order" value="{{ $to->code_order }}" required>
+                                    #{{$to->code_order}}
+                                </h1>
+                                <br>
+                                <br>
+                             @endforeach
+                                
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>Code Order</th>
-                                        <th>Name User</th>
-                                        <th>Send Mail</th>
+
+                                        <th>Picture</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($data as $order)
                                     <tr>
-                                        <td>{{$order->code_order}}</td>
-                                        <td>{{$order->id_user}}</td>
                                         <td>
-                                            <button type="button" class="btn bg-red waves-effect" data-toggle="modal" data-target="#defaultModal">
-                                                <i class="material-icons">print</i> Send Mail
-                                            </button>
-                                             <a href="{{url('/order/mail/'.$order->code_order)}}" class="btn bg-red waves-effect">
-                                                <i class="material-icons">print</i> Send Mail
-                                            </a>
-                                            
-
+                                            <input type="hidden" class="form-control" name="pict_product1" value="{{ $order->pict_product1 }}" required>
+                                            <img src="{{ url('pict_product1/'.$order->pict_product1) }}" alt="" style="max-width:100%;height: 100px;">
+                                        </td>
+                                        <td>
+                                            <input type="hidden" class="form-control" name="name" value="{{ $order->name }}" required>
+                                            {{$order->name}}
+                                        </td>
+                                        <td>
+                                            <input type="hidden" class="form-control" name="price" value="{{ $order->price}}" required>
+                                            {{ "Rp.".number_format($order->price,0,',','.').",-" }}
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
+                                <tfoot>
+                                @foreach($data2 as $total)
+                                        <tr>
+                                            <th colspan="2">Shipping Cost</th>
+                                            <th>
+                                                <input type="hidden" class="form-control" name="ongkir" value="{{ $total->ongkir }}" required>
+                                                {{ "Rp.".number_format($total->ongkir,0,',','.').",-" }}    
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Total</th>
+                                            <th>
+                                                <input type="hidden" class="form-control" name="total" value="{{ $total->total }}" required>
+                                                {{ "Rp.".number_format($total->total,0,',','.').",-" }}
+
+                                            </th>
+                                        </tr>
+                                @endforeach
+                                </tfoot>
                             </table>
+                            <br>
+                            <div class="form-group form-float">
+                                <button type="submit" class="btn btn-primary waves-effect pull-right">Send Mail</button>
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-                                        <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
-                                                        vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
-                                                        Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
-                                                        nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
-                                                        Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
-                                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </div>
+                                       
         </div>
     </section>
 
+
 @endsection
+

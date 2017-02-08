@@ -16,7 +16,7 @@
                     </ul>
                 </div>
 
-                <div class="col-md-9" id="checkout">
+                <div class="col-md-12" id="checkout">
 
                     <div class="box">
                         <form method="post" action="{{url('/checkout/order/save')}}" enctype="multipart/form-data">
@@ -24,6 +24,12 @@
                         
                          <input type="hidden" class="form-control" name="id_user" value="{{ Auth::user()->email }}" required>
                          <input type="hidden" class="form-control" name="status" value="pending" required>
+                         <input type="hidden" class="form-control" name="evidence" value="not yet" required>
+                         @foreach($shipping as $ship)
+                         <input type="hidden" class="form-control" name="payment" value="{{$ship->payment}}" required>
+                         <input type="hidden" class="form-control" name="code_shipping" value="{{$ship->code_shipping}}" required>
+                         @endforeach
+                         
 
 
                                         <?php
@@ -71,16 +77,16 @@
                                     <thead>
                                         <tr>
                                             <th colspan="2">Product</th>
-                                            <th >Quantity</th>
+                                            <th>Quantity</th>
                                             <th>Unit price</th>
-                                            <th colspan="2">Total</th>
+                                            <th>Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @if(count($cart))
                                     
                                         <?php
-                                        $grandtotal=0;
+                                        $grandsubtotal=0;
                                         ?>
                                         @foreach($cart as $key => $cart2)
                                         <tr>
@@ -93,15 +99,13 @@
                                                 <a href="#">{{ $cart[$key]['name'] }}</a>
                                             </td>
                                             <td>
-                                                <a href="#">{{ $cart[$key]['kuantitas'] }}</a>
-                                            </td>
-                                            <!-- <td>
-                                                <form action="{{url('/updatecart/'.$key)}}" oninput="total.value=parseInt(a.value)*parseInt(kuantitas.value)" method="post">
+                                                <form action="{{url('/updatecart/'.$key)}}" oninput="subtotal.value=parseInt(a.value)*parseInt(kuantitas.value)" method="post">
                                                 {!! csrf_field() !!}
                                                 <input type="hidden" id="a" name="a" value="{{ $cart[$key]['price'] }}" >
-                                                <input type="number" class="form-control"  id="kuantitas" name="kuantitas" value="{{ $cart[$key]['kuantitas'] }}">
-                                            </td> -->
-                                            <td>
+                                                <input type="hidden" class="form-control"  id="kuantitas" name="kuantitas" value="{{ $cart[$key]['kuantitas'] }}">
+                                                <a href="#">{{ $cart[$key]['kuantitas'] }}</a>
+                                            </td>
+                                            <!-- <td> -->
                                                 <!-- <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i></button> -->
                                                 <input type="hidden" name="id" value="{{$cart[$key]['id']}}">
                                                 <input type="hidden" name="code_{{$cart[$key]['id']}}" value="{{$cart[$key]['code']}}">
@@ -115,34 +119,43 @@
                                                 <input type="hidden" name="desc_{{$cart[$key]['id']}}" value="{{$cart[$key]['desc']}}">
                                                 <input type="hidden" name="slug_{{$cart[$key]['id']}}" value="{{$cart[$key]['slug']}}">
                                                 <input type="hidden" name="price_{{$cart[$key]['id']}}" value="{{$cart[$key]['price']}}">
-                                                <input type="hidden" name="kuantitas_{{$cart[$key]['id']}}" value="{{$cart[$key]['kuantitas']}}">
+                                                 <input type="hidden" name="kuantitas_{{$cart[$key]['id']}}" value="{{$cart[$key]['kuantitas']}}">
 
 
                                                 
-                                            </td>
+                                            <!-- </td> -->
                                             <!-- <td>Rp.{{ $cart[$key]['price'] }},-</td> -->
                                             <td>{{ "Rp.".number_format($cart[$key]['price'],0,',','.').",-" }}</td>
                                             <td>
-                                                <input id="total_nominal" type="hidden"  name="subtotal_{{$cart[$key]['id']}}" for="a kuantitas" value="{{ $cart[$key]['subtotal'] }}">
-                                                <p id="total_nominal" name="subtotal_{{$cart[$key]['id']}}" for="a kuantitas" value="{{ $cart[$key]['subtotal'] }}">
+                                                <input id="subtotal_nominal" type="hidden"  name="subtotal_{{$cart[$key]['id']}}" for="a kuantitas" value="{{ $cart[$key]['subtotal'] }}">
+                                                <p id="subtotal_nominal" name="subtotal_{{$cart[$key]['id']}}" for="a kuantitas" value="{{ $cart[$key]['subtotal'] }}">
                                                 {{ "Rp.".number_format($cart[$key]['subtotal'],0,',','.').",-" }}
                                                 </p>
                                                
                                             </td>
                                             <td><a href="{{url('/hapuscart/'.$key)}}"><i class="fa fa-trash-o"></i></a>
                                             </td>
-                                            <?php
-                                            $grandtotal+=$cart[$key]['subtotal'];
+                                            <input type="hidden" name="subtotal_{{$cart[$key]['id']}}" value="{{ $grandsubtotal+$cart[$key]['subtotal'] }}"><?php
+                                            $grandsubtotal+=$cart[$key]['subtotal'];
                                             ?>
+                                            
+
                                         </tr>
                                         @endforeach
                                     @endif 
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="5">Total</th>
-                                            <!-- <th colspan="2">Rp.<?php echo $grandtotal ?>,-</th> -->
-                                            <th>{{ "Rp.".number_format($grandtotal,0,',','.').",-" }}</th>
+                                            <th colspan="4">Subtotal</th>
+                                            <th>{{ "Rp.".number_format($grandsubtotal,0,',','.').",-" }}</th>
+                                        </tr>
+                                        <tr>
+                                             <th colspan="4">Shipping Cost</th>
+                                            <th>{{ "Rp.".number_format($cart[$key]['ongkir'],0,',','.').",-" }}</th>
+                                        </tr>
+                                         <tr>
+                                             <th colspan="4">Total</th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -155,9 +168,7 @@
                             <!-- /.content -->
 
                             <div class="box-footer">
-                                <div class="pull-left">
-                                    <a href="checkout3.html" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to Payment method</a>
-                                </div>
+                                
                                 <div class="pull-right">
                                     <button type="submit" class="btn btn-primary">Place an order<i class="fa fa-chevron-right"></i>
                                     </button>
@@ -171,50 +182,10 @@
                 </div>
                 <!-- /.col-md-9 -->
 
-                <div class="col-md-3">
-
-                    <div class="box" id="order-summary">
-                        <div class="box-header">
-                            <h3>Order summary</h3>
-                        </div>
-                        <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
-
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                 @if(count($cart))
-                                    
-                                    <?php
-                                        $grandtotal=0;
-                                    ?>
-                                @foreach($cart as $key => $cart2)
-                                    <tr>
-                                        <td>Order subtotal</td>
-                                        <th><?php
-                                            $grandtotal+=$cart[$key]['subtotal'];
-                                            ?></th>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping and handling</td>
-                                        <th></th>
-                                    </tr>
-                                    <tr class="total">
-                                        <td>Total</td>
-                                        <th>$456.00</th>
-                                    </tr>
-                                @endforeach
-                                @endif 
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- /.col-md-3 -->
 
             </div>
             <!-- /.container -->
         </div>
         <!-- /#content -->
+
 @endsection

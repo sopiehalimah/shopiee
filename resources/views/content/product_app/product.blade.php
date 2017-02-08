@@ -6,14 +6,6 @@
 
         <div id="content">
             <div class="container">
-
-                <div class="col-md-12">
-                    <ul class="breadcrumb">
-                        <li><a href="{{url('/')}}">Home</a>
-                        </li>
-                    </ul>
-                </div>
-
                 <div class="col-md-3">
                     <!-- *** MENUS AND FILTERS ***
  _________________________________________________________ -->
@@ -90,32 +82,11 @@
                 </div>
 
                 <div class="col-md-9">
-                    <div class="box">
-                        <h1>masih bingung</h1>
-                        <p>In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide.</p>
-                    </div>
 
                     <div class="box info-bar">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 products-showing">
                                 Showing <strong>{!! $product->count() !!}</strong> of <strong>{!! $product->total() !!}</strong> products
-                            </div>
-
-                            <div class="col-sm-12 col-md-8  products-number-sort">
-                                <div class="row">
-                                    <form class="form-inline">
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="products-sort-by">
-                                                <strong>Sort by</strong>
-                                                <select name="sort-by" class="form-control">
-                                                    <option><a href="#">Price</a></option>
-                                                    <option>Name</option>
-                                                    <option>Sales first</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@
                     </ul>
                 </div>
 
-                <div class="col-md-9" id="basket">
+                <div class="col-md-12" id="basket">
 
                     <div class="box">
 
@@ -35,10 +35,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @if(count($cart))
+                                    @if(count($cart)==0)
+                                    @elseif(count($cart))
                                     
                                         <?php
-                                        $grandtotal=0;
+                                        $grandsubtotal=0;
                                         ?>
                                         @foreach($cart as $key => $cart2)
                                         <tr>
@@ -51,7 +52,7 @@
                                                 <a href="#">{{ $cart[$key]['name'] }}</a>
                                             </td>
                                             <td>
-                                                <form action="{{url('/updatecart/'.$key)}}" oninput="total.value=parseInt(a.value)*parseInt(kuantitas.value)" method="post">
+                                                <form action="{{url('/updatecart/'.$key)}}" oninput="subtotal.value=parseInt(a.value)*parseInt(kuantitas.value)" method="post">
                                                 {!! csrf_field() !!}
                                                 <input type="hidden" id="a" name="a" value="{{ $cart[$key]['price'] }}" >
                                                 <input type="number" class="form-control"  id="kuantitas" name="kuantitas" value="{{ $cart[$key]['kuantitas'] }}">
@@ -76,16 +77,16 @@
                                             <!-- <td>Rp.{{ $cart[$key]['price'] }},-</td> -->
                                             <td>{{ "Rp.".number_format($cart[$key]['price'],0,',','.').",-" }}</td>
                                             <td>
-                                                <input id="total_nominal" type="hidden"  name="total" for="a kuantitas" value="{{ $cart[$key]['total'] }}">
-                                                <p id="total_nominal" name="total" for="a kuantitas" value="{{ $cart[$key]['total'] }}">
-                                                {{ "Rp.".number_format($cart[$key]['total'],0,',','.').",-" }}
+                                                <input id="subtotal_nominal" type="hidden"  name="subtotal" for="a kuantitas" value="{{ $cart[$key]['subtotal'] }}">
+                                                <p id="subtotal_nominal" name="subtotal" for="a kuantitas" value="{{ $cart[$key]['subtotal'] }}">
+                                                {{ "Rp.".number_format($cart[$key]['subtotal'],0,',','.').",-" }}
                                                 </p>
                                                 </form>
                                             </td>
                                             <td><a href="{{url('/hapuscart/'.$key)}}"><i class="fa fa-trash-o"></i></a>
                                             </td>
                                             <?php
-                                            $grandtotal+=$cart[$key]['total'];
+                                            $grandsubtotal+=$cart[$key]['subtotal'];
                                             ?>
                                         </tr>
                                         @endforeach
@@ -93,9 +94,12 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="5">Total</th>
-                                            <!-- <th colspan="2">Rp.<?php echo $grandtotal ?>,-</th> -->
-                                            <th>{{ "Rp.".number_format($grandtotal,0,',','.').",-" }}</th>
+                                            <th colspan="5">Subtotal</th>
+                                            @if(count($cart)!=0)
+                                            <!-- <th colspan="2">Rp.<?php echo $grandsubtotal ?>,-</th> -->
+                                            <th>{{ "Rp.".number_format($grandsubtotal,0,',','.').",-" }}</th>
+                                            @else
+                                            @endif
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -106,7 +110,7 @@
 
                             <div class="box-footer">
                                 <div class="pull-left">
-                                    <a href="category.html" class="btn btn-default"><i class="fa fa-chevron-left"></i> Continue shopping</a>
+                                    <a href="{{url('/')}}" class="btn btn-default"><i class="fa fa-chevron-left"></i> Continue shopping</a>
                                 </div>
                                 <div class="pull-right">
                                     @if(Auth::user() == null)
@@ -118,10 +122,10 @@
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                       <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
+                                        <div class="modal-content" style="top:150px;">
                                           <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Warning</h4>
+                                            <h4 class="modal-title" id="myModalLabel" style="color: #f44242">Warning !!!</h4>
                                           </div>
                                           <div class="modal-body">
                                             You must log in first
@@ -187,61 +191,6 @@
                 </div>
                 <!-- /.col-md-9 -->
 
-                <div class="col-md-3">
-                    <div class="box" id="order-summary">
-                        <div class="box-header">
-                            <h3>Order summary</h3>
-                        </div>
-                        <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
-
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>Order subtotal</td>
-                                        <th>$446.00</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping and handling</td>
-                                        <th>$10.00</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Tax</td>
-                                        <th>$0.00</th>
-                                    </tr>
-                                    <tr class="total">
-                                        <td>Total</td>
-                                        <th>{{ "Rp.".number_format($grandtotal,0,',','.').",-" }}</th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-
-                    <div class="box">
-                        <div class="box-header">
-                            <h4>Coupon code</h4>
-                        </div>
-                        <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
-                        <form>
-                            <div class="input-group">
-
-                                <input type="text" class="form-control">
-
-                                <span class="input-group-btn">
-
-					<button class="btn btn-primary" type="button"><i class="fa fa-gift"></i></button>
-
-				    </span>
-                            </div>
-                            <!-- /input-group -->
-                        </form>
-                    </div>
-
-                </div>
-                <!-- /.col-md-3 -->
 
             </div>
             <!-- /.container -->

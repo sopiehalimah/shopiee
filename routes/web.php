@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Input;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,19 @@ Route::get('/pict_product2/{filename}',
 
 		return $response;
 	});
+Route::get('/evidence/{filename}',
+	function ($filename)
+
+	{
+		$path = storage_path() . '/' . $filename;
+		$file = File::get($path);
+		$type = File::mimeType($path);
+
+		$response = Response::make($file, 200);
+		$response->header("content-Type", $type);
+
+		return $response;
+	});
 
 
 
@@ -138,6 +152,8 @@ Route::get('/pict_product2/{filename}',
 
 
 	Route::get('/contact', 'WelcomeController@contact');
+	Route::post('/contact/us/', 'WelcomeController@contact_save');
+
 	Route::get('/text', 'WelcomeController@text');
 	Route::get('/faq', 'WelcomeController@faq');
 
@@ -158,13 +174,22 @@ Route::get('/pict_product2/{filename}',
 	Route::get('/checkout/order/','WelcomeController@checkout_order');
 	Route::post('updatecartorder/{id}', 'WelcomeController@updatecartorder');
 	Route::post('/checkout/order/save','WelcomeController@checkout_order_save');
-
-
-
-
 	Route::get('/checkout/order_review','WelcomeController@checkout_order_review');
 
-	Route::get('/orders/history','WelcomeController@orders_history');
+	Route::post('/update/member','WelcomeController@update_member');
+
+
+	Route::get('/orders/confirm/','WelcomeController@orders_confirm');
+	Route::get('/orders/history/confirm/','SearchController@search_code_order');
+	Route::get('/orders/history/','WelcomeController@orders_history');
+	Route::get('/orders/history/{code_order}','WelcomeController@orders_history_detail');
+	Route::get('/orders/detail/confirm/{code_order}','WelcomeController@orders_confirm_detail');
+
+
+	Route::post('/payment/evidence/{code_order}','WelcomeController@evidence');
+	Route::get('/orders','WelcomeController@orders');
+
+	Route::get('/user/account/{id}','WelcomeController@user_account');
 
 	Route::get('brand/{name}','ProductController@brand');
 	Route::get('category/{code}','ProductController@category_type');
@@ -265,9 +290,14 @@ Route::group(['middleware'=>'role:admin'],function(){
 
 	Route::get('/order/table','HomeController@order_table');
 	Route::post('/accept/{code_order}','HomeController@accept_order');
-	Route::get('/order/mail','HomeController@mail_order');
-	Route::get('/order/mail/{code_order}','HomeController@mailinfo_order');
+	Route::post('/sent/{code_order}','HomeController@sent_order');
+	Route::get('/order/mail/{code_order}','HomeController@mail_order');
+	Route::get('/order/mail','HomeController@mail_order_data');
+	Route::get('/order/sent','HomeController@order_sent');
+	
+	Route::get('/order/info','HomeController@mailinfo_order');
 
+	Route::post('/email/send/{code_order}', 'HomeController@send_mail');
 
 
 	

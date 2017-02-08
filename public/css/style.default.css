@@ -74,10 +74,16 @@ h1 {
 #top #register-modal .modal-header {
   background: #4fbfa8;
 }
+#top #logout-modal .modal-header {
+  background: #fff;
+}
 #top #login-modal  .modal-header h4 {
   color: #fff;
 }
 #top #register-modal  .modal-header h4 {
+  color: #fff;
+}
+#top #logout-modal  .modal-header h4 {
   color: #fff;
 }
 #top #login-modal a {
@@ -86,11 +92,18 @@ h1 {
 #top #register-modal a {
   color: #4fbfa8;
 }
+#top #logout-modal a {
+  color: #4fbfa8;
+}
 #top #login-modal p {
   font-weight: 300;
   margin-bottom: 20px;
 }
 #top #register-modal p {
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+#top #logout-modal p {
   font-weight: 300;
   margin-bottom: 20px;
 }

@@ -13,9 +13,9 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
+                            <h2 style="color: #006064;">
                                 ADVERTISEMENT
-                                <small>EDIT ADVERTISEMENT</small>
+                                <small>Edit Advertisement</small>
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -23,15 +23,14 @@
                                         <i class="material-icons">more_vert</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                        <li><a href="{{url('/advertisement/add')}}">Add Advertisement</a></li>
+                                        <li><a href="{{url('/advertisement/table')}}">View Table</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="body">
-                        <form method="post" action="{{url('/advertisement/update')}}" enctype="multipart/form-data">
+                        <form method="post" action="{{url('/advertisement/update')}}" enctype="multipart/form-data" style="padding-bottom: 30px;">
                         {!! csrf_field() !!}
 
                         <input type="hidden" name="id" value="{{ $data->id }}">
@@ -39,8 +38,8 @@
 
 			                	<div class="form-group form-float">
                                     <label>Category</label>
-                                    <select class="form-control show-tick" name="id_category">
-                                        <option value="{{$data->id_category}}">{{$data->id_category}}</option>
+                                    <select class="form-control show-tick" name="category">
+                                        <option value="{{$data->category}}">{{$data->category}}</option>
                                         @foreach($master_blogs as $key => $master_blog)
                                         <option value="{{ $master_blog->category }}">{{ $master_blog->category }}</option>
                                         @endforeach
@@ -56,7 +55,7 @@
 					                </div>
 			                	</div>
                             	<div class="form-group form-float">
-                            	<button type="submit" class="btn btn-primary waves-effect">SUBMIT</button>
+                            	<button type="submit" class="btn btn-primary waves-effect pull-right">SUBMIT</button>
                             	</div>
                         </form>
                         </div>

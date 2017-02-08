@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
@@ -35,7 +36,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $product = array('product'=>product::orderBy('id','desc')->limit(4)->get());
+        $advertisement = array('advertisement'=>advertisement::all());
+        return view('home')->with($product)->with($advertisement);
     }
 
 
@@ -552,8 +555,15 @@ class HomeController extends Controller
     //ORDER
     public function order_table()
     {
-        $data = array('data'=>order::all());
+        // $data = array('data'=>order::where('status' == 'pending')->get());
+        $data['data'] = order::where('status','pending')->orderBy('id','desc')->get();
         return view('admin/order/table')->with($data);
+    }
+
+    public function order_sent()
+    {
+        $data['data'] = order::where('evidence','!=', 'not yet')->orderBy('id','desc')->get();
+        return view('admin/order/sent')->with($data);
     }
 
 
@@ -569,21 +579,113 @@ class HomeController extends Controller
 
     }
 
+    public function sent_order(Request $r ,$code_order)
+    {
+        $select_order = order::where('code_order',$code_order)->update(['status'=>'sent']);
+        // $order  = order::find($select_order->id);
+        // $order->status = 'accepted';
+        // $order->save();
+
+        // $r->save()->put('order',  $array);
+        return redirect()->back();
+
+    }
+
      //ORDER
-    public function mail_order()
+     public function mail_order_data()
     {
-        $data = array('data'=>order::all());
+        $data['data'] = order::where('status','accepted')->where('evidence','!=', 'not yet')->get();
+        return view('admin/order/info_all')->with($data);
+    }
+    public function mail_order($code_order)
+    {
+        $data['data'] = order::where('code_order',$code_order)->get();
+        $data['data1'] = order::where('code_order',$code_order)->orderBy('id_user','desc')->limit(1)->get();
+        $data['data2'] = order::where('code_order',$code_order)->orderBy('total','desc')->limit(1)->get();
         return view('admin/order/info')->with($data);
+        // return $data;
+
     }
 
-     public function mailinfo_order($code_order)
+
+     public function mailinfo_order()
     {
-        $data = array('data'=>order::find($code_order));
-        return view('admin/order/info')->with($data);
+        $data = order::where('code_order')->get();
+
+        $response = [];
+        $response['data'] = $data;
+
+        return response()->json($response);
     }
 
 
+    public function send_mail(Request $r, $code_order)
+    {
 
+      $id_user = $r->input('id_user');
+      $code_order = $r->input('code_order');
+      $pict_product1 = $r->input('pict_product1');
+      $name = $r->input('name');
+      $price = $r->input('price');
+      $ongkir = $r->input('ongkir');
+      $total = $r->input('total');
+        // $data['data'] = order::where('code_order',$code_order)->get();
+        // $data['data1'] = order::where('code_order',$code_order)->orderBy('id_user','desc')->limit(1)->get();
+        // $data['data2'] = order::where('code_order',$code_order)->orderBy('total','desc')->limit(1)->get();
+
+        try{
+
+          $a = new \PHPMailer(true);
+          $a->isSMTP();
+          $a->CharSet = "utf-8";
+          $a->SMTPAuth = true;
+          $a->SMTPSecure = "tls";
+          $a->Host = "smtp.gmail.com";
+          $a->Port = 587;
+          $a->Username = "sopiehalimah@gmail.com";
+          $a->Password = "chanyeol";
+          $a->SetFrom("sopiehalimah@gmail.com","Sopie Halimah");
+          $a->Subject = "Detail Pemesanan";
+          $a->MsgHTML('<h1>'.'#'.'<a href="http://localhost:8000/orders/confirm/">'.$code_order.'</a>'.'</h1>'
+                        // '<br>'.
+                        // '<table border="1" style="width:500px;text-align:center;">'.
+                        //         '<thead>'.
+                        //             '<tr>'.
+
+                        //                 '<th>Picture</th>'.
+                        //                 '<th>Product Name</th>'.
+                        //                 '<th>Price</th>'.
+                        //             '</tr>'.
+                        //         '</thead>'.
+                        //         '<tbody>'.
+                        //             '<tr>'.
+                        //                 '<td>'.'<img src="{{url("pict_product1/".$pict_product1)}}" alt="" style="max-width:100%;height: 100px;">'.'</td>'.
+                        //                 '<td>'.$name.'</td>'.
+                        //                 '<td>'."Rp.".number_format($price,0,',','.').",-".'</td>'.
+                        //             '</tr>'.
+                        //         '</tbody>'.
+                        //         '<tfoot>'.
+                        //                 '<tr>'.
+                        //                     '<th colspan="2">'.'Shipping Cost'.'</th>'.
+                        //                     '<th>'."Rp.".number_format($ongkir,0,',','.').",-".'</th>'.
+                        //                 '</tr>'.
+                        //                 '<tr>'.
+                        //                     '<th colspan="2">'.'Total'.'</th>'.
+                        //                    ' <th>'."Rp.".number_format($total,0,',','.').",-".'</th>'.
+                        //                 '</tr>'.
+                        //         '</tfoot>'.
+                        //     '</table>'
+                            );
+          $a->addAddress($id_user);
+          $a->send();
+          }
+          catch(Exception $e) {
+          dd($e);
+          }
+
+        return redirect(url('/order/mail'));
+          // return $data;
+        }
 
 
 

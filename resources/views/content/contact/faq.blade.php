@@ -28,9 +28,6 @@
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked">
                                 <li>
-                                    <a href="{{url('/text')}}">Text page</a>
-                                </li>
-                                <li>
                                     <a href="{{url('/contact')}}">Contact page</a>
                                 </li>
                                 <li>
@@ -47,7 +44,13 @@
 
                     <div class="banner">
                         <a href="#">
-                            <img src="img/banner.jpg" alt="sales 2014" class="img-responsive">
+                            @foreach($advertisement as $key => $advertisement )
+                            @if($key == 0)
+                            <img src="{{url('/pict_ad/'.$advertisement->pict_ad)}}" alt="" style="width: 100%; height: 300px;" alt="sales 2014" class="img-responsive">
+                            @else
+                            <img src="{{url('/pict_ad/'.$advertisement->pict_ad)}}" alt="" style="width: 100%; height: 300px;" alt="sales 2014" class="img-responsive">
+                            @endif
+                            @endforeach
                         </a>
                     </div>
                 </div>

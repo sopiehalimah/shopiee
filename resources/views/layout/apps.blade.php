@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>SHOPER</title>
+    <title>SHOPIEE</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
@@ -29,6 +29,10 @@
     <!-- Custom Css -->
     <link href="{{url('admin/css/style.css')}}" rel="stylesheet">
 
+
+    <!-- Light Gallery Plugin Css -->
+    <link href="{{url('admin/plugins/light-gallery/css/lightgallery.css')}}" rel="stylesheet">
+
         <!-- Bootstrap Select Css -->
     <link href="{{url('admin/plugins/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet" />
 
@@ -41,10 +45,10 @@
 
 <body class="theme-red">
     <!-- Page Loader -->
-<!--     <div class="page-loader-wrapper">
+    <div class="page-loader-wrapper">
         <div class="loader">
             <div class="preloader">
-                <div class="spinner-layer pl-red">
+                <div class="spinner-layer pl-teal">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
                     </div>
@@ -55,7 +59,7 @@
             </div>
             <p>Please wait...</p>
         </div>
-    </div> -->
+    </div>
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
@@ -317,8 +321,8 @@
                     <img src="{{url('/admin/images/user.png')}}" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::User()->name}}</div>
+                    <div class="email">{{Auth::User()->email}}</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -344,17 +348,31 @@
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="active">
-                        <a href="index.html">
+                        <a href="{{url('/home')}}">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="javascript:void(0);" class="menu-toggle">
+                    <li >
+                        <a href="javascript:void(0);" class="menu-toggle" style="color: #006064;">
                             <i class="material-icons">book</i>
-                            <span>Modul</span>
+                            <span style="color: #006064;">Modul</span>
                         </a>
-                        <ul class="ml-menu">
+                        <ul class="ml-menu" >
+                            
+                            <li >
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Category</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="{{url('/master_blog/add')}}">Add</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('/master_blog/table')}}">Table</a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li>
                                 <a href="javascript:void(0);" class="menu-toggle">
                                     <span>Blog</span>
@@ -370,14 +388,14 @@
                             </li>
                             <li>
                                 <a href="javascript:void(0);" class="menu-toggle">
-                                    <span>Category</span>
+                                    <span>Advertisement</span>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="{{url('/master_blog/add')}}">Add</a>
+                                        <a href="{{url('/advertisement/add')}}">Add</a>
                                     </li>
                                     <li>
-                                        <a href="{{url('/master_blog/table')}}">Table</a>
+                                        <a href="{{url('/advertisement/table')}}">Table</a>
                                     </li>
                                 </ul>
                             </li>
@@ -446,33 +464,24 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <span>Advertisement</span>
-                                </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="{{url('/advertisement/add')}}">Add</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{url('/advertisement/table')}}">Table</a>
-                                    </li>
-                                </ul>
-                            </li>
+                            
                         </ul>
                     </li>
                     
-                    <li class="active">
-                        <a href="javascript:void(0);" class="menu-toggle">
+                    <li >
+                        <a href="javascript:void(0);" class="menu-toggle" style="color: #006064;">
                             <i class="material-icons">shopping_cart</i>
-                            <span>Orders</span>
+                            <span style="color: #006064;">Orders</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="{{url('/order/table')}}">Data Orders</a>
+                                <a href="{{url('/order/table')}}">Accept Order </a>
                             </li>
                             <li>
-                                <a href="{{url('/order/mail')}}">Order Mail Info</a>
+                                <a href="{{url('/order/mail')}}">Mail Info Order </a>
+                            </li>
+                            <li>
+                                <a href="{{url('/order/sent')}}">Send Order </a>
                             </li>
                         </ul>
                     </li>
@@ -682,6 +691,13 @@
     <script src="{{url('admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js')}}"></script>
     <script src="{{url('admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js')}}"></script>
     <script src="{{url('admin/js/pages/tables/jquery-datatable.js')}}"></script>
+
+
+    <!-- Light Gallery Plugin Js -->
+    <script src="{{url('admin/plugins/light-gallery/js/lightgallery-all.js')}}"></script>
+
+    <!-- Custom Js -->
+    <script src="{{url('admin/js/pages/medias/image-gallery.js')}}"></script>
 
 
     <!-- Sparkline Chart Plugin Js -->

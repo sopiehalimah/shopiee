@@ -9,44 +9,26 @@
             <div class="container">
 
                 <div class="col-md-12">
-
                     <ul class="breadcrumb">
-                        <li><a href="#">Home</a>
+                        <li><a href="{{url('/')}}">Home</a>
                         </li>
-                        <li>Ladies</li>
+                        <li>Search Result</li>
                     </ul>
+
+                </div>
+                <div class="col-md-12">
+
+                    
                     @if(count($hasil))
                     <div class="box">
-                        <h1>Result</h1>
-                        <p>In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide.</p>
+                        <h3>Result for " {{$query}} "</h3>
+                        
                     </div>
 
                     <div class="box info-bar">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 products-showing">
-                                Showing <strong>12</strong> of <strong>25</strong> products
-                            </div>
-
-                            <div class="col-sm-12 col-md-8  products-number-sort">
-                                <div class="row">
-                                    <form class="form-inline">
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="products-number">
-                                                <strong>Show</strong>  <a href="#" class="btn btn-default btn-sm btn-primary">12</a>  <a href="#" class="btn btn-default btn-sm">24</a>  <a href="#" class="btn btn-default btn-sm">All</a> products
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="products-sort-by">
-                                                <strong>Sort by</strong>
-                                                <select name="sort-by" class="form-control">
-                                                    <option>Price</option>
-                                                    <option>Name</option>
-                                                    <option>Sales first</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                Showing <strong>{!! $hasil->count() !!}</strong> of <strong>{!! $hasil->total() !!}</strong> products
                             </div>
                         </div>
                     </div>
@@ -114,18 +96,17 @@
 
                     <div class="pages">
 
-                        <p class="loadMore">
-                            <a href="#" class="btn btn-primary btn-lg"><i class="fa fa-chevron-down"></i> Load more</a>
-                        </p>
-
                         <ul class="pagination">
                             {!! $hasil->render() !!}
                         </ul>
                     </div>
 
                      @else
-              <h2 class="title text-center">Result</h2>
-              <center><h4>Not Found</h4></center>
+                    <div class="box">
+                        <h3>Result for " {{$query}} "</h3>
+                        <center><h4>Not Found</h4></center>
+                    </div>
+              
             @endif
 
                 </div>

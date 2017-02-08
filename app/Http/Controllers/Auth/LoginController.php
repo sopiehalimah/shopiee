@@ -60,7 +60,7 @@ class LoginController extends Controller
             }
         }
         else{
-            return redirect('/something');
+            return redirect(url('/something'));
         }
     }
     public function logout()

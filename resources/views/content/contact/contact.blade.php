@@ -29,9 +29,6 @@
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked">
                                 <li>
-                                    <a href="{{url('/text')}}">Text page</a>
-                                </li>
-                                <li>
                                     <a href="{{url('/contact')}}">Contact page</a>
                                 </li>
                                 <li>
@@ -48,7 +45,13 @@
 
                     <div class="banner">
                         <a href="#">
-                            <img src="img/banner.jpg" alt="sales 2014" class="img-responsive">
+                            @foreach($advertisement as $key => $advertisement )
+                            @if($key == 0)
+                            <img src="{{url('/pict_ad/'.$advertisement->pict_ad)}}" alt="" style="width: 100%; height: 300px;" alt="sales 2014" class="img-responsive">
+                            @else
+                            <img src="{{url('/pict_ad/'.$advertisement->pict_ad)}}" alt="" style="width: 100%; height: 300px;" alt="sales 2014" class="img-responsive">
+                            @endif
+                            @endforeach
                         </a>
                     </div>
                 </div>
@@ -67,13 +70,17 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <h3><i class="fa fa-map-marker"></i> Address</h3>
-                                <p>13/25 New Avenue
-                                    <br>New Heaven
-                                    <br>45Y 73J
-                                    <br>England
+                                <p><strong>Shopiee Ltd.</strong>
+                                    <br>Jl. Tanjung Lengkong No. 22 A
+                                    <br>Bidara Cina
+                                    <br>Jatinegara
+                                    <br>Jakarta Timur
+                                    <br>DKI Jakarta
                                     <br>
-                                    <strong>Great Britain</strong>
+
+                                    <strong>Indonesia</strong>
                                 </p>
+
                             </div>
                             <!-- /.col-sm-4 -->
                             <div class="col-sm-4">
@@ -85,11 +92,10 @@
                             <!-- /.col-sm-4 -->
                             <div class="col-sm-4">
                                 <h3><i class="fa fa-envelope"></i> Electronic support</h3>
-                                <p class="text-muted">Please feel free to write an email to us or to use our electronic ticketing system.</p>
+                                <p class="text-muted">Please feel free to write an email to us.</p>
                                 <ul>
-                                    <li><strong><a href="mailto:">info@fakeemail.com</a></strong>
+                                    <li><strong><a href="mailto:">sopiehalimah@gmmail.com</a></strong>
                                     </li>
-                                    <li><strong><a href="#">Ticketio</a></strong> - our ticketing support platform</li>
                                 </ul>
                             </div>
                             <!-- /.col-sm-4 -->
@@ -105,36 +111,32 @@
                         <hr>
                         <h2>Contact form</h2>
 
-                        <form>
+                        <form action="{{url('/contact/us')}}" method="post">
+                        {!! csrf_field() !!}
+                            <input type="hidden" class="form-control" id="firstname" name="id_user" value="{{ Auth::user()->email }}">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="firstname">Firstname</label>
-                                        <input type="text" class="form-control" id="firstname">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="lastname">Lastname</label>
-                                        <input type="text" class="form-control" id="lastname">
+                                        <label for="firstname">Name</label>
+                                        <input type="text" class="form-control" id="firstname" name="name">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="text" class="form-control" id="email">
+                                        <input type="text" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}" readonly>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="subject">Subject</label>
-                                        <input type="text" class="form-control" id="subject">
+                                        <input type="text" class="form-control" id="subject" name="subject">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="message">Message</label>
-                                        <textarea id="message" class="form-control"></textarea>
+                                        <textarea id="message" class="form-control" name="message"></textarea>
                                     </div>
                                 </div>
 

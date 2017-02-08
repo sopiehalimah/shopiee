@@ -17,6 +17,9 @@ use App\product;
 use App\shipping;
 use App\User;
 use App\order;
+use App\contact;
+use DB;
+use Auth;
 
 
 
@@ -31,7 +34,7 @@ class WelcomeController extends Controller
         $master_blog = master_blog::all();
         $blog = blog::all();
         $blog1 = array('blog1'=>blog::orderBy('id','desc')->limit(2)->get());
-        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(4)->get());
+        $advertisement = array('advertisement'=>advertisement::all());
         $product = array('product'=>product::all());
         $cart = session('cart');
         return view('welcome')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart); 
@@ -39,17 +42,61 @@ class WelcomeController extends Controller
 
     public function contact()
     {
-        return view('content/contact/contact');
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
+        $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $blog = blog::all();
+        $blog1 = array('blog1'=>blog::orderBy('id','desc')->limit(2)->get());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
+        $product = array('product'=>product::all());
+        $cart = session('cart');
+        return view('content/contact/contact')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart);
+    }
+    public function contact_save()
+    {
+        $data = new contact;
+        $data->name = Input::get('name');
+        $data->id_user = Input::get('id_user');
+        $data->email = Input::get('email');
+        $data->subject = Input::get('subject');
+        $data->message = Input::get('message');
+
+        $data->save();
+
+        return redirect(url('/'));
+
     }
 
     public function text()
     {
-        return view('content/contact/text');
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
+        $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $blog = blog::all();
+        $blog1 = array('blog1'=>blog::orderBy('id','desc')->limit(2)->get());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
+        $product = array('product'=>product::all());
+        $cart = session('cart');
+        return view('content/contact/text')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart);
     }
 
     public function faq()
     {
-        return view('content/contact/faq');
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
+        $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $blog = blog::all();
+        $blog1 = array('blog1'=>blog::orderBy('id','desc')->limit(2)->get());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
+        $product = array('product'=>product::all());
+        $cart = session('cart');
+        return view('content/contact/faq')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart);
     }
 
     public function blogs()
@@ -145,7 +192,8 @@ class WelcomeController extends Controller
         $array[$key+1]['price'] = Input::get('price');
         $array[$key+1]['kuantitas'] = "1";
         $array[$key+1]['subtotal'] = Input::get('subtotal');
-        $array[$key+1]['total'] = Input::get('total');
+        $array[$key+1]['ongkir'] = 10000;
+        $array[$key+1]['total'] = Input::get('subtotal')+10000;
 
         $r->session()->put('cart',  $array);
         
@@ -172,6 +220,7 @@ class WelcomeController extends Controller
     {
         $data = new shipping;
         $data->id_user = Input::get('id_user');
+        $data->code_shipping = Input::get('code_shipping');
         $data->name = Input::get('name');
         $data->email = Input::get('email');
         $data->telp = Input::get('telp');
@@ -223,6 +272,7 @@ class WelcomeController extends Controller
     {
 
         $data1 = shipping::find(Input::get('id'));
+        $data1->code_shipping = Input::get('code_shipping');
         $data1->id_user = Input::get('id_user');
         $data1->name = Input::get('name');
         $data1->email = Input::get('email');
@@ -262,6 +312,7 @@ class WelcomeController extends Controller
 
         $data1 = shipping::find(Input::get('id'));
         $data1->id_user = Input::get('id_user');
+        $data1->code_shipping = Input::get('code_shipping');
         $data1->name = Input::get('name');
         $data1->email = Input::get('email');
         $data1->telp = Input::get('telp');
@@ -287,9 +338,13 @@ class WelcomeController extends Controller
         $blog = blog::all();
         $product = array('product'=>product::all());
         $cart = session('cart');
-        return view('content/checkout/checkout4')->with('cart',$cart)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product);
-    }
+        $cart1 = session('cart1');
+        $shipping['shipping'] = shipping::where('id_user',Auth::user()->email,'payment')->get();
+        return view('content/checkout/checkout4')->with('cart',$cart)->with('cart1',$cart1)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($shipping);
 
+        // return $cart1;
+    }
+    
     public function checkout_order_save(Request $r)
     {
 
@@ -300,6 +355,8 @@ class WelcomeController extends Controller
                 $order = new order;
                 $order->id_user = Input::get('id_user');
                 $order->code_order = Input::get('code_order');
+                $order->code_shipping = Input::get('code_shipping');
+                $order->payment = Input::get('payment');
                 $order->code = $r->input('code_'.$cart[$key]['id']);
                 $order->code_parent = $r->input('code_parent_'.$cart[$key]['id']);
                 $order->code_kind = $r->input('code_kind_'.$cart[$key]['id']);
@@ -312,9 +369,11 @@ class WelcomeController extends Controller
                 $order->price = $r->input('price_'.$cart[$key]['id']);
                 $order->slug = $r->input('slug_'.$cart[$key]['id']);
                 $order->status = Input::get('status');
+                $order->evidence = Input::get('evidence');
                 $order->kuantitas = $r->input('kuantitas_'.$cart[$key]['id']);
                 $order->subtotal = $r->input('subtotal_'.$cart[$key]['id']);
-                $order->total = $r->input('total_'.$cart[$key]['id']);
+                $order->ongkir = 10000;
+                $order->total = $r->input('subtotal_'.$cart[$key]['id'])+10000;
 
 
                 $order->save();
@@ -324,7 +383,22 @@ class WelcomeController extends Controller
           $r->session()->forget('cart');
         }
 
-        return redirect(url('/'));
+        return redirect(url('/orders/history'));
+    }
+    public function checkout_order_review_payment()
+    {
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
+        $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $blog = blog::all();
+        $product = array('product'=>product::all());
+        $cart = session('cart')->limit(1)->get();
+        $cart1 = session('cart1');
+        $shipping['shipping'] = shipping::where('id_user',Auth::user()->email,'payment')->get();
+        return view('content/checkout/checkout4')->with('cart',$cart)->with('cart1',$cart1)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($shipping);
+
     }
     public function updatecartorder(Request $r, $id){
 
@@ -345,6 +419,7 @@ class WelcomeController extends Controller
         $array[$id]['price'] = Input::get('price');
         $array[$id]['kuantitas'] = Input::get('kuantitas');
         $array[$id]['subtotal'] = Input::get('subtotal');
+        $array[$id]['ongkir'] = Input::get('ongkir');
         $array[$id]['total'] = Input::get('total');
 
         $r->session()->put('cart',  $array);
@@ -395,6 +470,118 @@ class WelcomeController extends Controller
         $product = array('product'=>product::all());
         $blog = blog::all();
         $cart = session('cart');
-        return view('content/orders/history')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with('cart',$cart);
+        $order1['order'] = order::where('id_user',Auth::user()->email)->get();
+
+        return view('content/orders/history')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with('cart',$cart)->with($order1);
+        // return $order1;
     }
+
+    public function orders_history_detail($code_order)
+    {
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
+        $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $blog = blog::all();
+        $blog1 = array('blog1'=>blog::orderBy('id','desc')->limit(2)->get());
+        $advertisement = array('advertisement'=>advertisement::all());
+        $product = array('product'=>product::all());
+        $cart = session('cart');
+        $shipping['shipping'] = shipping::where('code_shipping','==','App\order()->code_shipping')->get();
+        $data['data'] = order::where('code_order',$code_order)->get();
+        $data['data1'] = order::where('code_order',$code_order)->orderBy('id_user','desc')->limit(1)->get();
+        $data['data2'] = order::where('code_order',$code_order)->orderBy('total','desc')->limit(1)->get();
+        return view('content/orders/detail_history')->with($data)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart)->with($shipping);
+        // return $shipping;
+
+    }
+
+    public function orders_confirm_detail($code_order)
+    {
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
+        $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $blog = blog::all();
+        $blog1 = array('blog1'=>blog::orderBy('id','desc')->limit(2)->get());
+        $advertisement = array('advertisement'=>advertisement::all());
+        $product = array('product'=>product::all());
+        $cart = session('cart');
+        $shipping['shipping'] = shipping::where('code_shipping','==','App\order()->code_shipping')->get();
+        $data['data'] = order::where('code_order',$code_order)->get();
+        $data['data1'] = order::where('code_order',$code_order)->orderBy('id_user','desc')->limit(1)->get();
+        $data['data2'] = order::where('code_order',$code_order)->orderBy('total','desc')->limit(1)->get();
+        return view('content/orders/detail_confirm')->with($data)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart)->with($shipping);
+    }
+    public function orders_confirm()
+    {
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
+        $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $blog = blog::all();
+        $blog1 = array('blog1'=>blog::orderBy('id','desc')->limit(2)->get());
+        $advertisement = array('advertisement'=>advertisement::all());
+        $product = array('product'=>product::all());
+        $cart = session('cart');
+        return view('content/orders/confirm_order')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart); 
+    
+    }
+
+    public function user_account($id)
+    {
+        $master_parent = master_parent::with('class')->with('class.class2')->get();
+        $master_kind = array('master_kind'=>master_kind::all());
+        $master_type = array('master_type'=>master_type::all());
+        $master_merk = master_merk::all();
+        $master_blog = master_blog::all();
+        $blog = blog::all();
+        $blog1 = array('blog1'=>blog::orderBy('id','desc')->limit(2)->get());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(4)->get());
+        $product = array('product'=>product::all());
+        $cart = session('cart');
+        $data = array('data'=>User::find($id));
+        return view('content/user/user_account')->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart)->with($data); 
+    }
+
+     public function evidence($code_order)
+    {
+        // $select_order = order::where('code_order',$code_order)->get();
+        $data = order::where('code_order',$code_order)->get();
+
+        if(Input::hasFile('evidence')){
+            $evidence = date('YmdHis')
+            .uniqid()
+            ."."
+            .Input::file('evidence')->getClientOriginalExtension();
+
+            Input::file('evidence')->move(storage_path(),$evidence);
+            $data->evidence = $evidence;
+
+         }
+
+         $data = order::where('code_order',$code_order)->update(['evidence' => $evidence]);
+
+        // $r->save()->put('order',  $array);
+        return redirect()->back();
+         // return $data;
+
+    }
+
+    public function update_member()
+    {
+        $data = User::find(Input::get('id'));
+        $data->name = Input::get('name');
+        $data->email = Input::get('email');
+        $data->password = Input::get('password');
+        $data->role = Input::get('role');
+
+        $data->save();
+
+        return redirect()->back();
+    }
+
 }

@@ -12,7 +12,7 @@
     <meta name="keywords" content="">
 
     <title>
-        SHOPIE
+        SHOPIEE
     </title>
 
     <meta name="keywords" content="">
@@ -53,35 +53,17 @@
                 <ul class="menu">
                     <li><a href="{{ url('/contact')}}">Contact</a>
                     </li>
-                    <li><a href="#">Recently viewed</a>
-                    </li>
                     @if (Auth::guest())
                     <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
                     </li>
                     <li><a href="#" data-toggle="modal" data-target="#register-modal">Register</a>
                     </li>
                     @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
+                    <li><a href="{{ url('/orders/history/') }}">Orders History</a>
                     </li>
-                    <li><a href="{{ url('/orders/history') }}">Orders History</a>
+                    <li><a href="#" data-toggle="modal" data-target="#logout-modal">{{ Auth::user()->name }}<i class="fa fa-cogs"></i></a>
                     </li>
+                    
                     @endif
                 </ul>
             </div>
@@ -130,7 +112,7 @@
                 </div>
             </div>
         </div>
-                <div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="Register" aria-hidden="true">
+        <div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="Register" aria-hidden="true">
             <div class="modal-dialog modal-lg">
 
                 <div class="modal-content">
@@ -148,7 +130,7 @@
                         <hr>
                         <form method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
-
+                            <input type="hidden" class="form-control" id="role" name="role" value="member" required autofocus>
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required autofocus>
@@ -196,6 +178,26 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="logout-modal" tabindex="-1" role="dialog" aria-labelledby="Logout" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+
+                <div class="modal-content" style="top: 150px;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="Logout"><img src="{{url('img/sh8.png')}}" alt="Obaju logo" class="hidden-xs" style="width: 120px;"></h4>
+                    </div>
+                    <div class="modal-body">
+                    Are you sure want to logout?
+
+                                        <form action="{{ url('/logout') }}" method="POST" style="padding-bottom: 50px;">
+                                            {{ csrf_field() }}
+                                            <button type="submit" class="btn navbar-btn btn-primary pull-right" >Logout</button>
+                                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -209,8 +211,8 @@
             <div class="navbar-header">
 
                 <a class="navbar-brand home" href="{{url('/')}}" data-animate-hover="bounce">
-                    <img src="{{url('img/sh.png')}}" alt="Obaju logo" class="hidden-xs" style="width: 150px;">
-                    <img src="{{url('img/sh.png')}}" alt="Obaju logo" class="visible-xs" style="width: 100px;"><span class="sr-only">Shopier - go to homepage</span>
+                    <img src="{{url('img/sh8.png')}}" alt="Obaju logo" class="hidden-xs" style="width: 150px;">
+                    <img src="{{url('img/sh8.png')}}" alt="Obaju logo" class="visible-xs" style="width: 100px;"><span class="sr-only">Shopier - go to homepage</span>
                 </a>
                 <div class="navbar-buttons">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
@@ -336,13 +338,13 @@
                         <h4>Pages</h4>
 
                         <ul>
-                            <li><a href="text.html">About us</a>
+                            <li><a href="{{url('/contact')}}">About us</a>
                             </li>
-                            <li><a href="text.html">Terms and conditions</a>
+                            <li><a href="{{url('/text')}}">Terms and conditions</a>
                             </li>
-                            <li><a href="faq.html">FAQ</a>
+                            <li><a href="{{url('/faq')}}">FAQ</a>
                             </li>
-                            <li><a href="contact.html">Contact us</a>
+                            <li><a href="{{url('/contact')}}">Contact us</a>
                             </li>
                         </ul>
 
@@ -353,7 +355,7 @@
                         <ul>
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
                             </li>
-                            <li><a href="register.html">Regiter</a>
+                            <li><a href="#" data-toggle="modal" data-target="#register-modal">Register</a>
                             </li>
                         </ul>
 
@@ -366,27 +368,31 @@
 
                         <h4>Top categories</h4>
 
-                        <h5>Men</h5>
-
                         <ul>
-                            <li><a href="category.html">T-shirts</a>
+                            @foreach($master_parents as $key => $master_parent)
+                            @if($master_parent->class == null)
+                            <li class="active">
+                                    <h4><a href="{{ url('categorys/'.$master_parent->code) }}">{{ $master_parent->name }}</a></h4>
+                                    <ul>
+                                    @foreach($master_parent->class as $clas)
+                                        <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
+                                        </li>
+                                    @endforeach 
+                                    </ul>
                             </li>
-                            <li><a href="category.html">Shirts</a>
+                            @else
+                            <li>
+                                    <h4><a href="{{ url('categorys/'.$master_parent->code) }}">{{ $master_parent->name }}
+                                    </a></h4>
+                                    <ul>
+                                    @foreach($master_parent->class as $clas)
+                                        <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
+                                        </li>
+                                    @endforeach 
+                                    </ul>
                             </li>
-                            <li><a href="category.html">Accessories</a>
-                            </li>
-                        </ul>
-
-                        <h5>Ladies</h5>
-                        <ul>
-                            <li><a href="category.html">T-shirts</a>
-                            </li>
-                            <li><a href="category.html">Skirts</a>
-                            </li>
-                            <li><a href="category.html">Pants</a>
-                            </li>
-                            <li><a href="category.html">Accessories</a>
-                            </li>
+                            @endif
+                            @endforeach
                         </ul>
 
                         <hr class="hidden-md hidden-lg">
@@ -398,16 +404,18 @@
 
                         <h4>Where to find us</h4>
 
-                        <p><strong>Obaju Ltd.</strong>
-                            <br>13/25 New Avenue
-                            <br>New Heaven
-                            <br>45Y 73J
-                            <br>England
+                        <p><strong>Shopiee Ltd.</strong>
+                            <br>Jl. Tanjung Lengkong No. 22 A
+                            <br>Bidara Cina
+                            <br>Jatinegara
+                            <br>Jakarta Timur
+                            <br>DKI Jakarta
                             <br>
-                            <strong>Great Britain</strong>
+
+                            <strong>Indonesia</strong>
                         </p>
 
-                        <a href="contact.html">Go to contact page</a>
+                        <a href="{{url('/contact')}}">Go to contact page</a>
 
                         <hr class="hidden-md hidden-lg">
 

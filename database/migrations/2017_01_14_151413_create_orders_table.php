@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->string('id_user');
             $table->string('code_order');
+            $table->string('code_shipping');
+            $table->string('payment');
             $table->string('code');
             $table->string('code_parent');
             $table->string('code_kind');
@@ -29,8 +31,10 @@ class CreateOrdersTable extends Migration
             $table->string('price');
             $table->string('slug');
             $table->string('status');
+            $table->string('evidence');
             $table->integer('kuantitas');
             $table->decimal('subtotal', 10, 2);
+            $table->decimal('ongkir', 10, 2);
             $table->decimal('total', 10, 2);
             $table->timestamps();
         });

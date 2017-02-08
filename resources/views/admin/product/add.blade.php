@@ -13,25 +13,23 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                PRODUCT
-                                <small>ADD PRODUCT</small>
+                            <h2 style="color: #006064;">
+                                MASTER PRODUCT 
+                                <small>Add Product</small>
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
+                                        <i class="material-icons">format_list_bulleted</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                        <li><a href="{{url('/product/table')}}">View Table</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="body">
-                        <form method="post" action="{{url('/product/save')}}" enctype="multipart/form-data">
+                        <form method="post" action="{{url('/product/save')}}" enctype="multipart/form-data" style="padding-bottom: 30px;">
                         {!! csrf_field() !!}
                         <input type="hidden" class="form-control" name="author" value="{{ Auth::user()->name }}" required>
                         		<div class="form-group form-float">
@@ -126,7 +124,7 @@
 	                            	<textarea id="editor1" name="desc" required></textarea>
                             	</div>
                             	<div class="form-group form-float">
-                            	<button type="submit" class="btn btn-primary waves-effect">SUBMIT</button>
+                            	<button type="submit" class="btn btn-primary waves-effect pull-right">SUBMIT</button>
                             	</div>
                         </form>
                         </div>

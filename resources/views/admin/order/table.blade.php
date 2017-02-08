@@ -6,7 +6,6 @@
             <div class="block-header">
                 <h2>
                     DATATABLES
-                    <small>TABLE ORDER</small>
                 </h2>
             </div>
 
@@ -15,8 +14,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                EXPORTABLE TABLE
+                            <h2 style="color: #006064;"">
+                                Accept Order
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -54,9 +53,9 @@
                                         <td>{{$order->code}}</td>
                                         <td>{{$order->name}}</td>
                                         <td><img src="{{ url('pict_product1/'.$order->pict_product1) }}" alt="" style="max-width:100%;height: 40px;"></td>
-                                        <td>{{$order->price}}</td>
+                                        <td>{{ "Rp.".number_format($order->price,0,',','.').",-" }}</td>
                                         <td>{{$order->kuantitas}}</td>
-                                        <td>{{$order->subtotal}}</td>
+                                        <td>{{ "Rp.".number_format($order->subtotal,0,',','.').",-" }}</td>
                                         <td>
                                             @if($order->status == 'pending')
                                             <form action="{{url('/accept/'.$order->code_order)}}" method="post">

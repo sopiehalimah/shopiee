@@ -6,7 +6,6 @@
             <div class="block-header">
                 <h2>
                     DATATABLES
-                    <small>TABLE MASTER BLOG</small>
                 </h2>
             </div>
 
@@ -15,18 +14,16 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                EXPORTABLE TABLE
+                            <h2 style="color: #006064;">
+                                TABLE CATEGORY
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
+                                        <i class="material-icons">library_add</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                        <li><a href="{{url('/master_blog/add')}}">Add Category</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -47,10 +44,9 @@
                                         <td>{{$i++}}.</td>
                                         <td>{{$category->category}}</td>
                                         <td>
-                                        <center><a href="{{ url('/master_blog/edit/'.$category->id) }}">Edit</a>
-                                          <a href="{{ url('/master_blog/delete/'.$category->id) }}" onclick="return confirm('Delete?')">Delete</a>
+                                            <a href="{{ url('/master_blog/edit/'.$category->id) }}" class="btn btn-primary waves-effect">Edit</a>
+                                            <a href="{{ url('/master_blog/delete/'.$category->id) }}" onclick="return confirm('Delete?')" class="btn bg-red waves-effect">Delete</a>
                                         </td>
-                                        </center>
                                     </tr>
                                 @endforeach
                                 </tbody>

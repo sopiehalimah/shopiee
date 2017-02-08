@@ -28,6 +28,7 @@ class CreateCartsTable extends Migration
             $table->string('slug');
             $table->integer('kuantitas');
             $table->decimal('subtotal', 10, 2);
+            $table->decimal('ongkir', 10, 2);
             $table->decimal('total', 10, 2);
             $table->timestamps();
         });
