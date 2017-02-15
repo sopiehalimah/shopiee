@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="header">
                             <h2 style="color: #006064;"">
-                                Mail Info Order
+                                Accept Order
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -37,9 +37,9 @@
                                         <th>Date</th>
                                         <th>Code Order</th>
                                         <th>Name User</th>
-                                        <th>Status</th>
+                                        <th>Total</th>
                                         <th>Proof of payment</th>
-                                        <th>Action</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,7 +48,7 @@
                                         <td>{{ date_format(date_create($order->created_at),"D, h M Y") }}</td>
                                         <td>{{$order->code_order}}</td>
                                         <td>{{$order->id_user}}</td>
-                                        <td>{{$order->status}}</td>
+                                        <td>{{ "Rp.".number_format($order->total,0,',','.').",-" }}</td>
                                         <td>
                                             @if($order->evidence != "not yet")
                                             <img src="{{ url('evidence/'.$order->evidence) }}" alt="" style="width: 200px;height: 200px;">
@@ -56,15 +56,7 @@
                                             {{ $order->payment}}
                                             @endif
                                         </td>
-                                        <td>
-                                            @if($order->evidence != "not yet")
-                                            <a href="{{url('/order/mail/'.$order->code_order)}}" class="btn bg-red waves-effect">Detail Order</a>
-                                            @elseif($order->payment == "Cash On Delivery")
-                                            <a href="{{url('/order/mail/'.$order->code_order)}}" class="btn bg-red waves-effect">Detail Order</a>
-                                            @else
-                                            Not yet paid
-                                            @endif
-                                        </td>
+                                        <td>{{$order->status}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

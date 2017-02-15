@@ -45,7 +45,7 @@ class SearchController extends Controller
     {
 
         $query = $request->get('search_code_order');
-        $hasil = order::where('code_order', 'LIKE', '%' . $query . '%')->limit(1)->get();
+        $hasil = order::where('code_shipping', 'LIKE', '%' . $query . '%')->limit(1)->get();
         $master_parent = master_parent::with('class')->with('class.class2')->get();
         $master_kind = array('master_kind'=>master_kind::all());
         $master_type = array('master_type'=>master_type::all());

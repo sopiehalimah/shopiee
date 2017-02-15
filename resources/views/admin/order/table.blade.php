@@ -34,28 +34,20 @@
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
+                                        <th>Date</th>
                                         <th>Code Order</th>
                                         <th>Name User</th>
-                                        <th>Code Product</th>
-                                        <th>Name Product</th>
-                                        <th>Pict Product</th>
-                                        <th>Price</th>
-                                        <th>Kuantitas</th>
-                                        <th>SubTotal</th>
+                                        <th>Total</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($data as $order)
                                     <tr>
+                                        <td>{{ date_format(date_create($order->created_at),"D, h M Y") }}</td>
                                         <td>{{$order->code_order}}</td>
                                         <td>{{$order->id_user}}</td>
-                                        <td>{{$order->code}}</td>
-                                        <td>{{$order->name}}</td>
-                                        <td><img src="{{ url('pict_product1/'.$order->pict_product1) }}" alt="" style="max-width:100%;height: 40px;"></td>
-                                        <td>{{ "Rp.".number_format($order->price,0,',','.').",-" }}</td>
-                                        <td>{{$order->kuantitas}}</td>
-                                        <td>{{ "Rp.".number_format($order->subtotal,0,',','.').",-" }}</td>
+                                        <td>{{ "Rp.".number_format($order->total,0,',','.').",-" }}</td>
                                         <td>
                                             @if($order->status == 'pending')
                                             <form action="{{url('/accept/'.$order->code_order)}}" method="post">

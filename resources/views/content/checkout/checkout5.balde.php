@@ -34,7 +34,7 @@
                                     </tr>
                                     <tr>
                                         <td>Shipping and handling</td>
-                                        <th>{{ "Rp.".number_format($cart[$key]['ongkir'],0,',','.').",-" }}</th>
+                                        <th>{{ "Rp.".number_format($total[$key]['ongkir'],0,',','.').",-" }}</th>
                                     </tr>
                                     <tr>
                                         <td>Total</td>

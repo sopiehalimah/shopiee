@@ -25,7 +25,7 @@
                     </div>
 
                     @foreach($hasil as $order)
-                    <a href="{{url('/orders/detail/confirm/'.$order->code_order)}}" >
+                    <a href="{{url('/orders/detail/confirm/'.$order->code_shipping)}}" >
                     <div class="col-md-3">
                     <!-- *** CUSTOMER MENU ***
  _________________________________________________________ -->
@@ -36,7 +36,7 @@
                         </div>
 
                          <div class="panel-body">
-                         {{$order->code_order}}
+                         {{$order->code_shipping}}
                         </div>
 
                     </div>

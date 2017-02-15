@@ -183,7 +183,7 @@ Route::get('/evidence/{filename}',
 	Route::get('/orders/history/confirm/','SearchController@search_code_order');
 	Route::get('/orders/history/','WelcomeController@orders_history');
 	Route::get('/orders/history/{code_order}','WelcomeController@orders_history_detail');
-	Route::get('/orders/detail/confirm/{code_order}','WelcomeController@orders_confirm_detail');
+	Route::get('/orders/detail/confirm/{code_shipping}','WelcomeController@orders_confirm_detail');
 
 
 	Route::post('/payment/evidence/{code_order}','WelcomeController@evidence');
@@ -294,6 +294,8 @@ Route::group(['middleware'=>'role:admin'],function(){
 	Route::get('/order/mail/{code_order}','HomeController@mail_order');
 	Route::get('/order/mail','HomeController@mail_order_data');
 	Route::get('/order/sent','HomeController@order_sent');
+	Route::get('/order/all','HomeController@order_all');
+
 	
 	Route::get('/order/info','HomeController@mailinfo_order');
 

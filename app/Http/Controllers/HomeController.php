@@ -562,7 +562,7 @@ class HomeController extends Controller
 
     public function order_sent()
     {
-        $data['data'] = order::where('evidence','!=', 'not yet')->orderBy('id','desc')->get();
+        $data['data'] = order::where('status','accepted')->orderBy('id','desc')->get();
         return view('admin/order/sent')->with($data);
     }
 
@@ -594,7 +594,7 @@ class HomeController extends Controller
      //ORDER
      public function mail_order_data()
     {
-        $data['data'] = order::where('status','accepted')->where('evidence','!=', 'not yet')->get();
+        $data['data'] = order::where('status','accepted')->get();
         return view('admin/order/info_all')->with($data);
     }
     public function mail_order($code_order)
@@ -608,14 +608,10 @@ class HomeController extends Controller
     }
 
 
-     public function mailinfo_order()
+    public function order_all()
     {
-        $data = order::where('code_order')->get();
-
-        $response = [];
-        $response['data'] = $data;
-
-        return response()->json($response);
+        $data['data'] = order::where('status','sent')->where('evidence','!=', 'not yet','||','evidence','==','not yet')->get();
+        return view('admin/order/all')->with($data);
     }
 
 
@@ -624,6 +620,7 @@ class HomeController extends Controller
 
       $id_user = $r->input('id_user');
       $code_order = $r->input('code_order');
+      $code_shipping = $r->input('code_shipping');
       $pict_product1 = $r->input('pict_product1');
       $name = $r->input('name');
       $price = $r->input('price');
@@ -646,7 +643,7 @@ class HomeController extends Controller
           $a->Password = "chanyeol";
           $a->SetFrom("sopiehalimah@gmail.com","Sopie Halimah");
           $a->Subject = "Detail Pemesanan";
-          $a->MsgHTML('<h1>'.'#'.'<a href="http://shopiee.tk/orders/confirm/">'.$code_order.'</a>'.'</h1>'
+          $a->MsgHTML('<h1>'.'#'.'<a href="http://localhost:8000/orders/confirm/">'.$code_shipping.'</a>'.'</h1>'
                         // '<br>'.
                         // '<table border="1" style="width:500px;text-align:center;">'.
                         //         '<thead>'.

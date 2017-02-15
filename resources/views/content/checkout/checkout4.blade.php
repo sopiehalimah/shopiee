@@ -151,11 +151,11 @@
                                         </tr>
                                         <tr>
                                              <th colspan="4">Shipping Cost</th>
-                                            <th>{{ "Rp.".number_format($cart[$key]['ongkir'],0,',','.').",-" }}</th>
+                                            <th>{{ "Rp.".number_format(10000,0,',','.').",-" }}</th>
                                         </tr>
                                          <tr>
                                              <th colspan="4">Total</th>
-                                            <th></th>
+                                            <th>{{ "Rp.".number_format($grandsubtotal+10000,0,',','.').",-" }}</th>
                                         </tr>
                                     </tfoot>
                                 </table>

@@ -50,6 +50,8 @@
                                 <br>
                                 <h1>
                                     <input type="hidden" class="form-control" name="code_order" value="{{ $to->code_order }}" required>
+                                    <input type="hidden" class="form-control" name="code_shipping" value="{{ $to->code_shipping }}" required>
+
                                     #{{$to->code_order}}
                                 </h1>
                                 <br>
@@ -62,7 +64,10 @@
 
                                         <th>Picture</th>
                                         <th>Product Name</th>
+                                        <th>Quantity</th>
                                         <th>Price</th>
+                                        <th>Subtotal</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,9 +81,16 @@
                                             <input type="hidden" class="form-control" name="name" value="{{ $order->name }}" required>
                                             {{$order->name}}
                                         </td>
+                                         <td>
+                                            <input type="hidden" class="form-control" name="kuantitas" value="{{ $order->kuantitas}}" required>
+                                            {{ $order->kuantitas }}
+                                        </td>
                                         <td>
                                             <input type="hidden" class="form-control" name="price" value="{{ $order->price}}" required>
                                             {{ "Rp.".number_format($order->price,0,',','.').",-" }}
+                                        </td>
+                                        <td>
+                                            {{ "Rp.".number_format($order->price*$order->kuantitas,0,',','.').",-" }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -86,14 +98,21 @@
                                 <tfoot>
                                 @foreach($data2 as $total)
                                         <tr>
-                                            <th colspan="2">Shipping Cost</th>
+                                            <th colspan="4">Subtotal</th>
+                                            <th>
+                                                <input type="hidden" class="form-control" name="subtotal" value="{{ $total->subtotal }}" required>
+                                                {{ "Rp.".number_format($total->subtotal,0,',','.').",-" }}    
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4">Shipping Cost</th>
                                             <th>
                                                 <input type="hidden" class="form-control" name="ongkir" value="{{ $total->ongkir }}" required>
                                                 {{ "Rp.".number_format($total->ongkir,0,',','.').",-" }}    
                                             </th>
                                         </tr>
                                         <tr>
-                                            <th colspan="2">Total</th>
+                                            <th colspan="4">Total</th>
                                             <th>
                                                 <input type="hidden" class="form-control" name="total" value="{{ $total->total }}" required>
                                                 {{ "Rp.".number_format($total->total,0,',','.').",-" }}

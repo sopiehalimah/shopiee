@@ -69,7 +69,7 @@
                                         <th colspan="3">Product</th>
                                         <th>Quantity</th>
                                         <th>Unit price</th>
-                                        <th>Total</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,14 +85,14 @@
                                         <td></td>
                                         <td>{{ $order->kuantitas }}</td>
                                         <td>{{ "Rp.".number_format($order->price,0,',','.').",-" }}</td>
-                                        <td>{{ "Rp.".number_format($order->price,0,',','.').",-"*$order->kuantitas }}</td>
+                                        <td>{{ "Rp.".number_format($order->price*$order->kuantitas,0,',','.').",-"*$order->kuantitas }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                                 <tfoot>
                                 @foreach($data2 as $total)
                                     <tr>
-                                        <th colspan="5" class="text-right">Order subtotal</th>
+                                        <th colspan="5" class="text-right">Order Subtotal</th>
                                         <th>{{ "Rp.".number_format($order->subtotal,0,',','.').",-" }}</th>
                                     </tr>
                                     <tr>
@@ -112,15 +112,16 @@
 
                         <div class="row addresses">
                             
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                             @foreach($shipping as $ship)
                                 <h2>Shipping address</h2>
                                 <p>{{$ship->name}}
-                                    <br>13/25 New Avenue
-                                    <br>New Heaven
-                                    <br>45Y 73J
-                                    <br>England
-                                    <br>Great Britain</p>
+                                    <br>{{$ship->telp}}
+                                    <br>{{$ship->email}}
+                                    <br>{{$ship->address}}
+                                    <br>{{$ship->country}}
+                                    <br>{{$ship->state}}
+                                </p>
                             @endforeach
                             </div>
                             

@@ -88,7 +88,7 @@
                                             @endif
 
                                         </td>
-                                        <td><a href="{{url('/orders/history/'.$orders->code_order)}}" class="btn btn-primary btn-sm">View</a>
+                                        <td><a href="{{url('/orders/history/'.$orders->code_shipping)}}" class="btn btn-primary btn-sm">View</a>
                                         </td>
                                         <td>
                                         @if($orders->payment == "Cash On Delivery")

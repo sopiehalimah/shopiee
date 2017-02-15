@@ -34,6 +34,7 @@
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
+                                        <th>Date</th>
                                         <th>Code Order</th>
                                         <th>Name User</th>
                                         <th>Total</th>
@@ -44,10 +45,17 @@
                                 <tbody>
                                 @foreach($data as $order)
                                     <tr>
+                                        <td>{{ date_format(date_create($order->created_at),"D, h M Y") }}</td>
                                         <td>{{$order->code_order}}</td>
                                         <td>{{$order->id_user}}</td>
                                         <td>{{ "Rp.".number_format($order->total,0,',','.').",-" }}</td>
-                                        <td>{{$order->evidence}}</td>
+                                        <td>
+                                            @if($order->evidence != "not yet")
+                                            {{$order->evidence}}
+                                            @else
+                                            {{ $order->payment}}
+                                            @endif
+                                            </td>
                                         <td>
                                             @if($order->status == 'accepted')
                                             <form action="{{url('/sent/'.$order->code_order)}}" method="post">

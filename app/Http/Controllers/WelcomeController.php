@@ -476,7 +476,7 @@ class WelcomeController extends Controller
         // return $order1;
     }
 
-    public function orders_history_detail($code_order)
+    public function orders_history_detail($code_shipping)
     {
         $master_parent = master_parent::with('class')->with('class.class2')->get();
         $master_kind = array('master_kind'=>master_kind::all());
@@ -488,16 +488,17 @@ class WelcomeController extends Controller
         $advertisement = array('advertisement'=>advertisement::all());
         $product = array('product'=>product::all());
         $cart = session('cart');
-        $shipping['shipping'] = shipping::where('code_shipping','==','App\order()->code_shipping')->get();
-        $data['data'] = order::where('code_order',$code_order)->get();
-        $data['data1'] = order::where('code_order',$code_order)->orderBy('id_user','desc')->limit(1)->get();
-        $data['data2'] = order::where('code_order',$code_order)->orderBy('total','desc')->limit(1)->get();
+        $shipping['shipping'] = shipping::where('code_shipping',$code_shipping)->limit(1)->get();
+        $data['data'] = order::where('code_shipping',$code_shipping)->get();
+        $data['data1'] = order::where('code_shipping',$code_shipping)->orderBy('id_user','desc')->limit(1)->get();
+        $data['data2'] = order::where('code_shipping',$code_shipping)->orderBy('total','desc')->limit(1)->get();
+
         return view('content/orders/detail_history')->with($data)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart)->with($shipping);
         // return $shipping;
 
     }
 
-    public function orders_confirm_detail($code_order)
+    public function orders_confirm_detail($code_shipping)
     {
         $master_parent = master_parent::with('class')->with('class.class2')->get();
         $master_kind = array('master_kind'=>master_kind::all());
@@ -509,11 +510,12 @@ class WelcomeController extends Controller
         $advertisement = array('advertisement'=>advertisement::all());
         $product = array('product'=>product::all());
         $cart = session('cart');
-        $shipping['shipping'] = shipping::where('code_shipping','==','App\order()->code_shipping')->get();
-        $data['data'] = order::where('code_order',$code_order)->get();
-        $data['data1'] = order::where('code_order',$code_order)->orderBy('id_user','desc')->limit(1)->get();
-        $data['data2'] = order::where('code_order',$code_order)->orderBy('total','desc')->limit(1)->get();
-        return view('content/orders/detail_confirm')->with($data)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart)->with($shipping);
+        $shipping['shipping'] = shipping::where('code_shipping',$code_shipping)->limit(1)->get();
+        $confirm['confirm'] = order::where('code_shipping',$code_shipping)->limit(1)->get();
+        $data['data'] = order::where('code_shipping',$code_shipping)->get();
+        $data['data1'] = order::where('code_shipping',$code_shipping)->orderBy('id_user','desc')->limit(1)->get();
+        $data['data2'] = order::where('code_shipping',$code_shipping)->orderBy('total','desc')->limit(1)->get();
+        return view('content/orders/detail_confirm')->with($data)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart)->with($shipping)->with($confirm);
     }
     public function orders_confirm()
     {

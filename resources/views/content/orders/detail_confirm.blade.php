@@ -21,8 +21,13 @@
 
                 <div class="col-md-12" id="customer-order">
                     <div class="box" style="padding-bottom: 50px;">
-                    <form action="{{url('/payment/evidence/'.$orders->code_order)}}" method="post" enctype="multipart/form-data">
+                    @foreach($confirm as $conf)
+                    <form action="{{url('orders/detail/confirm/'.$conf->code_shipping)}}" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
+                     <button type="submit" class="btn btn-primary btn-sm pull-right">Confirmation</button>
+
+                    </form>
+                    @endforeach
 
 
                     @foreach($data1 as $to)
@@ -40,7 +45,7 @@
                                         <th colspan="3">Product</th>
                                         <th>Quantity</th>
                                         <th>Unit price</th>
-                                        <th>Total</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,7 +61,7 @@
                                         <td></td>
                                         <td>{{ $order->kuantitas }}</td>
                                         <td>{{ "Rp.".number_format($order->price,0,',','.').",-" }}</td>
-                                        <td>{{ "Rp.".number_format($order->price,0,',','.').",-"*$order->kuantitas }}</td>
+                                        <td>{{ "Rp.".number_format($order->price*$order->kuantitas,0,',','.').",-"*$order->kuantitas }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -83,47 +88,24 @@
 
                         <div class="row addresses">
                             
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                             @foreach($shipping as $ship)
                                 <h2>Shipping address</h2>
                                 <p>{{$ship->name}}
-                                    <br>13/25 New Avenue
-                                    <br>New Heaven
-                                    <br>45Y 73J
-                                    <br>England
-                                    <br>Great Britain</p>
+                                    <br>{{$ship->telp}}
+                                    <br>{{$ship->email}}
+                                    <br>{{$ship->address}}
+                                    <br>{{$ship->country}}
+                                    <br>{{$ship->state}}
+                                </p>
                             @endforeach
                             </div>
                             
                         </div>
-
-                                            <input type="hidden" name="id" value="{{ $orders->id }}">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="hidden" name="id_user" value="{{$orders->id_user}}">
-                                            <input type="hidden" name="code_order" value="{{$orders->code_order}}">
-                                            <input type="hidden" name="code" value="{{$orders->code}}">
-                                            <input type="hidden" name="code_parent" value="{{$orders->code_parent}}">
-                                            <input type="hidden" name="code_kind" value="{{$orders->code_kind}}">
-                                            <input type="hidden" name="code_type" value="{{$orders->code_type}}">
-                                            <input type="hidden" name="code_merk" value="{{$orders->code_merk}}">
-                                            <input type="hidden" name="pict_product1" value="{{$orders->pict_product1}}">
-                                            <input type="hidden" name="pict_product2" value="{{$orders->pict_product2}}">
-                                            <input type="hidden" name="name" value="{{$orders->name}}">
-                                            <input type="hidden" name="desc" value="{{$orders->desc}}">
-                                            <input type="hidden" name="price" value="{{$orders->price}}">
-                                            <input type="hidden" name="slug" value="{{$orders->slug}}">
-                                            <input type="hidden" name="status" value="accepted">
-                                            <input type="hidden" name="kuantitas" value="{{$orders->kuantitas}}">
-
-                                            <input type="hidden" name="subtotal" value="{{$orders->subtotal}}">
-                                            <input type="hidden" name="total" value="{{$orders->total}}">
-                                            <input type="hidden" name="status" value="{{$orders->status}}">
-                                             <input type="hidden" name="evidence" value="{{$orders->evidence}}">
-
                         
-                        <button type="submit" class="btn btn-primary btn-sm pull-right">Confirmation</button>
 
-                    </form>
+
+                       
                     </div>
                 </div>
 
