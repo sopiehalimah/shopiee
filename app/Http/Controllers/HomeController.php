@@ -562,7 +562,7 @@ class HomeController extends Controller
 
     public function order_sent()
     {
-        $data['data'] = order::where('status','accepted')->orderBy('id','desc')->get();
+        $data['data'] = order::where('confirm','confirmed')->where('status','accepted')->orderBy('id','desc')->get();
         return view('admin/order/sent')->with($data);
     }
 
@@ -582,6 +582,17 @@ class HomeController extends Controller
     public function sent_order(Request $r ,$code_order)
     {
         $select_order = order::where('code_order',$code_order)->update(['status'=>'sent']);
+        // $order  = order::find($select_order->id);
+        // $order->status = 'accepted';
+        // $order->save();
+
+        // $r->save()->put('order',  $array);
+        return redirect()->back();
+
+    }
+    public function done_order(Request $r ,$code_order)
+    {
+        $select_order = order::where('code_order',$code_order)->update(['status'=>'done']);
         // $order  = order::find($select_order->id);
         // $order->status = 'accepted';
         // $order->save();

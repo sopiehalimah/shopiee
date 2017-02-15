@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="header">
                             <h2 style="color: #006064;"">
-                                TABLE ORDER
+                                Send Order
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -78,12 +78,11 @@
                                             <input type="hidden" name="desc" value="{{$order->desc}}">
                                             <input type="hidden" name="price" value="{{$order->price}}">
                                             <input type="hidden" name="slug" value="{{$order->slug}}">
-                                            <input type="hidden" name="status" value="accepted">
                                             <input type="hidden" name="kuantitas" value="{{$order->kuantitas}}">
 
                                             <input type="hidden" name="subtotal" value="{{$order->subtotal}}">
                                             <input type="hidden" name="total" value="{{$order->total}}">
-                                            <input type="hidden" name="status" value="{{$order->accepted}}">
+                                            <input type="hidden" name="status" value="{{$order->status}}">
 
                                             </form>
                                             @else

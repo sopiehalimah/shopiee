@@ -83,6 +83,8 @@
                                             <span class="label label-warning">{{$orders->status}}</span>
                                             @elseif($orders->status == 'accepted')
                                             <span class="label label-info">{{$orders->status}}</span>
+                                            @elseif($orders->status == 'sent')
+                                            <span class="label label-warning">{{$orders->status}}</span>
                                             @else
                                             <span class="label label-success">{{$orders->status}}</span>
                                             @endif
@@ -122,7 +124,7 @@
                                             <input type="hidden" name="desc" value="{{$orders->desc}}">
                                             <input type="hidden" name="price" value="{{$orders->price}}">
                                             <input type="hidden" name="slug" value="{{$orders->slug}}">
-                                            <input type="hidden" name="status" value="accepted">
+                                            <input type="hidden" name="status" value="{{$orders->status}}">
                                             <input type="hidden" name="kuantitas" value="{{$orders->kuantitas}}">
 
                                             <input type="hidden" name="subtotal" value="{{$orders->subtotal}}">

@@ -70,12 +70,11 @@
                                             <input type="hidden" name="desc" value="{{$order->desc}}">
                                             <input type="hidden" name="price" value="{{$order->price}}">
                                             <input type="hidden" name="slug" value="{{$order->slug}}">
-                                            <input type="hidden" name="status" value="accepted">
                                             <input type="hidden" name="kuantitas" value="{{$order->kuantitas}}">
 
                                             <input type="hidden" name="subtotal" value="{{$order->subtotal}}">
                                             <input type="hidden" name="total" value="{{$order->total}}">
-                                            <input type="hidden" name="status" value="{{$order->accepted}}">
+                                            <input type="hidden" name="status" value="{{$order->status}}">
 
                                             </form>
                                             @else

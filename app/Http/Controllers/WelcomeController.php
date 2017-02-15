@@ -517,6 +517,20 @@ class WelcomeController extends Controller
         $data['data2'] = order::where('code_shipping',$code_shipping)->orderBy('total','desc')->limit(1)->get();
         return view('content/orders/detail_confirm')->with($data)->with('master_parents', $master_parent)->with($master_kind)->with($master_type)->with('master_merks', $master_merk)->with('master_blogs', $master_blog)->with('blogs', $blog)->with($product)->with($blog1)->with($advertisement)->with('cart',$cart)->with($shipping)->with($confirm);
     }
+
+
+    public function confirmed_order(Request $r ,$code_shipping)
+    {
+        $select_order = order::where('code_shipping',$code_shipping)->update(['confirm'=>'confirmed']);
+        // $order  = order::find($select_order->id);
+        // $order->status = 'accepted';
+        // $order->save();
+
+        // $r->save()->put('order',  $array);
+        return redirect(url('orders/history'));
+
+    }
+
     public function orders_confirm()
     {
         $master_parent = master_parent::with('class')->with('class.class2')->get();

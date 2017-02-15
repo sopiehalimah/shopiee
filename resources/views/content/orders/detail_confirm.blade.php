@@ -22,9 +22,39 @@
                 <div class="col-md-12" id="customer-order">
                     <div class="box" style="padding-bottom: 50px;">
                     @foreach($confirm as $conf)
-                    <form action="{{url('orders/detail/confirm/'.$conf->code_shipping)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{url('confirmed/order/'.$conf->code_shipping)}}" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
-                     <button type="submit" class="btn btn-primary btn-sm pull-right">Confirmation</button>
+
+                                            <input type="hidden" name="confirm" value="confirmed" required>
+                                            <br>
+                                            <button type="submit" class="btn btn-primary btn-sm pull-right">Confirmation</button>
+                                            <input type="hidden" name="id" value="{{ $conf->id }}">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="id_user" value="{{$conf->id_user}}">
+                                            <input type="hidden" name="code_order" value="{{$conf->code_order}}">
+                                            <input type="hidden" name="code" value="{{$conf->code}}">
+                                            <input type="hidden" name="code_parent" value="{{$conf->code_parent}}">
+                                            <input type="hidden" name="code_kind" value="{{$conf->code_kind}}">
+                                            <input type="hidden" name="code_type" value="{{$conf->code_type}}">
+                                            <input type="hidden" name="code_merk" value="{{$conf->code_merk}}">
+                                            <input type="hidden" name="pict_product1" value="{{$conf->pict_product1}}">
+                                            <input type="hidden" name="pict_product2" value="{{$conf->pict_product2}}">
+                                            <input type="hidden" name="name" value="{{$conf->name}}">
+                                            <input type="hidden" name="desc" value="{{$conf->desc}}">
+                                            <input type="hidden" name="price" value="{{$conf->price}}">
+                                            <input type="hidden" name="slug" value="{{$conf->slug}}">
+                                            <input type="hidden" name="status" value="{{$conf->status}}">
+                                            <input type="hidden" name="kuantitas" value="{{$conf->kuantitas}}">
+
+                                            <input type="hidden" name="subtotal" value="{{$conf->subtotal}}">
+                                            <input type="hidden" name="total" value="{{$conf->total}}">
+                                            <input type="hidden" name="status" value="{{$conf->status}}">
+                                            <input type="hidden" name="evidence" value="{{$conf->evidence}}">
+                                            <input type="hidden" name="confirm" value="confirmed">
+
+
+                                            </form>
+                     
 
                     </form>
                     @endforeach

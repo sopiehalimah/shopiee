@@ -184,6 +184,8 @@ Route::get('/evidence/{filename}',
 	Route::get('/orders/history/','WelcomeController@orders_history');
 	Route::get('/orders/history/{code_order}','WelcomeController@orders_history_detail');
 	Route::get('/orders/detail/confirm/{code_shipping}','WelcomeController@orders_confirm_detail');
+	Route::post('/confirmed/order/{code_shipping}','WelcomeController@confirmed_order');
+
 
 
 	Route::post('/payment/evidence/{code_order}','WelcomeController@evidence');
@@ -295,6 +297,8 @@ Route::group(['middleware'=>'role:admin'],function(){
 	Route::get('/order/mail','HomeController@mail_order_data');
 	Route::get('/order/sent','HomeController@order_sent');
 	Route::get('/order/all','HomeController@order_all');
+	Route::post('/done/{code_order}','HomeController@done_order');
+
 
 	
 	Route::get('/order/info','HomeController@mailinfo_order');
