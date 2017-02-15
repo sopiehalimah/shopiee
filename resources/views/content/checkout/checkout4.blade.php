@@ -23,7 +23,7 @@
                         {!! csrf_field() !!}
                         
                          <input type="hidden" class="form-control" name="id_user" value="{{ Auth::user()->email }}" required>
-                         <input type="hidden" class="form-control" name="status" value="pending" required>
+                         <input type="hidden" class="form-control" name="status" value="Pending" required>
                          <input type="hidden" class="form-control" name="evidence" value="not yet" required>
                          @foreach($shipping as $ship)
                          <input type="hidden" class="form-control" name="payment" value="{{$ship->payment}}" required>

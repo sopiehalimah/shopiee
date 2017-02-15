@@ -21,37 +21,20 @@
                     @if(count($hasil))
                     <div class="box">
                         <h3>Result for code " {{$query}} "</h3>
+                        @foreach($hasil as $order)
+                        <center><h3><a href="{{url('/orders/detail/confirm/'.$order->code_shipping)}}">{{$order->code_shipping}}
+                        </a></h3><center>
+                        @endforeach
                         
-                    </div>
-
-                    @foreach($hasil as $order)
-                    <a href="{{url('/orders/detail/confirm/'.$order->code_shipping)}}" >
-                    <div class="col-md-3">
-                    <!-- *** CUSTOMER MENU ***
- _________________________________________________________ -->
-                    <div class="panel panel-default sidebar-menu">
-
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Code Order</h3>
+                         @else
+                        <div class="box">
+                            <h3>Result for code" {{$query}} "</h3>
+                            <center><h3>Not Found</h3></center>
                         </div>
-
-                         <div class="panel-body">
-                         {{$order->code_shipping}}
-                        </div>
-
                     </div>
-                    <!-- /.col-md-3 -->
 
-                    <!-- *** CUSTOMER MENU END *** -->
-                    </div>
-                    </a>
-                    @endforeach
 
-                     @else
-                    <div class="box">
-                        <h3>Result for code" {{$query}} "</h3>
-                        <center><h4>Not Found</h4></center>
-                    </div>
+                    
               
             @endif
 

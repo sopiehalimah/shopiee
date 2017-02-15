@@ -49,11 +49,11 @@
                                         <td>{{$order->id_user}}</td>
                                         <td>{{ "Rp.".number_format($order->total,0,',','.').",-" }}</td>
                                         <td>
-                                            @if($order->status == 'pending')
+                                            @if($order->status == 'Pending')
                                             <form action="{{url('/accept/'.$order->code_order)}}" method="post">
                                                 {!! csrf_field() !!}
 
-                                            <input type="hidden" name="status" value="accepted">
+                                            <input type="hidden" name="status" value="Accepted">
                                             <button type="submit" class="btn btn-success waves-effect">Accept</button>
                                             <input type="hidden" name="id" value="{{ $order->id }}">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="header">
                             <h2 style="color: #006064;"">
-                                Send Order
+                                Sent Order
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -57,12 +57,12 @@
                                             @endif
                                             </td>
                                         <td>
-                                            @if($order->status == 'accepted')
+                                            @if($order->status == 'Accepted')
                                             <form action="{{url('/sent/'.$order->code_order)}}" method="post">
                                                 {!! csrf_field() !!}
 
-                                            <input type="hidden" name="status" value="sent">
-                                            <button type="submit" class="btn btn-success waves-effect">Send Order</button>
+                                            <input type="hidden" name="status" value="Sent">
+                                            <button type="submit" class="btn btn-success waves-effect">Sent Order</button>
                                             <input type="hidden" name="id" value="{{ $order->id }}">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type="hidden" name="id_user" value="{{$order->id_user}}">

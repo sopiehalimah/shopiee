@@ -475,13 +475,13 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="{{url('/order/table')}}">Accept Order </a>
+                                <a href="{{url('/order/table')}}">Inbox Order </a>
                             </li>
                             <li>
-                                <a href="{{url('/order/mail')}}">Mail Info Order </a>
+                                <a href="{{url('/order/mail')}}">Sent Mail </a>
                             </li>
                             <li>
-                                <a href="{{url('/order/sent')}}">Send Order </a>
+                                <a href="{{url('/order/sent')}}">Sent Order </a>
                             </li>
                             <li>
                                 <a href="{{url('/order/all')}}">Order All </a>

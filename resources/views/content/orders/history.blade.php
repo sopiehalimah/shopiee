@@ -79,11 +79,11 @@
                                         <td>{{ date_format(date_create($orders->created_at),"D, h M Y") }}</td>
                                         <td>{{ "Rp.".number_format($orders->total,0,',','.').",-"}}</td>
                                         <td>
-                                            @if($orders->status == 'pending')
+                                            @if($orders->status == 'Pending')
                                             <span class="label label-warning">{{$orders->status}}</span>
-                                            @elseif($orders->status == 'accepted')
+                                            @elseif($orders->status == 'Accepted')
                                             <span class="label label-info">{{$orders->status}}</span>
-                                            @elseif($orders->status == 'sent')
+                                            @elseif($orders->status == 'Sent')
                                             <span class="label label-warning">{{$orders->status}}</span>
                                             @else
                                             <span class="label label-success">{{$orders->status}}</span>

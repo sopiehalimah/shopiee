@@ -57,11 +57,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if($order->status == 'sent')
+                                            @if($order->status == 'Sent')
                                             <form action="{{url('/done/'.$order->code_order)}}" method="post">
                                                 {!! csrf_field() !!}
 
-                                            <input type="hidden" name="status" value="done">
+                                            <input type="hidden" name="status" value="Done">
                                             <button type="submit" class="btn btn-success waves-effect">Finish Order</button>
                                             <input type="hidden" name="id" value="{{ $order->id }}">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

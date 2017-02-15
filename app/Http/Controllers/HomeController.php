@@ -556,20 +556,20 @@ class HomeController extends Controller
     public function order_table()
     {
         // $data = array('data'=>order::where('status' == 'pending')->get());
-        $data['data'] = order::where('status','pending')->orderBy('id','desc')->get();
+        $data['data'] = order::where('status','Pending')->orderBy('id','desc')->get();
         return view('admin/order/table')->with($data);
     }
 
     public function order_sent()
     {
-        $data['data'] = order::where('confirm','confirmed')->where('status','accepted')->orderBy('id','desc')->get();
+        $data['data'] = order::where('confirm','confirmed')->where('status','Accepted')->orderBy('id','desc')->get();
         return view('admin/order/sent')->with($data);
     }
 
 
     public function accept_order(Request $r ,$code_order)
     {
-        $select_order = order::where('code_order',$code_order)->update(['status'=>'accepted']);
+        $select_order = order::where('code_order',$code_order)->update(['status'=>'Accepted']);
         // $order  = order::find($select_order->id);
         // $order->status = 'accepted';
         // $order->save();
@@ -581,7 +581,7 @@ class HomeController extends Controller
 
     public function sent_order(Request $r ,$code_order)
     {
-        $select_order = order::where('code_order',$code_order)->update(['status'=>'sent']);
+        $select_order = order::where('code_order',$code_order)->update(['status'=>'Sent']);
         // $order  = order::find($select_order->id);
         // $order->status = 'accepted';
         // $order->save();
@@ -592,7 +592,7 @@ class HomeController extends Controller
     }
     public function done_order(Request $r ,$code_order)
     {
-        $select_order = order::where('code_order',$code_order)->update(['status'=>'done']);
+        $select_order = order::where('code_order',$code_order)->update(['status'=>'Done']);
         // $order  = order::find($select_order->id);
         // $order->status = 'accepted';
         // $order->save();
@@ -605,7 +605,7 @@ class HomeController extends Controller
      //ORDER
      public function mail_order_data()
     {
-        $data['data'] = order::where('status','accepted')->get();
+        $data['data'] = order::where('status','Accepted')->get();
         return view('admin/order/info_all')->with($data);
     }
     public function mail_order($code_order)
@@ -621,7 +621,7 @@ class HomeController extends Controller
 
     public function order_all()
     {
-        $data['data'] = order::where('status','sent')->where('evidence','!=', 'not yet','||','evidence','==','not yet')->get();
+        $data['data'] = order::where('status','!=','Pending')->get();
         return view('admin/order/all')->with($data);
     }
 
@@ -653,8 +653,10 @@ class HomeController extends Controller
           $a->Username = "sopiehalimah@gmail.com";
           $a->Password = "chanyeol";
           $a->SetFrom("sopiehalimah@gmail.com","Sopie Halimah");
-          $a->Subject = "Detail Pemesanan";
-          $a->MsgHTML('<h1>'.'#'.'<a href="http://localhost:8000/orders/confirm/">'.$code_shipping.'</a>'.'</h1>'
+          $a->Subject = "Confirmation Order Shopiee";
+          $a->MsgHTML(  '<h2>'.'Hi '.$id_user.' ,'.'</h2>'.
+                        '<h3>'.'Please confirmed check your order with an order code # '.'<a href="http://shopiee.ga/orders/confirm/">'.$code_shipping.'</a>'.' and would soon be at your address. For more information, please visit the Help Center or contact our '.'<a href="http://shopiee.ga/contact/">'.'Customer Service.'.'</a>'.'</h3>'
+
                         // '<br>'.
                         // '<table border="1" style="width:500px;text-align:center;">'.
                         //         '<thead>'.
