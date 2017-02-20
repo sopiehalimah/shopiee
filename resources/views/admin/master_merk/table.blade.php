@@ -33,7 +33,6 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Code</th>
                                         <th>Name</th>
                                         <th>Action</th>
                                     </tr>
@@ -43,7 +42,6 @@
                                 @foreach($data as $merk)
                                     <tr>
                                         <td>{{$i++}}.</td>
-                                        <td>{{$merk->code}}</td>
                                         <td>{{$merk->name}}</td>
                                         <td>
                                             <a href="{{ url('/master_merk/edit/'.$merk->id) }}" class="btn btn-primary waves-effect">Edit</a>

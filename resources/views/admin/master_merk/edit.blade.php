@@ -37,12 +37,6 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <label>Code</label>
-                                        <input type="text" class="form-control" name="code" value="{{$data->code}}" required>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
                                         <label>Name</label>
                                         <input type="text" class="form-control" name="name" value="{{$data->name}}" required>
                                     </div>

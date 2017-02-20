@@ -59,7 +59,7 @@
                     <li><a href="#" data-toggle="modal" data-target="#register-modal">Register</a>
                     </li>
                     @else
-                    <li><a href="{{ url('/orders/history/') }}">Orders History</a>
+                    <li><a href="{{ url('/orders/history/user/'.Auth::User()->email) }}">Orders History</a>
                     </li>
                     <li><a href="#" data-toggle="modal" data-target="#logout-modal">{{ Auth::user()->name }}<i class="fa fa-cogs"></i></a>
                     </li>
@@ -241,24 +241,31 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li class="active"><a href="{{url('/')}}">Home</a>
                     </li>
-                    @foreach($master_parents as $key => $master_parent)
-                    @if($master_parent->class == null)
+                    @foreach($master_types as $key => $master_type)
+                    @if($master_type->class == null)
                     <li class="active"><a href="index.html">Home</a>
                     </li>
                     @else
                     <li class="dropdown yamm-fw">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">{{ $master_parent->name }}<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">{{ $master_type->name }}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <div class="yamm-content">
                                     <div class="row">
-                                     @foreach($master_parent->class as $clas)
+                                     @foreach($master_type->class as $clas)
                                         <div class="col-sm-3">
                                             <h5>{{$clas->name}}</h5>
                                             <ul>
                                             @foreach($clas->class2 as $clas2)
                                             @if($clas2->class3 == null)
-                                                <li><a href="{{ url('category/'.$clas2->code) }}">{{ $clas2->name }}</a>
+
+                                                <?php
+                                                $master_type_name = strtolower($master_type->name);
+                                                $type_name = strtolower($clas->name);
+                                                $sub_type_name = strtolower($clas2->name);
+                                                ?>
+
+                                                <li><a href="{{ url('category/'.$master_type_name.'/'.$type_name.'/'.$sub_type_name) }}">{{ $clas2->name }}</a>
                                                 </li>
                                             @else
                                             @foreach($clas2->class3 as $class4)
@@ -268,7 +275,7 @@
                                             @endif
                                             @endforeach
                                             </ul>
-                                        </div>
+                                        </div>  
                                     @endforeach 
                                     </div>
                                 </div>
@@ -369,12 +376,12 @@
                         <h4>Top categories</h4>
 
                         <ul>
-                            @foreach($master_parents as $key => $master_parent)
-                            @if($master_parent->class == null)
+                            @foreach($master_types as $key => $master_type)
+                            @if($master_type->class == null)
                             <li class="active">
-                                    <h4><a href="{{ url('categorys/'.$master_parent->code) }}">{{ $master_parent->name }}</a></h4>
+                                    <h4><a href="{{ url('categorys/'.$master_type->code) }}">{{ $master_type->name }}</a></h4>
                                     <ul>
-                                    @foreach($master_parent->class as $clas)
+                                    @foreach($master_type->class as $clas)
                                         <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
                                         </li>
                                     @endforeach 
@@ -382,10 +389,10 @@
                             </li>
                             @else
                             <li>
-                                    <h4><a href="{{ url('categorys/'.$master_parent->code) }}">{{ $master_parent->name }}
+                                    <h4><a href="{{ url('categorys/'.$master_type->code) }}">{{ $master_type->name }}
                                     </a></h4>
                                     <ul>
-                                    @foreach($master_parent->class as $clas)
+                                    @foreach($master_type->class as $clas)
                                         <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
                                         </li>
                                     @endforeach 

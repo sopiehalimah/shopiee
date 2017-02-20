@@ -12,7 +12,7 @@
                     <ul class="breadcrumb">
                         <li><a href="{{url('/')}}">Home</a>
                         </li>
-                        <li><a href="{{url('/orders/history')}}">My orders</a>
+                        <li><a href="{{url('/orders/history/user/'.Auth::User()->email)}}">My orders</a>
                         </li>
                     </ul>
 
@@ -33,9 +33,9 @@
                                             <input type="hidden" name="id_user" value="{{$conf->id_user}}">
                                             <input type="hidden" name="code_order" value="{{$conf->code_order}}">
                                             <input type="hidden" name="code" value="{{$conf->code}}">
-                                            <input type="hidden" name="code_parent" value="{{$conf->code_parent}}">
-                                            <input type="hidden" name="code_kind" value="{{$conf->code_kind}}">
-                                            <input type="hidden" name="code_type" value="{{$conf->code_type}}">
+                                            <input type="hidden" name="master_type_id" value="{{$conf->master_type_id}}">
+                                            <input type="hidden" name="type_id" value="{{$conf->type_id}}">
+                                            <input type="hidden" name="sub_type_id" value="{{$conf->sub_type_id}}">
                                             <input type="hidden" name="code_merk" value="{{$conf->code_merk}}">
                                             <input type="hidden" name="pict_product1" value="{{$conf->pict_product1}}">
                                             <input type="hidden" name="pict_product2" value="{{$conf->pict_product2}}">
@@ -47,6 +47,7 @@
                                             <input type="hidden" name="kuantitas" value="{{$conf->kuantitas}}">
 
                                             <input type="hidden" name="subtotal" value="{{$conf->subtotal}}">
+                                            <input type="hidden" name="sub_total" value="{{$conf->sub_total}}">
                                             <input type="hidden" name="total" value="{{$conf->total}}">
                                             <input type="hidden" name="status" value="{{$conf->status}}">
                                             <input type="hidden" name="evidence" value="{{$conf->evidence}}">

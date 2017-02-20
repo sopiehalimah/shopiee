@@ -13,9 +13,16 @@ use App\master_blog;
 use App\master_parent;
 use App\master_kind;
 use App\master_type;
+use App\type;
+use App\sub_type;
 use App\master_merk;
 use App\product;
+use App\shipping;
+use App\User;
 use App\order;
+use App\contact;
+use App\category;
+use App\article;
 
 class HomeController extends Controller
 {
@@ -36,54 +43,58 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $product = array('product'=>product::orderBy('id','desc')->limit(4)->get());
+        $product = array('product'=>product::all());
         $advertisement = array('advertisement'=>advertisement::all());
-        return view('home')->with($product)->with($advertisement);
+        $req_order['req_order'] = order::where('status','Pending')->get();
+        $all_order['all_order'] = order::where('status','!=','Pending')->get();
+        $customer['customer'] = User::where('role','member')->get();
+        $contact['contact'] = contact::all();
+        return view('home')->with($product)->with($advertisement)->with($req_order)->with($all_order)->with($customer)->with($contact);
     }
 
 
 
     //MASTER BLOG
 
-    public function master_blog_add()
+    public function master_category_add()
     {
-        return view('/admin/master_blog/add');
+        return view('/admin/master_category/add');
     }
 
-    public function master_blog_table() 
+    public function master_category_table() 
     {
-        $data = array('data'=>master_blog::all());
-        return view('admin.master_blog.table')->with($data);
+        $data = array('data'=>category::all());
+        return view('admin/master_category/table')->with($data);
     }
 
-    public function master_blog_save()
+    public function master_category_save()
     {
 
-        $data = new master_blog;
-        $data->category = Input::get('category');
+        $data = new category;
+        $data->name = Input::get('name');
         $data->save();
 
-        return redirect(url('/master_blog/table'));
+        return redirect(url('/master_category/table'));
     }
 
-    public function master_blog_edit($id) 
+    public function master_category_edit($id) 
     {
-        $data = array('data'=>master_blog::find($id));
-        return view('admin.master_blog.edit')->with($data);
+        $data = array('data'=>category::find($id));
+        return view('admin/master_category/edit')->with($data);
     }
 
-    public function master_blog_update() 
+    public function master_category_update() 
     {
-        $data = master_blog::find(Input::get('id'));
-        $data->category = Input::get('category');
+        $data = category::find(Input::get('id'));
+        $data->name = Input::get('name');
         $data->save();
 
-        return redirect(url('/master_blog/table'));
+        return redirect(url('/master_category/table'));
     }
 
-    public function master_blog_delete($id)
+    public function master_category_delete($id)
     {
-        master_blog::find($id)->delete();
+        category::find($id)->delete();
         return redirect()->back();
     }
 
@@ -91,24 +102,24 @@ class HomeController extends Controller
 
     //BLOG
 
-    public function blog_add()
+    public function article_add()
     {
-        $master_blog = master_blog::all();
-        return view('/admin/blog/add')->with('master_blogs',$master_blog);
+        $category = category::all();
+        return view('/admin/article/add')->with('categorys',$category);
     }
 
-    public function blog_table() 
+    public function article_table() 
     {
 
-        $data = array('data'=>blog::all());
-        return view('/admin/blog/table')->with($data);
+        $data = array('data'=>article::all());
+        return view('/admin/article/table')->with($data);
     }
 
-    public function blog_save()
+    public function article_save()
     {
-        $data = new blog;
+        $data = new article;
         $data->title = Input::get('title');
-        $data->category = Input::get('category');
+        $data->category_id = Input::get('category_id');
         $data->content = Input::get('content');
         $data->slug = str_slug(Input::get('title'));
         $data->author = Input::get('author');
@@ -125,21 +136,21 @@ class HomeController extends Controller
          }
         $data->save();
 
-        return redirect(url('/blog/table'));
+        return redirect(url('/article/table'));
     }
 
-    public function blog_edit($id) 
+    public function article_edit($id) 
     {
-        $master_blog = master_blog::all();
-        $data = array('data'=>blog::find($id));
-        return view('admin.blog.edit')->with($data)->with('master_blogs',$master_blog);
+        $category = category::all();
+        $data = array('data'=>article::find($id));
+        return view('admin.article.edit')->with($data)->with('categorys',$category);
     }
 
-    public function blog_update() 
+    public function article_update() 
     {
-        $data = blog::find(Input::get('id'));
+        $data = article::find(Input::get('id'));
         $data->title = Input::get('title');
-        $data->category = Input::get('category');
+        $data->category_id = Input::get('category_id');
         $data->content = Input::get('content');
         $data->author = Input::get('author');
 
@@ -156,12 +167,12 @@ class HomeController extends Controller
 
         $data->save();
 
-        return redirect(url('/blog/table'));
+        return redirect(url('/article/table'));
     }
 
-    public function blog_delete($id)
+    public function article_delete($id)
     {
-        blog::find($id)->delete();
+        article::find($id)->delete();
         return redirect()->back();
     }
 
@@ -170,8 +181,8 @@ class HomeController extends Controller
 
     public function advertisement_add()
     {
-        $master_blog = master_blog::all();
-        return view('/admin/advertisement/add')->with('master_blogs',$master_blog);
+        $category = category::all();
+        return view('/admin/advertisement/add')->with('categorys',$category);
     }
 
     public function advertisement_table() 
@@ -184,7 +195,7 @@ class HomeController extends Controller
     public function advertisement_save()
     {
         $data = new advertisement;
-        $data->category = Input::get('category');
+        $data->category_id = Input::get('category_id');
 
         if(Input::hasFile('pict_ad')){
             $pict_ad = date('YmdHis')
@@ -203,15 +214,15 @@ class HomeController extends Controller
 
     public function advertisement_edit($id) 
     {
-        $master_blog = master_blog::all();
+        $category = category::all();
         $data = array('data'=>advertisement::find($id));
-        return view('admin.advertisement.edit')->with($data)->with('master_blogs',$master_blog);
+        return view('admin.advertisement.edit')->with($data)->with('categorys',$category);
     }
 
     public function advertisement_update() 
     {
         $data = advertisement::find(Input::get('id'));
-        $data->category = Input::get('category');
+        $data->category_id = Input::get('category_id');
 
         if(Input::hasFile('pict_ad')){
             $pict_ad = date('YmdHis')
@@ -239,48 +250,46 @@ class HomeController extends Controller
 
     //MASTER PARENT
 
-    public function master_parent_add()
+    public function master_type_add()
     {
-        $data = array('data'=>master_parent::all());
-        return view('/admin/master_parent/add')->with($data);
+        $data = array('data'=>master_type::all());
+        return view('/admin/master_type/add')->with($data);
     }
 
-    public function master_parent_table() 
+    public function master_type_table() 
     {
-        $data = array('data'=>master_parent::all());
-        return view('admin.master_parent.table')->with($data);
+        $data = array('data'=>master_type::all());
+        return view('admin.master_type.table')->with($data);
     }
 
-    public function master_parent_save()
+    public function master_type_save()
     {
 
-        $data = new master_parent;
-        $data->code = Input::get('code');
+        $data = new master_type;
         $data->name = Input::get('name');
         $data->save();
 
-        return redirect(url('/master_parent/table'));
+        return redirect(url('/master_type/table'));
     }
 
-    public function master_parent_edit($id) 
+    public function master_type_edit($id) 
     {
-        $data = array('data'=>master_parent::find($id));
-        return view('admin.master_parent.edit')->with($data);
+        $data = array('data'=>master_type::find($id));
+        return view('admin.master_type.edit')->with($data);
     }
 
-    public function master_parent_update() 
+    public function master_type_update() 
     {
-        $data = master_parent::find(Input::get('id'));
-        $data->code = Input::get('code');
+        $data = master_type::find(Input::get('id'));
         $data->name = Input::get('name');
         $data->save();
 
-        return redirect(url('/master_parent/table'));
+        return redirect(url('/master_type/table'));
     }
 
-    public function master_parent_delete($id)
+    public function master_type_delete($id)
     {
-        master_parent::find($id)->delete();
+        master_type::find($id)->delete();
         return redirect()->back();
     }
 
@@ -288,51 +297,49 @@ class HomeController extends Controller
 
     //MASTER KIND
 
-    public function master_kind_add()
+    public function type_add()
     {
-        $master_parent = master_parent::all();
-        return view('/admin/master_kind/add')->with('master_parents',$master_parent);
+        $master_type = master_type::all();
+        return view('/admin/type/add')->with('master_types',$master_type);
     }
 
-    public function master_kind_table() 
+    public function type_table() 
     {
-        $data = array('data'=>master_kind::all());
-        return view('admin.master_kind.table')->with($data);
+        $data = array('data'=>type::all());
+        return view('admin.type.table')->with($data);
     }
 
-    public function master_kind_save()
+    public function type_save()
     {
 
-        $data = new master_kind;
-        $data->code = Input::get('code');
-        $data->code_parent = Input::get('code_parent');
+        $data = new type;
+        $data->master_type_id = Input::get('master_type_id');
         $data->name = Input::get('name');
         $data->save();
 
-        return redirect(url('/master_kind/table'));
+        return redirect(url('/type/table'));
     }
 
-    public function master_kind_edit($id) 
+    public function type_edit($id) 
     {
-        $master_parent = master_parent::all();
-        $data = array('data'=>master_kind::find($id));
-        return view('admin.master_kind.edit')->with($data)->with('master_parents',$master_parent);
+        $master_type = master_type::all();
+        $data = array('data'=>type::find($id));
+        return view('admin.type.edit')->with($data)->with('master_types',$master_type);
     }
 
-    public function master_kind_update() 
+    public function type_update() 
     {
-        $data = master_kind::find(Input::get('id'));
-        $data->code = Input::get('code');
-        $data->code_parent = Input::get('code_parent');
+        $data = type::find(Input::get('id'));
+        $data->master_type_id = Input::get('master_type_id');
         $data->name = Input::get('name');
         $data->save();
 
-        return redirect(url('/master_kind/table'));
+        return redirect(url('/type/table'));
     }
 
-    public function master_kind_delete($id)
+    public function type_delete($id)
     {
-        master_kind::find($id)->delete();
+        type::find($id)->delete();
         return redirect()->back();
     }
 
@@ -354,7 +361,6 @@ class HomeController extends Controller
     {
 
         $data = new master_merk;
-        $data->code = Input::get('code');
         $data->name = Input::get('name');
         $data->save();
 
@@ -370,7 +376,6 @@ class HomeController extends Controller
     public function master_merk_update() 
     {
         $data = master_merk::find(Input::get('id'));
-        $data->code = Input::get('code');
         $data->name = Input::get('name');
         $data->save();
 
@@ -386,55 +391,53 @@ class HomeController extends Controller
 
     //MASTER TYPE
 
-    public function master_type_add()
+    public function sub_type_add()
     {
-        $master_parent = master_parent::all();
-        $master_kind = master_kind::all();
-        return view('/admin/master_type/add')->with('master_parents',$master_parent)->with('master_kinds',$master_kind);
+        $master_type = master_type::all();
+        $type = type::all();
+        return view('/admin/sub_type/add')->with('master_types',$master_type)->with('types',$type);
     }
 
-    public function master_type_table() 
+    public function sub_type_table() 
     {
-        $data = array('data'=>master_type::all());
-        return view('admin.master_type.table')->with($data);
+        $data = array('data'=>sub_type::all());
+        return view('admin.sub_type.table')->with($data);
     }
 
-    public function master_type_save()
+    public function sub_type_save()
     {
 
-        $data = new master_type;
-        $data->code = Input::get('code');
-        $data->code_parent = Input::get('code_parent');
-        $data->code_kind = Input::get('code_kind');
+        $data = new sub_type;
+        $data->master_type_id = Input::get('master_type_id');
+        $data->type_id = Input::get('type_id');
         $data->name = Input::get('name');
         $data->save();
 
-        return redirect(url('/master_type/table'));
+        return redirect(url('/sub_type/table'));
     }
 
-    public function master_type_edit($id) 
+    public function sub_type_edit($id) 
     {
-        $master_parent = master_parent::all();
-        $master_kind = master_kind::all();
-        $data = array('data'=>master_type::find($id));
-        return view('admin.master_type.edit')->with($data)->with('master_parents',$master_parent)->with('master_kinds',$master_kind);
+        $master_type = master_type::all();
+        $type = type::all();
+        $data = array('data'=>sub_type::find($id));
+        return view('admin.sub_type.edit')->with($data)->with('master_types',$master_type)->with('types',$type);
     }
 
-    public function master_type_update() 
+    public function sub_type_update() 
     {
-        $data = master_type::find(Input::get('id'));
-        $data->code = Input::get('code');
-        $data->code_parent = Input::get('code_parent');
-        $data->code_kind = Input::get('code_kind');
+        $data = sub_type::find(Input::get('id'));
+        $data->master_type_id = Input::get('master_type_id');
+        $data->type_id = Input::get('type_id');
         $data->name = Input::get('name');
         $data->save();
 
-        return redirect(url('/master_type/table'));
+        return redirect(url('/sub_type/table'));
     }
 
-    public function master_type_delete($id)
+    public function sub_type_delete($id)
     {
-        master_type::find($id)->delete();
+        sub_type::find($id)->delete();
         return redirect()->back();
     }
 
@@ -443,11 +446,11 @@ class HomeController extends Controller
 
     public function product_add()
     {
-        $master_parent = master_parent::all();
-        $master_kind = master_kind::all();
         $master_type = master_type::all();
+        $type = type::all();
+        $sub_type = sub_type::all();
         $master_merk = master_merk::all();
-        return view('/admin/product/add')->with('master_parents', $master_parent)->with('master_kinds',$master_kind)->with('master_types',$master_type)->with('master_merks', $master_merk);
+        return view('/admin/product/add')->with('master_types',$master_type)->with('types',$type)->with('sub_types',$sub_type)->with('master_merks', $master_merk);
     }
 
     public function product_table() 
@@ -461,9 +464,9 @@ class HomeController extends Controller
 
         $data = new product;
         $data->code = Input::get('code');
-        $data->code_parent = Input::get('code_parent');
-        $data->code_kind = Input::get('code_kind');
-        $data->code_type = Input::get('code_type');
+        $data->master_type_id = Input::get('master_type_id');
+        $data->type_id = Input::get('type_id');
+        $data->sub_type_id = Input::get('sub_type_id');
         $data->code_merk = Input::get('code_merk');
         $data->name = Input::get('name');
         $data->price = Input::get('price');
@@ -498,21 +501,21 @@ class HomeController extends Controller
 
     public function product_edit($id) 
     {
-        $master_parent = master_parent::all();
-        $master_kind = master_kind::all();
         $master_type = master_type::all();
+        $type = type::all();
+        $sub_type = sub_type::all();
         $master_merk = master_merk::all();
         $data = array('data'=>product::find($id));
-        return view('admin.product.edit')->with($data)->with('master_parents', $master_parent)->with('master_kinds',$master_kind)->with('master_types',$master_type)->with('master_merks', $master_merk);
+        return view('admin.product.edit')->with($data)->with('master_types',$master_type)->with('types',$type)->with('sub_types',$sub_type)->with('master_merks', $master_merk);
     }
 
     public function product_update() 
     {
         $data = product::find(Input::get('id'));
         $data->code = Input::get('code');
-        $data->code_parent = Input::get('code_parent');
-        $data->code_kind = Input::get('code_kind');
-        $data->code_type = Input::get('code_type');
+        $data->master_type_id = Input::get('master_type_id');
+        $data->type_id = Input::get('type_id');
+        $data->sub_type_id = Input::get('sub_type_id');
         $data->code_merk = Input::get('code_merk');
         $data->name = Input::get('name');
         $data->price = Input::get('price');
@@ -555,8 +558,7 @@ class HomeController extends Controller
     //ORDER
     public function order_table()
     {
-        // $data = array('data'=>order::where('status' == 'pending')->get());
-        $data['data'] = order::where('status','Pending')->orderBy('id','desc')->get();
+        $data = array('data'=>order::select('code_order','code_shipping','total','id_user','status','payment','evidence')->groupBy('code_order','code_shipping','status','id_user','total','payment','evidence')->orwhere('status','Pending')->orwhere('status','Accepted')->get());
         return view('admin/order/table')->with($data);
     }
 
@@ -655,7 +657,8 @@ class HomeController extends Controller
           $a->SetFrom("sopiehalimah@gmail.com","Sopie Halimah");
           $a->Subject = "Confirmation Order Shopiee";
           $a->MsgHTML(  '<h2>'.'Hi '.$id_user.' ,'.'</h2>'.
-                        '<h3>'.'Please confirmed check your order with an order code # '.'<a href="http://shopiee.ga/orders/confirm/">'.$code_shipping.'</a>'.' and would soon be at your address. For more information, please visit the Help Center or contact our '.'<a href="http://shopiee.ga/contact/">'.'Customer Service.'.'</a>'.'</h3>'
+                        '<h3>'.$code_shipping.'</h3>'.
+                        'Please confirmed check your order with an order code '.'<a href="http://shopiee.ga/orders/confirm/">'.'click here'.'</a>'.' and would soon be at your address. For more information, please visit the Help Center or contact our '.'<a href="http://shopiee.ga/contact/">'.'Customer Service.'.'</a>'
 
                         // '<br>'.
                         // '<table border="1" style="width:500px;text-align:center;">'.
@@ -695,6 +698,112 @@ class HomeController extends Controller
 
         return redirect(url('/order/mail'));
           // return $data;
+        }
+
+        //CUSTOMERS
+        public function customer_table()
+        {
+            $data['data'] = User::where('role','member')->get();
+            return view('admin/customer/table')->with($data);
+        }
+        public function customer_edit($id)
+        {
+            $data = array('data'=>User::find($id));
+            return view('admin/customer/edit')->with($data);
+
+        }
+        public function customer_update()
+        {
+            $data = User::find(Input::get('id'));
+            $data->name = Input::get('name');
+            $data->email = Input::get('email');
+            $data->gender = Input::get('gender');
+
+
+
+            if(Input::hasFile('pict_user')){
+                $pict_user = date('YmdHis')
+                .uniqid()
+                ."."
+                .Input::file('pict_user')->getClientOriginalExtension();
+
+                Input::file('pict_user')->move(storage_path(),$pict_user);
+                $data->pict_user = $pict_user;
+
+             }
+
+            $data->save();
+
+            return redirect(url('/customer/table'));
+        }
+        public function customer_delete($id)
+        {
+            User::find($id)->delete();
+            return redirect()->back();
+        }
+
+        //CONTACT
+        public function contact_table()
+        {
+            $data['data'] = contact::all();
+            return view('admin/contact/table')->with($data);
+        }
+        public function contact_edit($id)
+        {
+            $data = array('data'=>contact::find($id));
+            return view('admin/contact/edit')->with($data);
+
+        }
+        public function contact_update()
+        {
+            $data = contact::find(Input::get('id'));
+            $data->name = Input::get('name');
+            $data->id_user = Input::get('id_user');
+            $data->email = Input::get('email');
+            $data->subject = Input::get('subject');
+            $data->message = Input::get('message');
+
+            $data->save();
+
+            return redirect(url('/contact/table'));
+        }
+        public function contact_delete($id)
+        {
+            contact::find($id)->delete();
+            return redirect()->back();
+        }
+
+
+        //ADMIN
+        public function profile_admin($id)
+        {
+            $data = array('data'=>User::find($id));
+            return view('admin/user_admin/profile')->with($data);
+
+        }
+        public function profile_admin_update()
+        {
+            $data = User::find(Input::get('id'));
+            $data->name = Input::get('name');
+            $data->email = Input::get('email');
+            $data->gender = Input::get('gender');
+
+
+
+            if(Input::hasFile('pict_user')){
+                $pict_user = date('YmdHis')
+                .uniqid()
+                ."."
+                .Input::file('pict_user')->getClientOriginalExtension();
+
+                Input::file('pict_user')->move(storage_path(),$pict_user);
+                $data->pict_user = $pict_user;
+
+             }
+
+            $data->save();
+
+            return redirect(url('/home'));
         }
 
 

@@ -33,12 +33,6 @@
                         {!! csrf_field() !!}
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="code" required>
-                                        <label class="form-label">Code</label>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
                                         <input type="text" class="form-control" name="name" required>
                                         <label class="form-label">Name</label>
                                     </div>

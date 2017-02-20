@@ -137,17 +137,17 @@
                         <h3>Get Inspired</h3>
                         <p class="lead">Get the inspiration from our world class designers</p>
                         <div id="get-inspired" class="owl-carousel owl-theme">
-                            @foreach($blogs as $key => $blog)
+                            @foreach($articles as $key => $article)
                             @if($key == 0)
                             <div class="item">
                                 <a href="#">
-                                    <img src="{{ url('pict/'.$blog->pict) }}" alt="Get inspired" class="img-responsive" style="height: 500px; width: 100%;">
+                                    <img src="{{ url('pict/'.$article->pict) }}" alt="Get inspired" class="img-responsive" style="height: 500px; width: 100%;">
                                 </a>
                             </div>
                             @else
                             <div class="item">
                                 <a href="#">
-                                    <img src="{{ url('pict/'.$blog->pict) }}" alt="Get inspired" class="img-responsive" style="height: 500px; width: 100%;">
+                                    <img src="{{ url('pict/'.$article->pict) }}" alt="Get inspired" class="img-responsive" style="height: 500px; width: 100%;">
                                 </a>
                             </div>
                             @endif
@@ -159,15 +159,15 @@
             </div>
             <!-- *** GET INSPIRED END *** -->
 
-            <!-- *** BLOG HOMEPAGE ***
+            <!-- *** article HOMEPAGE ***
  _________________________________________________________ -->
 
             <div class="box text-center" data-animate="fadeInUp">
                 <div class="container">
                     <div class="col-md-12">
-                        <h3 class="text-uppercase">From our blog</h3>
+                        <h3 class="text-uppercase">From our article</h3>
 
-                        <p class="lead">What's new in the world of fashion? <a href="{{url('/blogs')}}">Check our blog!</a>
+                        <p class="lead">What's new in the world of fashion? <a href="{{url('/articles')}}">Check our article!</a>
                         </p>
                     </div>
                 </div>
@@ -178,26 +178,30 @@
                 <div class="col-md-12" data-animate="fadeInUp">
 
                     <div id="blog-homepage" class="row">
-                        @foreach($blog1 as $key => $blog)
+                        @foreach($article1 as $key => $article)
                         <div class="col-sm-6">
                             <div class="post">
-                                <h4><a href="post.html">{{$blog->title}}</a></h4>
-                                <p class="author-category">By <a href="#">{{$blog->author}}</a> in <a href="">{{$blog->id_category}}</a>
+                                <h4><a href="post.html">{{$article->title}}</a></h4>
+                                <p class="author-category">By <a href="#">{{$article->author}}</a> in <a href="">{{$article->id_category}}</a>
                                 </p>
                                 <hr>
-                                <p class="intro"><?php echo substr("$blog->content", 0,200);?>...</p>
-                                <p class="read-more"><a href="{{ url('blogs/'.$blog->slug) }}" class="btn btn-primary">Continue reading</a>
+                                <p class="intro"><?php echo substr("$article->content", 0,200);?>...</p>
+                                <?php
+                                    $category_id = strtolower($article->category_id);
+                                    $slug = strtolower($article->slug);
+                                ?>
+                                <p class="read-more"><a href="{{ url('articles/'.$category_id.'/'.$slug) }}" class="btn btn-primary">Continue reading</a>
                                 </p>
                             </div>
                         </div>
                         @endforeach
                     </div>
-                    <!-- /#blog-homepage -->
+                    <!-- /#article-homepage -->
                 </div>
             </div>
             <!-- /.container -->
 
-            <!-- *** BLOG HOMEPAGE END *** -->
+            <!-- *** article HOMEPAGE END *** -->
 
 
         </div>

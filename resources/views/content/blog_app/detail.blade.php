@@ -13,13 +13,16 @@
                     <ul class="breadcrumb">
 
                         <li><a href="{{url('/')}}">Home</a></li>
-                        <li><a href="{{url('/blogs')}}">Blog</a></li>
-                        <li><a href="{{url('category/blog/'.$data->category)}}">{{$data->category}}</a></li>
+                        <li><a href="{{url('/articles')}}">Article</a></li>
+                        <?php
+                            $category_id = ucwords(session("category_id"));
+                        ?>
+                        <li><a href="{{url('/article/category/'.session('category_id'))}}"">{{$category_id}}</a></li>
                         <li>{{$data->title}}</li>
                     </ul>
                 </div>
 
-                <div class="col-sm-9" id="blog-post">
+                <div class="col-sm-9" id="article-post">
 
 
                     <div class="box">
@@ -29,7 +32,7 @@
                         <div id="post-content">
 
                             <p>
-                                <img src="{{ url('pict/'.$data->pict) }}" class="img-responsive" alt="Example blog post alt" style="width: 100%;">
+                                <img src="{{ url('pict/'.$data->pict) }}" class="img-responsive" alt="Example article post alt" style="width: 100%;">
                             </p>
 
                             <blockquote>
@@ -48,7 +51,7 @@
                             <div class="row comment">
                                 <div class="col-sm-3 col-md-2 text-center-xs">
                                     <p>
-                                        <img src="img/blog-avatar2.jpg" class="img-responsive img-circle" alt="">
+                                        <img src="img/article-avatar2.jpg" class="img-responsive img-circle" alt="">
                                     </p>
                                 </div>
                                 <div class="col-sm-9 col-md-10">
@@ -67,7 +70,7 @@
 
                                 <div class="col-sm-3 col-md-2 text-center-xs">
                                     <p>
-                                        <img src="img/blog-avatar.jpg" class="img-responsive img-circle" alt="">
+                                        <img src="img/article-avatar.jpg" class="img-responsive img-circle" alt="">
                                     </p>
                                 </div>
 
@@ -138,23 +141,26 @@
                     </div>
                     <!-- /.box -->
                 </div>
-                <!-- /#blog-post -->
+                <!-- /#article-post -->
 
                 <div class="col-md-3">
-                    <!-- *** BLOG MENU ***
+                    <!-- *** article MENU ***
  _________________________________________________________ -->
                     <div class="panel panel-default sidebar-menu">
 
                         <div class="panel-heading">
-                            <h3 class="panel-title">Blog</h3>
+                            <h3 class="panel-title">article</h3>
                         </div>
 
                         <div class="panel-body">
 
                              <ul class="nav nav-pills nav-stacked">
                                 @foreach($categorys as $key => $category)
+                                <?php 
+                                $category_id = strtolower($category->name)
+                                ?>
                                 <li>
-                                    <a href="{{url('category/blog/'.$category->category)}}">{{$category->category}}</a>
+                                    <a href="{{url('article/category/'.$category_id)}}">{{$category->name}}</a>
                                 </li>
                                 @endforeach
                             </ul>
@@ -163,7 +169,7 @@
                     </div>
                     <!-- /.col-md-3 -->
 
-                    <!-- *** BLOG MENU END *** -->
+                    <!-- *** article MENU END *** -->
 
                         <div class="banner">
                         <a href="#">

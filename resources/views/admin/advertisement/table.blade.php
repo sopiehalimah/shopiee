@@ -43,7 +43,7 @@
                                 @foreach($data as $advertisement)
                                     <tr>
                                         <td>{{$i++}}.</td>
-                                        <td>{{$advertisement->category}}</td>
+                                        <td>{{$advertisement->category_id}}</td>
                                         <td><img src="{{ url('pict_ad/'.$advertisement->pict_ad) }}" alt="" style="max-width:100%;height: 40px;"></td>
                                         <td>
                                             <a href="{{ url('/advertisement/edit/'.$advertisement->id) }}" class="btn btn-primary waves-effect">Edit</a>

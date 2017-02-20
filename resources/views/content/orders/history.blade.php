@@ -30,7 +30,7 @@
 
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="active">
-                                    <a href="{{url('/orders/history')}}"><i class="fa fa-list"></i> My orders</a>
+                                    <a href="{{url('/orders/history/user/'.Auth::User()->email)}}"><i class="fa fa-list"></i> My orders</a>
                                 </li>
                                 <li>
                                     <a href="{{url('/user/account/'.Auth::User()->id)}}"><i class="fa fa-user"></i> My account</a>
@@ -59,7 +59,6 @@
                         <p class="text-muted">If you have any questions, please feel free to <a href="{{url('/contact')}}">contact us</a>, our customer service center is working for you 24/7.</p>
 
                         <hr>
-
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -73,9 +72,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($order as $orders)
+                                @foreach($order1 as $orders)
                                     <tr>
-                                        <th>{{$orders->code_order}}</th>
+                                        <td>{{$orders->code_order}}</td>
                                         <td>{{ date_format(date_create($orders->created_at),"D, h M Y") }}</td>
                                         <td>{{ "Rp.".number_format($orders->total,0,',','.').",-"}}</td>
                                         <td>
@@ -94,13 +93,13 @@
                                         </td>
                                         <td>
                                         @if($orders->payment == "Cash On Delivery")
-                                            <span class="label label-info">Cash On Delivery</span>
+                                            <span class="label label-success">Cash On Delivery</span>
 
                                         @else
 
-
                                             @if($orders->evidence == 'not yet')
-                                            
+                                            <a href="#" data-toggle="modal" data-target="#info-modal" class="btn btn-primary btn-sm">Info Transfering</a>
+                                            <br><br>
                                             <form action="{{url('/payment/evidence/'.$orders->code_order)}}" method="post" enctype="multipart/form-data">
                                                 {!! csrf_field() !!}
 
@@ -108,15 +107,14 @@
                                             <br>
                                             <button type="submit" class="btn btn-primary btn-sm" >Upload Payment Evidence</button>
                                             <br><br>
-                                            <a href="#" data-toggle="modal" data-target="#info-modal" class="btn btn-primary btn-sm">Info Transfering</a>
                                             <input type="hidden" name="id" value="{{ $orders->id }}">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type="hidden" name="id_user" value="{{$orders->id_user}}">
                                             <input type="hidden" name="code_order" value="{{$orders->code_order}}">
                                             <input type="hidden" name="code" value="{{$orders->code}}">
-                                            <input type="hidden" name="code_parent" value="{{$orders->code_parent}}">
-                                            <input type="hidden" name="code_kind" value="{{$orders->code_kind}}">
-                                            <input type="hidden" name="code_type" value="{{$orders->code_type}}">
+                                            <input type="hidden" name="master_type_id" value="{{$orders->master_type_id}}">
+                                            <input type="hidden" name="type_id" value="{{$orders->type_id}}">
+                                            <input type="hidden" name="sub_type_id" value="{{$orders->sub_type_id}}">
                                             <input type="hidden" name="code_merk" value="{{$orders->code_merk}}">
                                             <input type="hidden" name="pict_product1" value="{{$orders->pict_product1}}">
                                             <input type="hidden" name="pict_product2" value="{{$orders->pict_product2}}">
@@ -128,6 +126,8 @@
                                             <input type="hidden" name="kuantitas" value="{{$orders->kuantitas}}">
 
                                             <input type="hidden" name="subtotal" value="{{$orders->subtotal}}">
+                                            <input type="hidden" name="sub_total" value="{{$orders->sub_total}}">
+
                                             <input type="hidden" name="total" value="{{$orders->total}}">
                                             <input type="hidden" name="status" value="{{$orders->status}}">
                                              <input type="hidden" name="evidence" value="{{$orders->evidence}}">

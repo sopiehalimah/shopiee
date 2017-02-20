@@ -27,7 +27,7 @@
                                         <div class="form-group">
                                             <input type="text" name="search_code_order" class="form-control" placeholder="Code Order" required>
                                             <br>
-                                             <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-refresh"></i>Search</button>
+                                             <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-search"></i>Search</button>
                                         </div>
                                         
                                     </div>

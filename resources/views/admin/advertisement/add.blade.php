@@ -33,10 +33,10 @@
                         {!! csrf_field() !!}
 
 			                	<div class="form-group form-float">
-                                    <select class="form-control show-tick" name="category">
+                                    <select class="form-control show-tick" name="category_id">
                                         <option value="">Select Category</option>
-                                        @foreach($master_blogs as $key => $master_blog)
-                                        <option value="{{ $master_blog->category }}">{{ $master_blog->category }}</option>
+                                        @foreach($categorys as $key => $category)
+                                        <option value="{{ $category->name }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
 				            	</div>

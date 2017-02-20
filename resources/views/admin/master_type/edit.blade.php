@@ -37,28 +37,6 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <label>Code</label>
-                                        <input type="text" class="form-control" name="code" value="{{$data->code}}" required>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <label>Select Parent</label>
-                                    <select class="form-control show-tick" name="code_parent">
-                                        @foreach($master_parents as $key => $master_parent)
-                                        <option value="{{$data->code_parent}}">{{ $master_parent->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group form-float">
-                                    <label>Select Kind</label>
-                                    <select class="form-control show-tick" name="code_kind">
-                                        @foreach($master_kinds as $key => $master_kind)
-                                        <option value="{{$data->code_kind}}">{{ $master_kind->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
                                         <label>Name</label>
                                         <input type="text" class="form-control" name="name" value="{{$data->name}}" required>
                                     </div>

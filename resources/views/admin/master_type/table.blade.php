@@ -33,28 +33,25 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Code</th>
-                                        <th>Code Parent</th>
-                                        <th>Code Kind</th>
                                         <th>Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if(count($data))
+
                                 <?php $i = 1; ?>
-                                @foreach($data as $type)
+                                @foreach($data as $master_type)
                                     <tr>
                                         <td>{{$i++}}.</td>
-                                        <td>{{$type->code}}</td>
-                                        <td>{{$type->code_parent}}</td>
-                                        <td>{{$type->code_kind}}</td>
-                                        <td>{{$type->name}}</td>
+                                        <td>{{$master_type->name}}</td>
                                         <td>
-                                            <a href="{{ url('/master_type/edit/'.$type->id) }}" class="btn btn-primary waves-effect">Edit</a>
-                                            <a href="{{ url('/master_type/delete/'.$type->id) }}" onclick="return confirm('Delete?')" class="btn bg-red waves-effect">Delete</a>
+                                            <a href="{{ url('/master_type/edit/'.$master_type->id) }}" class="btn btn-primary waves-effect">Edit</a>
+                                            <a href="{{ url('/master_type/delete/'.$master_type->id) }}" onclick="return confirm('Delete?')" class="btn bg-red waves-effect">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>

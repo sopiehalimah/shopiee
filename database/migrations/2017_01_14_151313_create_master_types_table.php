@@ -15,9 +15,6 @@ class CreateMasterTypesTable extends Migration
     {
         Schema::create('master_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
-            $table->string('code_parent');
-            $table->string('code_kind');
             $table->string('name');
             $table->timestamps();
         });

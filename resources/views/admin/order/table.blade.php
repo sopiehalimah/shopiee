@@ -39,6 +39,9 @@
                                         <th>Name User</th>
                                         <th>Total</th>
                                         <th>Status</th>
+                                        <th>Proof of payment</th>
+                                        <th>Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,7 +52,44 @@
                                         <td>{{$order->id_user}}</td>
                                         <td>{{ "Rp.".number_format($order->total,0,',','.').",-" }}</td>
                                         <td>
-                                            @if($order->status == 'Pending')
+                                            @if($order->payment == "Transfer")
+                                                
+                                                @if($order->evidence != "not yet")
+                                                @if($order->status == 'Pending')
+                                                <form action="{{url('/accept/'.$order->code_order)}}" method="post">
+                                                    {!! csrf_field() !!}
+
+                                                <input type="hidden" name="status" value="Accepted">
+                                                <button type="submit" class="btn btn-success waves-effect">Accept</button>
+                                                <input type="hidden" name="id" value="{{ $order->id }}">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="id_user" value="{{$order->id_user}}">
+                                                <input type="hidden" name="code_order" value="{{$order->code_order}}">
+                                                <input type="hidden" name="code" value="{{$order->code}}">
+                                                <input type="hidden" name="code_parent" value="{{$order->code_parent}}">
+                                                <input type="hidden" name="code_kind" value="{{$order->code_kind}}">
+                                                <input type="hidden" name="code_type" value="{{$order->code_type}}">
+                                                <input type="hidden" name="code_merk" value="{{$order->code_merk}}">
+                                                <input type="hidden" name="pict_product1" value="{{$order->pict_product1}}">
+                                                <input type="hidden" name="pict_product2" value="{{$order->pict_product2}}">
+                                                <input type="hidden" name="name" value="{{$order->name}}">
+                                                <input type="hidden" name="desc" value="{{$order->desc}}">
+                                                <input type="hidden" name="price" value="{{$order->price}}">
+                                                <input type="hidden" name="slug" value="{{$order->slug}}">
+                                                <input type="hidden" name="kuantitas" value="{{$order->kuantitas}}">
+
+                                                <input type="hidden" name="subtotal" value="{{$order->subtotal}}">
+                                                <input type="hidden" name="total" value="{{$order->total}}">
+                                                <input type="hidden" name="status" value="{{$order->status}}">
+
+                                                </form>
+                                                @else
+                                                <button type="button" class="btn bg-grey waves-effect">Accepted</button>
+                                                @endif
+                                                @else
+                                                Not yet paid
+                                                @endif
+                                            @elseif($order->status == 'Pending')
                                             <form action="{{url('/accept/'.$order->code_order)}}" method="post">
                                                 {!! csrf_field() !!}
 
@@ -77,8 +117,32 @@
                                             <input type="hidden" name="status" value="{{$order->status}}">
 
                                             </form>
+                                            
                                             @else
                                             <button type="button" class="btn bg-grey waves-effect">Accepted</button>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($order->evidence != "not yet")
+                                            <img src="{{ url('evidence/'.$order->evidence) }}" alt="" style="width: 200px;height: 200px;">
+                                            @else
+                                            {{ $order->payment}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($order->status == "Accepted")
+                                                @if($order->evidence != "not yet")
+                                                <a href="{{url('/order/mail/'.$order->code_order)}}" class="btn bg-red waves-effect">Detail Order</a>
+                                                @elseif($order->payment == "Cash On Delivery")
+                                                <a href="{{url('/order/mail/'.$order->code_order)}}" class="btn bg-red waves-effect">Detail Order</a>
+                                                @else
+                                                Not yet paid
+                                                @endif
+                                                
+                                                <button>Test</button>
+                                            @else
+                                                still pending
+
                                             @endif
                                         </td>
                                     </tr>

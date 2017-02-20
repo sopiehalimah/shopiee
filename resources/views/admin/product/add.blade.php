@@ -64,26 +64,26 @@
                                     </div>
                                 </div>
 			                	<div class="form-group form-float">
-                                    <select class="form-control show-tick" name="code_parent">
-                                        <option value="">Select Parent</option>
-                                        @foreach($master_parents as $key => $master_parent)
-                                        <option value="{{ $master_parent->code }}">{{ $master_parent->name }}</option>
-                                        @endforeach
-                                    </select>
-				            	</div>
-                                <div class="form-group form-float">
-                                    <select class="form-control show-tick" name="code_kind">
-                                        <option value="">Select Kind</option>
-                                        @foreach($master_kinds as $key => $master_kind)
-                                        <option value="{{ $master_kind->code }}">{{ $master_kind->code }}</option>
+                                    <select class="form-control show-tick" name="master_type_id">
+                                        <option value="">Select Master Type</option>
+                                        @foreach($master_types as $key => $master_type)
+                                        <option value="{{ $master_type->id }}">{{ $master_type->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group form-float">
-                                    <select class="form-control show-tick" name="code_type">
+                                    <select class="form-control show-tick" name="type_id">
                                         <option value="">Select Type</option>
-                                        @foreach($master_types as $key => $master_type)
-                                        <option value="{{ $master_type->code }}">{{ $master_type->code }}</option>
+                                        @foreach($types as $key => $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group form-float">
+                                    <select class="form-control show-tick" name="sub_type_id">
+                                        <option value="">Select Sub Type</option>
+                                        @foreach($sub_types as $key => $sub_type)
+                                        <option value="{{ $sub_type->id }}">{{ $sub_type->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

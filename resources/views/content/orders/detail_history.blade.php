@@ -12,7 +12,7 @@
                     <ul class="breadcrumb">
                         <li><a href="{{url('/')}}">Home</a>
                         </li>
-                        <li><a href="{{url('/orders/history')}}">My orders</a>
+                        <li><a href="{{url('/orders/history/user/'.Auth::User()->email)}}">My orders</a>
                         </li>
                     </ul>
 
@@ -31,7 +31,7 @@
 
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="active">
-                                    <a href="{{url('/orders/history')}}"><i class="fa fa-list"></i> My orders</a>
+                                    <a href="{{url('/orders/history/user/'.Auth::User()->email)}}"><i class="fa fa-list"></i> My orders</a>
                                 </li>
                                 <li>
                                     <a href="{{url('/user/account/'.Auth::User()->id)}}"><i class="fa fa-user"></i> My account</a>
@@ -93,7 +93,7 @@
                                 @foreach($data2 as $total)
                                     <tr>
                                         <th colspan="5" class="text-right">Order Subtotal</th>
-                                        <th>{{ "Rp.".number_format($order->subtotal,0,',','.').",-" }}</th>
+                                        <th>{{ "Rp.".number_format($order->sub_total,0,',','.').",-" }}</th>
                                     </tr>
                                     <tr>
                                         <th colspan="5" class="text-right">Shipping and handling</th>

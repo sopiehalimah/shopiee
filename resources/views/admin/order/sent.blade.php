@@ -40,6 +40,8 @@
                                         <th>Total</th>
                                         <th>Evidence</th>
                                         <th>Status</th>
+                                        <th>Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,7 +57,8 @@
                                             @else
                                             {{ $order->payment}}
                                             @endif
-                                            </td>
+                                        </td>
+                                        <td>{{$order->confirm}}</td>
                                         <td>
                                             @if($order->status == 'Accepted')
                                             <form action="{{url('/sent/'.$order->code_order)}}" method="post">

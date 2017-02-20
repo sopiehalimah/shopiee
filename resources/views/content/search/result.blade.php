@@ -40,32 +40,34 @@
                                 <div class="flip-container">
                                     <div class="flipper">
                                         <div class="front">
-                                            <a href="detail.html">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
                                                 <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 330px;">
                                             </a>
                                         </div>
                                         <div class="back">
-                                            <a href="detail.html">
+                                            <a href="{{ url('/products/'.$product->slug) }}">
                                                 <img src="{{ url('pict_product2/'.$product->pict_product2) }}" alt="" class="img-responsive" style="height: 330px;">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="{{ url('pict_product2/'.$product->pict_product2) }}" alt="" class="img-responsive" style="height: 330px;">
+                                <a href="{{ url('/products/'.$product->slug) }}" class="invisible">
+                                    <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 330px;">
                                 </a>
                                 <div class="text">
                                     <h3><a href="{{ url('/products/'.$product->slug) }}">{{$product->name}}</a></h3>
                                     <p class="price">{{ "Rp.".number_format($product->price,0,',','.').",-" }}</p>
                                     <p class="buttons">
+                                        
+
                                         <form action="{{url('/savecart')}}"  method="post" enctype="multipart/form-data" >
                                         {!! csrf_field() !!}
                                         <input type="hidden" name="id" value="{{$product->id}}">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="code" value="{{ $product->code }}">
-                                        <input type="hidden" name="code_parent" value="{{ $product->code_parent }}">
-                                        <input type="hidden" name="code_kind" value="{{ $product->code_kind }}">
-                                        <input type="hidden" name="code_type" value="{{ $product->code_type }}">
+                                        <input type="hidden" name="master_type_id" value="{{ $product->master_type_id }}">
+                                        <input type="hidden" name="type_id" value="{{ $product->type_id }}">
+                                        <input type="hidden" name="sub_type_id" value="{{ $product->sub_type_id }}">
                                         <input type="hidden" name="code_merk" value="{{ $product->code_merk }}">
                                         <input type="hidden" name="pict_product1" value="{{ $product->pict_product1 }}">
                                         <input type="hidden" name="pict_product2" value="{{ $product->pict_product2 }}">
@@ -75,6 +77,8 @@
                                         <input type="hidden" name="price" value="{{ $product->price }}">
                                         <input type="hidden" name="kuantitas" value="{{ $product->kuantitas }}">
                                         <input type="hidden" name="subtotal" value="{{ $product->price }}">
+                                        <input type="hidden" name="sub_total" value="{{ $product->price }}">
+
                                         <input type="hidden" name="total" value="{{ $product->price }}">
 
                                         <center>
@@ -85,6 +89,13 @@
                                     </p>
                                 </div>
                                 <!-- /.text -->
+
+                                <div class="ribbon sale">
+                                    <div class="theribbon">SALE</div>
+                                    <div class="ribbon-background"></div>
+                                </div>
+                                <!-- /.ribbon -->
+
                             </div>
                             <!-- /.product -->
                         </div>

@@ -6,18 +6,18 @@
 
         <div id="content">
             <div class="container">
-
+<!-- 
                 <div class="col-md-12">
                     <ul class="breadcrumb">
                         <li><a href="{{url('/')}}">Home</a>
                         </li>
-                        <li><a href="{{ url('categorys/'.$product->code_parent) }}">{{$product->code_parent}}</a></li>
-                        <li><a href="{{ url('categoryss/'.$product->code_kind) }}">{{$product->code_kind}}</a></li>
-                        <li><a href="{{ url('category/'.$product->code_type) }}">{{$product->code_type}}</a></li>
+                        <li><a href="{{ url('categorys/'.$product->master_type_id) }}">{{$product->master_type_id}}</a></li>
+                        <li><a href="{{ url('categoryss/'.$product->type_id) }}">{{$product->type_id}}</a></li>
+                        <li><a href="{{ url('category/'.$product->sub_type_id) }}">{{$product->sub_type_id}}</a></li>
                         <li>{{$product->name}}</li>
                     </ul>
 
-                </div>
+                </div> -->
 
                 <div class="col-md-3">
                     <!-- *** MENUS AND FILTERS ***
@@ -30,24 +30,37 @@
 
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked category-menu">
-                            @foreach($master_parents as $key => $master_parent)
-                            @if($master_parent->class == null)
+                            @foreach($master_types as $key => $master_type)
+                            @if($master_type->class == null)
                             <li class="active">
-                                    <a href="{{ url('categorys/'.$master_parent->code) }}">{{ $master_parent->name }}</a>
+                                    <?php
+                                        $master_type_name = strtolower($master_type->name);
+                                    ?>
+                                    <a href="{{ url('category/'.$master_type_name) }}">{{ $master_type->name }}</a>
                                     <ul>
-                                    @foreach($master_parent->class as $clas)
-                                        <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
+                                    @foreach($master_type->class as $clas)
+                                        <?php
+                                                $type_name = strtolower($clas->name);
+                                        ?>
+
+                                        <li><a href="{{ url('category/'.$master_type_name.'/'.$type_name) }}">{{$clas->name}}</a>
                                         </li>
                                     @endforeach 
                                     </ul>
                             </li>
                             @else
                             <li>
-                                    <a href="{{ url('categorys/'.$master_parent->code) }}">{{ $master_parent->name }}
-                                    </a>
+                                    <?php
+                                        $master_type_name = strtolower($master_type->name);
+                                    ?>
+                                    <a href="{{ url('category/'.$master_type_name) }}">{{ $master_type->name }}</a>
                                     <ul>
-                                    @foreach($master_parent->class as $clas)
-                                        <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
+                                    @foreach($master_type->class as $clas)
+                                        <?php
+                                                $type_name = strtolower($clas->name);
+                                        ?>
+
+                                        <li><a href="{{ url('category/'.$master_type_name.'/'.$type_name) }}">{{$clas->name}}</a>
                                         </li>
                                     @endforeach 
                                     </ul>
@@ -131,9 +144,9 @@
                                     <input type="hidden" name="id" value="{{$product->id}}">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="hidden" name="code" value="{{ $product->code }}">
-                                    <input type="hidden" name="code_parent" value="{{ $product->code_parent }}">
-                                    <input type="hidden" name="code_kind" value="{{ $product->code_kind }}">
-                                    <input type="hidden" name="code_type" value="{{ $product->code_type }}">
+                                    <input type="hidden" name="master_type_id" value="{{ $product->master_type_id }}">
+                                    <input type="hidden" name="type_id" value="{{ $product->type_id }}">
+                                    <input type="hidden" name="sub_type_id" value="{{ $product->sub_type_id }}">
                                     <input type="hidden" name="code_merk" value="{{ $product->code_merk }}">
                                     <input type="hidden" name="pict_product1" value="{{ $product->pict_product1 }}">
                                     <input type="hidden" name="pict_product2" value="{{ $product->pict_product2 }}">
@@ -143,6 +156,7 @@
                                     <input type="hidden" name="price" value="{{ $product->price }}">
                                     <input type="hidden" name="kuantitas" value="{{ $product->kuantitas }}">
                                     <input type="hidden" name="subtotal" value="{{ $product->price }}">
+                                    <input type="hidden" name="sub_total" value="{{ $product->price }}">
                                     <input type="hidden" name="total" value="{{ $product->price }}">
 
                                     <center>

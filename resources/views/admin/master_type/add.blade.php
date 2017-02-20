@@ -28,31 +28,14 @@
                                 </li>
                             </ul>
                         </div>
+                        @if(count($data) == 5)
+                        <div class="body">
+                        Tidak bisa lebih dari 5
+                        </div>
+                        @else
                         <div class="body">
                         <form method="post" action="{{url('/master_type/save')}}" enctype="multipart/form-data" style="padding-bottom: 30px;">
                         {!! csrf_field() !!}
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="code" required>
-                                        <label class="form-label">Code</label>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <select class="form-control show-tick" name="code_parent">
-                                        <option value="">Select Parent</option>
-                                        @foreach($master_parents as $key => $master_parent)
-                                        <option value="{{ $master_parent->code }}">{{ $master_parent->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group form-float">
-                                    <select class="form-control show-tick" name="code_kind">
-                                        <option value="">Select Kind</option>
-                                        @foreach($master_kinds as $key => $master_kind)
-                                        <option value="{{ $master_kind->code }}">{{ $master_kind->code }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <input type="text" class="form-control" name="name" required>
@@ -64,6 +47,7 @@
                                 
                         </form>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

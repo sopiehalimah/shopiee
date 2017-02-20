@@ -109,9 +109,9 @@
                                                 <!-- <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i></button> -->
                                                 <input type="hidden" name="id" value="{{$cart[$key]['id']}}">
                                                 <input type="hidden" name="code_{{$cart[$key]['id']}}" value="{{$cart[$key]['code']}}">
-                                                <input type="hidden" name="code_parent_{{$cart[$key]['id']}}" value="{{$cart[$key]['code_parent']}}">
-                                                <input type="hidden" name="code_kind_{{$cart[$key]['id']}}" value="{{$cart[$key]['code_kind']}}">
-                                                <input type="hidden" name="code_type_{{$cart[$key]['id']}}" value="{{$cart[$key]['code_type']}}">
+                                                <input type="hidden" name="master_type_id_{{$cart[$key]['id']}}" value="{{$cart[$key]['master_type_id']}}">
+                                                <input type="hidden" name="type_id_{{$cart[$key]['id']}}" value="{{$cart[$key]['type_id']}}">
+                                                <input type="hidden" name="sub_type_id_{{$cart[$key]['id']}}" value="{{$cart[$key]['sub_type_id']}}">
                                                 <input type="hidden" name="code_merk_{{$cart[$key]['id']}}" value="{{$cart[$key]['code_merk']}}">
                                                 <input type="hidden" name="pict_product1_{{$cart[$key]['id']}}" value="{{$cart[$key]['pict_product1']}}">
                                                 <input type="hidden" name="pict_product2_{{$cart[$key]['id']}}" value="{{$cart[$key]['pict_product2']}}">
@@ -135,9 +135,15 @@
                                             </td>
                                             <td><a href="{{url('/hapuscart/'.$key)}}"><i class="fa fa-trash-o"></i></a>
                                             </td>
-                                            <input type="hidden" name="subtotal_{{$cart[$key]['id']}}" value="{{ $grandsubtotal+$cart[$key]['subtotal'] }}"><?php
+                                            <?php
                                             $grandsubtotal+=$cart[$key]['subtotal'];
                                             ?>
+                                            <!-- <input type="text" name="sub_total_{{$cart[$key]['id']}}" value="<?php
+                                            // echo $grandsubtotal;
+                                            ?>"> -->
+                                            <input type="hidden" name="sub_total" value="<?php
+                                            echo $grandsubtotal;
+                                            ?>">
                                             
 
                                         </tr>

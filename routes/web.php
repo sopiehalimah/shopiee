@@ -104,6 +104,19 @@ Route::get('/evidence/{filename}',
 
 		return $response;
 	});
+Route::get('/pict_user/{filename}',
+	function ($filename)
+
+	{
+		$path = storage_path() . '/' . $filename;
+		$file = File::get($path);
+		$type = File::mimeType($path);
+
+		$response = Response::make($file, 200);
+		$response->header("content-Type", $type);
+
+		return $response;
+	});
 
 
 
@@ -158,8 +171,10 @@ Route::get('/evidence/{filename}',
 	Route::get('/faq', 'WelcomeController@faq');
 
 
-	Route::get('/blogs', 'WelcomeController@blogs');
-	Route::get('blogs/{slug}', 'WelcomeController@blogs_detail');
+	Route::get('/articles', 'WelcomeController@articles');
+	Route::get('articles/{category_id}/{slug}', 'WelcomeController@articles_detail');
+	Route::get('article/category/{category_id}','WelcomeController@articles_category');
+
 
 
 	Route::get('/products/{slug}','WelcomeController@product_detail');
@@ -181,7 +196,7 @@ Route::get('/evidence/{filename}',
 
 	Route::get('/orders/confirm/','WelcomeController@orders_confirm');
 	Route::get('/orders/history/confirm/','SearchController@search_code_order');
-	Route::get('/orders/history/','WelcomeController@orders_history');
+	Route::get('/orders/history/user/{id_user}','WelcomeController@orders_history');
 	Route::get('/orders/history/{code_order}','WelcomeController@orders_history_detail');
 	Route::get('/orders/detail/confirm/{code_shipping}','WelcomeController@orders_confirm_detail');
 	Route::post('/confirmed/order/{code_shipping}','WelcomeController@confirmed_order');
@@ -194,10 +209,10 @@ Route::get('/evidence/{filename}',
 	Route::get('/user/account/{id}','WelcomeController@user_account');
 
 	Route::get('brand/{name}','ProductController@brand');
-	Route::get('category/{code}','ProductController@category_type');
-	Route::get('categorys/{code}','ProductController@category_parent');
-	Route::get('categoryss/{code}','ProductController@category_kind');
-	Route::get('category/blog/{category}','BlogController@category');
+	Route::get('category/{master_type_name}/{type_name}/{sub_type_name}','ProductController@category_type');
+	Route::get('category/{master_type_name}','ProductController@category_parent');
+	Route::get('category/{master_type_name}/{type_name}','ProductController@category_kind');
+
 
 
 	Route::get('search','SearchController@search');
@@ -206,6 +221,11 @@ Route::get('/evidence/{filename}',
 Route::group(['middleware'=>'role:admin'],function(){
 
 	Route::get('/home', 'HomeController@index');
+
+	//ADMIN
+	Route::get('/admin/profile/{id}','HomeController@profile_admin');
+	Route::post('/admin/profile/update','HomeController@profile_admin_update');
+
 
 	//ADVERTISEMENT
 
@@ -220,24 +240,24 @@ Route::group(['middleware'=>'role:admin'],function(){
 
 	//BLOG
 
-	Route::get('/blog/add', 'HomeController@blog_add');
-	Route::post('/blog/save', 'HomeController@blog_save');
-	Route::get('/blog/table', 'HomeController@blog_table');
-	Route::get('/blog/edit/{id}','HomeController@blog_edit');
-	Route::post('/blog/update','HomeController@blog_update');
-	Route::get('/blog/delete/{id}','HomeController@blog_delete');
+	Route::get('/article/add', 'HomeController@article_add');
+	Route::post('/article/save', 'HomeController@article_save');
+	Route::get('/article/table', 'HomeController@article_table');
+	Route::get('/article/edit/{id}','HomeController@article_edit');
+	Route::post('/article/update','HomeController@article_update');
+	Route::get('/article/delete/{id}','HomeController@article_delete');
 
 
 
 
-	//MASTER BLOG
+	//CATEGORY
 
-	Route::get('/master_blog/add', 'HomeController@master_blog_add');
-	Route::get('/master_blog/table', 'HomeController@master_blog_table');
-	Route::post('/master_blog/save', 'HomeController@master_blog_save');
-	Route::get('/master_blog/edit/{id}','HomeController@master_blog_edit');
-	Route::post('/master_blog/update','HomeController@master_blog_update');
-	Route::get('/master_blog/delete/{id}','HomeController@master_blog_delete');
+	Route::get('/master_category/add', 'HomeController@master_category_add');
+	Route::get('/master_category/table', 'HomeController@master_category_table');
+	Route::post('/master_category/save', 'HomeController@master_category_save');
+	Route::get('/master_category/edit/{id}','HomeController@master_category_edit');
+	Route::post('/master_category/update','HomeController@master_category_update');
+	Route::get('/master_category/delete/{id}','HomeController@master_category_delete');
 
 
 	//MASTER MERK
@@ -253,32 +273,32 @@ Route::group(['middleware'=>'role:admin'],function(){
 
 	//MASTER PARENT
 
-	Route::get('/master_parent/add', 'HomeController@master_parent_add');
-	Route::get('/master_parent/table', 'HomeController@master_parent_table');
-	Route::post('/master_parent/save', 'HomeController@master_parent_save');
-	Route::get('/master_parent/edit/{id}','HomeController@master_parent_edit');
-	Route::post('/master_parent/update','HomeController@master_parent_update');
-	Route::get('/master_parent/delete/{id}','HomeController@master_parent_delete');
-
-
-	//MASTER KIND
-
-	Route::get('/master_kind/add', 'HomeController@master_kind_add');
-	Route::get('/master_kind/table', 'HomeController@master_kind_table');
-	Route::post('/master_kind/save', 'HomeController@master_kind_save');
-	Route::get('/master_kind/edit/{id}','HomeController@master_kind_edit');
-	Route::post('/master_kind/update','HomeController@master_kind_update');
-	Route::get('/master_kind/delete/{id}','HomeController@master_kind_delete');
-
-
-	//MASTER TYPE
-
 	Route::get('/master_type/add', 'HomeController@master_type_add');
 	Route::get('/master_type/table', 'HomeController@master_type_table');
 	Route::post('/master_type/save', 'HomeController@master_type_save');
 	Route::get('/master_type/edit/{id}','HomeController@master_type_edit');
 	Route::post('/master_type/update','HomeController@master_type_update');
 	Route::get('/master_type/delete/{id}','HomeController@master_type_delete');
+
+
+	//MASTER KIND
+
+	Route::get('/type/add', 'HomeController@type_add');
+	Route::get('/type/table', 'HomeController@type_table');
+	Route::post('/type/save', 'HomeController@type_save');
+	Route::get('/type/edit/{id}','HomeController@type_edit');
+	Route::post('/type/update','HomeController@type_update');
+	Route::get('/type/delete/{id}','HomeController@type_delete');
+
+
+	//MASTER TYPE
+
+	Route::get('/sub_type/add', 'HomeController@sub_type_add');
+	Route::get('/sub_type/table', 'HomeController@sub_type_table');
+	Route::post('/sub_type/save', 'HomeController@sub_type_save');
+	Route::get('/sub_type/edit/{id}','HomeController@sub_type_edit');
+	Route::post('/sub_type/update','HomeController@sub_type_update');
+	Route::get('/sub_type/delete/{id}','HomeController@sub_type_delete');
 
 
 	//MASTER PRODUCT
@@ -290,6 +310,7 @@ Route::group(['middleware'=>'role:admin'],function(){
 	Route::post('/product/update','HomeController@product_update');
 	Route::get('/product/delete/{id}','HomeController@product_delete');
 
+	//ORDER
 	Route::get('/order/table','HomeController@order_table');
 	Route::post('/accept/{code_order}','HomeController@accept_order');
 	Route::post('/sent/{code_order}','HomeController@sent_order');
@@ -298,12 +319,20 @@ Route::group(['middleware'=>'role:admin'],function(){
 	Route::get('/order/sent','HomeController@order_sent');
 	Route::get('/order/all','HomeController@order_all');
 	Route::post('/done/{code_order}','HomeController@done_order');
-
-
-	
-	Route::get('/order/info','HomeController@mailinfo_order');
-
 	Route::post('/email/send/{code_order}', 'HomeController@send_mail');
+
+	//CUSTOMERS
+	Route::get('/customer/table/','HomeController@customer_table');
+	Route::get('/customer/edit/{id}','HomeController@customer_edit');
+	Route::post('/customer/update','HomeController@customer_update');
+	Route::get('/customer/delete/{id}','HomeController@customer_delete');
+
+	//CONTACT
+
+	Route::get('/contact/table/','HomeController@contact_table');
+	Route::get('/contact/edit/{id}','HomeController@contact_edit');
+	Route::post('/contact/update','HomeController@contact_update');
+	Route::get('/contact/delete/{id}','HomeController@contact_delete');
 
 
 	

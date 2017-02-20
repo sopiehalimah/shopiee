@@ -20,9 +20,9 @@ class CreateOrdersTable extends Migration
             $table->string('code_shipping');
             $table->string('payment');
             $table->string('code');
-            $table->string('code_parent');
-            $table->string('code_kind');
-            $table->string('code_type');
+            $table->string('master_type_id');
+            $table->string('type_id');
+            $table->string('sub_type_id');
             $table->string('code_merk');
             $table->string('pict_product1');
             $table->string('pict_product2');
@@ -34,6 +34,7 @@ class CreateOrdersTable extends Migration
             $table->string('evidence');
             $table->integer('kuantitas');
             $table->decimal('subtotal', 10, 2);
+            $table->decimal('sub_total', 10, 2);
             $table->decimal('ongkir', 10, 2);
             $table->decimal('total', 10, 2);
             $table->string('confirm')->nullable();

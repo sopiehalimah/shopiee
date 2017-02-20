@@ -5,10 +5,61 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
+                <h1>Welcome Admin!</h1>
             </div>
             <div class="row clearfix">
                 <!-- Basic Example -->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <!-- Hover Zoom Effect -->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-deep-orange hover-zoom-effect">
+                                <div class="icon">
+                                    <i class="material-icons">add_shopping_cart</i>
+                                </div>
+                                <div class="content">
+                                    <div class="text">REQUEST ORDER</div>
+                                    <div class="number">{{count($req_order)}}</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-cyan hover-zoom-effect">
+                                <div class="icon">
+                                    <i class="material-icons">shopping_cart</i>
+                                </div>
+                                <div class="content">
+                                    <div class="text">ORDERS</div>
+                                    <div class="number">{{count($all_order)}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-green hover-zoom-effect">
+                                <div class="icon">
+                                    <i class="material-icons">account_box</i>
+                                </div>
+                                <div class="content">
+                                    <div class="text">CUSTOMERS</div>
+                                    <div class="number">{{count($customer)}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-pink hover-zoom-effect">
+                                <div class="icon">
+                                    <i class="material-icons">recent_actors</i>
+                                </div>
+                                <div class="content">
+                                    <div class="text">CONTACT BOX</div>
+                                    <div class="number">{{count($contact)}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <!-- #END# Hover Zoom Effect -->
+            <!-- Hover Expand Effect -->
                     <div class="card">
                         <div class="header">
                             <h2 style="color: #006064;">

@@ -60,7 +60,7 @@ class LoginController extends Controller
             }
         }
         else{
-            return redirect(url('/something'));
+            return redirect(url('/errors/404'));
         }
     }
     public function logout()

@@ -11,43 +11,51 @@
                     <ul class="breadcrumb">
 
                         <li><a href="{{url('/')}}">Home</a></li>
-                        <li><a href="{{url('/blogs')}}">Blog</a></li>
+                        <li><a href="{{url('/articles')}}">Article</a></li>
+                        <?php
+                            $category_id = ucwords(session("category_id"));
+                        ?>
+                        <li><a href="">{{$category_id}}</a></li>
 
                     </ul>
                 </div>
 
                 <!-- *** LEFT COLUMN ***
-		     _________________________________________________________ -->
+             _________________________________________________________ -->
 
                 <div class="col-sm-9" id="blog-listing">
 
 
-                    @foreach($blog as $key => $blogs)
+                    @foreach($article as $key => $articles)
                     <div class="post">
-                        <h2><a href="post.html">{{$blogs->title}}</a></h2>
-                        <p class="author-category">By <a href="#">{{$blogs->author}}</a> in <a href="{{url('category/blog/'.$blogs->category)}}">{{$blogs->category}}</a>
+                        <h2><a href="post.html">{{$articles->title}}</a></h2>
+                        <p class="author-category">By <a href="#">{{$articles->author}}</a> in <a href="">{{$articles->category}}</a>
                         </p>
                         <hr>
                         <p class="date-comments">
-                            <a href="post.html"><i class="fa fa-calendar-o"></i>{{ date_format(date_create($blogs->created_at),"D, h M Y") }}</a>
+                            <a href="post.html"><i class="fa fa-calendar-o"></i>{{ date_format(date_create($articles->created_at),"D, h M Y") }}</a>
                             <a href="post.html"><i class="fa fa-comment-o"></i> 8 Comments</a>
                         </p>
                         <div class="image">
                             <a href="post.html">
-                                <img src="{{ url('pict/'.$blogs->pict) }}" class="img-responsive" alt="Example blog post alt" style="width: 100%;">
+                                <img src="{{ url('pict/'.$articles->pict) }}" class="img-responsive" alt="Example article post alt" style="width: 100%;">
                             </a>
                         </div>
-                        <p class="intro"><?php echo substr("$blogs->content", 0,200);?>...</p>
-                        <p class="read-more"><a href="{{ url('blogs/'.$blogs->slug) }}" class="btn btn-primary">Continue reading</a>
+                        <p class="intro"><?php echo substr("$articles->content", 0,200);?>...</p>
+                        <?php
+                        $category_id = strtolower($articles->category_id);
+                        $slug = strtolower($articles->slug);
+                        ?>
+                        <p class="read-more"><a href="{{ url('articles/'.$category_id.'/'.$slug) }}" class="btn btn-primary">Continue reading</a>
                         </p>
                     </div>
                      @endforeach
 
 
                     <ul class="pager">
-                        <li class="previous"><a href="{!! $blog->nextPageUrl() !!}">&larr; Older</a>
+                        <li class="previous"><a href="{!! $article->nextPageUrl() !!}">&larr; Older</a>
                         </li>
-                        <li class="next"><a href="{!! $blog->previousPageUrl() !!}">Newer &rarr;</a>
+                        <li class="next"><a href="{!! $article->previousPageUrl() !!}">Newer &rarr;</a>
                         </li>
                         
                     </ul>
@@ -61,20 +69,23 @@
 
 
                 <div class="col-md-3">
-                    <!-- *** BLOG MENU ***
+                    <!-- *** article MENU ***
  _________________________________________________________ -->
                     <div class="panel panel-default sidebar-menu">
 
                         <div class="panel-heading">
-                            <h3 class="panel-title">Blog</h3>
+                            <h3 class="panel-title">article</h3>
                         </div>
 
                         <div class="panel-body">
 
                             <ul class="nav nav-pills nav-stacked">
                                 @foreach($categorys as $key => $category)
+                                <?php 
+                                $category_id = strtolower($category->name)
+                                ?>
                                 <li>
-                                    <a href="{{url('category/blog/'.$category->category)}}">{{$category->category}}</a>
+                                    <a href="{{url('/article/category/'.$category_id)}}">{{$category->name}}</a>
                                 </li>
                                 @endforeach
                             </ul>
@@ -83,7 +94,7 @@
                     </div>
                     <!-- /.col-md-3 -->
 
-                    <!-- *** BLOG MENU END *** -->
+                    <!-- *** article MENU END *** -->
 
                    
                         
