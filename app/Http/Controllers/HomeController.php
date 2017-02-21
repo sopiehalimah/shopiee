@@ -697,7 +697,7 @@ class HomeController extends Controller
           dd($e);
           }
 
-        return redirect(url('/order/mail'));
+        return redirect(url('/order/table'));
           // return $data;
         }
 
