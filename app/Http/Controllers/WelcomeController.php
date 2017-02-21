@@ -36,7 +36,7 @@ class WelcomeController extends Controller
         $category = category::all();
         $article = article::all();
         $article1 = array('article1'=>article::orderBy('id','desc')->limit(2)->get());
-        $advertisement = array('advertisement'=>advertisement::all());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(5)->get());
         $product = array('product'=>product::orderBy('id','desc')->get());
         $cart = session('cart');
         return view('welcome')->with('master_types',$master_type)->with($type)->with($sub_type)->with('master_merks', $master_merk)->with('categorys', $category)->with('articles', $article)->with($product)->with($article1)->with($advertisement)->with('cart',$cart); 
@@ -500,7 +500,7 @@ class WelcomeController extends Controller
         $article = article::all();
         $cart = session('cart');
 
-        $order1 = array('order1'=>order::select('code_order','code_shipping','total','payment','evidence','status')->groupBy('code_order','code_shipping','payment','evidence','status','total')->where('id_user',$id_user)->get());
+        $order1 = array('order1'=>order::select('code_order','code_shipping','total','payment','evidence','status','created_at')->groupBy('code_order','code_shipping','payment','evidence','status','total','created_at')->where('id_user',$id_user)->get());
 
         return view('content/orders/history')->with('master_types',$master_type)->with($type)->with($sub_type)->with('master_merks', $master_merk)->with('categorys', $category)->with('articles', $article)->with($product)->with('cart',$cart)->with($order1);
         // return $order1;
@@ -557,7 +557,7 @@ class WelcomeController extends Controller
         // $order->save();
 
         // $r->save()->put('order',  $array);
-        return redirect(url('orders/history/user/'.Auth::User()->email));
+        return redirect()->back()->with('status','Success');
 
     }
 

@@ -12,6 +12,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <!-- Hover Zoom Effect -->
                     <div class="row">
+                        <a href="{{url('/order/table')}}" style="cursor: pointer;">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="info-box bg-deep-orange hover-zoom-effect">
                                 <div class="icon">
@@ -24,6 +25,8 @@
                             </div>
 
                         </div>
+                        </a>
+                        <a href="{{url('/order/all')}}" style="cursor: pointer;">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="info-box bg-cyan hover-zoom-effect">
                                 <div class="icon">
@@ -35,6 +38,8 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
+                        <a href="{{url('/customer/table')}}" style="cursor: pointer;">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="info-box bg-green hover-zoom-effect">
                                 <div class="icon">
@@ -46,6 +51,8 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
+                        <a href="{{url('/contact/table')}}" style="cursor: pointer;">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="info-box bg-pink hover-zoom-effect">
                                 <div class="icon">
@@ -57,6 +64,7 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
                     </div>
             <!-- #END# Hover Zoom Effect -->
             <!-- Hover Expand Effect -->

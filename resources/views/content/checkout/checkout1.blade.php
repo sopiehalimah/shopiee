@@ -108,7 +108,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="phone">Telephone</label>
-                                            <input type="text" name="telp" class="form-control" id="phone" required>
+                                            <input type="number" name="telp" class="form-control" id="phone" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">

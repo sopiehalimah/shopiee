@@ -19,9 +19,19 @@
                 </div>
 
 
+
                 <div class="col-md-12" id="customer-order">
                     <div class="box" style="padding-bottom: 50px;">
                     @foreach($confirm as $conf)
+                    @if($conf->confirm == 'confirmed')
+                        @if(session('status'))
+                        <left>
+                        <h1>
+                        {{ session('status')}}
+                        </h1>
+                        </left>
+                        @endif
+                    @else
                     <form action="{{url('confirmed/order/'.$conf->code_shipping)}}" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
 
@@ -55,9 +65,8 @@
 
 
                                             </form>
+                                            @endif
                      
-
-                    </form>
                     @endforeach
 
 

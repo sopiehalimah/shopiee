@@ -258,12 +258,12 @@
                             <li>
                                 <a href="{{url('/order/table')}}">Request Order </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="{{url('/order/mail')}}">Sent Mail </a>
                             </li>
                             <li>
                                 <a href="{{url('/order/sent')}}">Sent Order </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="{{url('/order/all')}}">Order All </a>
                             </li>

@@ -92,18 +92,18 @@
                                     <div class="flipper">
                                         <div class="front">
                                             <a href="{{ url('/products/'.$product->slug) }}">
-                                                <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
+                                                <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;width: 100%;">
                                             </a>
                                         </div>
                                         <div class="back">
                                             <a href="{{ url('/products/'.$product->slug) }}">
-                                                <img src="{{ url('pict_product2/'.$product->pict_product2) }}" alt="" class="img-responsive" style="height: 235px;">
+                                                <img src="{{ url('pict_product2/'.$product->pict_product2) }}" alt="" class="img-responsive" style="height: 235px;width: 100%;">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                                 <a href="{{ url('/products/'.$product->slug) }}" class="invisible">
-                                    <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;">
+                                    <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="height: 235px;width: 100%;">
                                 </a>
                                 <div class="text">
                                     <h3><a href="{{ url('/products/'.$product->slug) }}">{{$product->name}}</a></h3>

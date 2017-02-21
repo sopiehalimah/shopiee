@@ -45,8 +45,8 @@ class HomeController extends Controller
     {
         $product = array('product'=>product::all());
         $advertisement = array('advertisement'=>advertisement::all());
-        $req_order['req_order'] = order::where('status','Pending')->get();
-        $all_order['all_order'] = order::where('status','!=','Pending')->get();
+        $req_order = array('req_order'=>order::select('code_order','code_shipping','total','id_user','status','payment','evidence','confirm')->groupBy('code_order','code_shipping','status','id_user','total','payment','evidence','confirm')->orwhere('status','Pending')->orwhere('status','Accepted')->get());
+        $all_order = array('all_order'=>order::select('code_order','code_shipping','total','id_user','status','payment','evidence','confirm')->groupBy('code_order','code_shipping','status','id_user','total','payment','evidence','confirm')->where('status','!=','Pending')->get());
         $customer['customer'] = User::where('role','member')->get();
         $contact['contact'] = contact::all();
         return view('home')->with($product)->with($advertisement)->with($req_order)->with($all_order)->with($customer)->with($contact);
@@ -558,8 +558,9 @@ class HomeController extends Controller
     //ORDER
     public function order_table()
     {
-        $data = array('data'=>order::select('code_order','code_shipping','total','id_user','status','payment','evidence')->groupBy('code_order','code_shipping','status','id_user','total','payment','evidence')->orwhere('status','Pending')->orwhere('status','Accepted')->get());
+        $data = array('data'=>order::select('code_order','code_shipping','total','id_user','status','payment','evidence','confirm')->groupBy('code_order','code_shipping','status','id_user','total','payment','evidence','confirm')->orwhere('status','Pending')->orwhere('status','Accepted')->get());
         return view('admin/order/table')->with($data);
+        // return $data;
     }
 
     public function order_sent()
@@ -623,7 +624,7 @@ class HomeController extends Controller
 
     public function order_all()
     {
-        $data['data'] = order::where('status','!=','Pending')->get();
+        $data = array('data'=>order::select('code_order','code_shipping','total','id_user','status','payment','evidence','confirm')->groupBy('code_order','code_shipping','status','id_user','total','payment','evidence','confirm')->where('status','!=','Pending')->get());
         return view('admin/order/all')->with($data);
     }
 
