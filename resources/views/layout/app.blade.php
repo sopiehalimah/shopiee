@@ -373,27 +373,39 @@
 
                     <div class="col-md-3 col-sm-6">
 
-                        <h4>Top categories</h4>
-
+                        <h4>Top Categories</h4>
                         <ul>
                             @foreach($master_types as $key => $master_type)
                             @if($master_type->class == null)
                             <li class="active">
-                                    <h4><a href="{{ url('categorys/'.$master_type->code) }}">{{ $master_type->name }}</a></h4>
+                                    <?php
+                                        $master_type_name = strtolower($master_type->name);
+                                    ?>
+                                    <h4><a href="{{ url('category/'.$master_type_name) }}" style="color: #333;">{{ $master_type->name }}</a></h4>
                                     <ul>
                                     @foreach($master_type->class as $clas)
-                                        <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
+                                        <?php
+                                                $type_name = strtolower($clas->name);
+                                        ?>
+
+                                        <li><a href="{{ url('category/'.$master_type_name.'/'.$type_name) }}">{{$clas->name}}</a>
                                         </li>
                                     @endforeach 
                                     </ul>
                             </li>
                             @else
                             <li>
-                                    <h4><a href="{{ url('categorys/'.$master_type->code) }}">{{ $master_type->name }}
-                                    </a></h4>
+                                    <?php
+                                        $master_type_name = strtolower($master_type->name);
+                                    ?>
+                                    <h4><a href="{{ url('category/'.$master_type_name) }}" style="color: #333;">{{ $master_type->name }}</a></h4>
                                     <ul>
                                     @foreach($master_type->class as $clas)
-                                        <li><a href="{{ url('categoryss/'.$clas->code) }}">{{$clas->name}}</a>
+                                        <?php
+                                                $type_name = strtolower($clas->name);
+                                        ?>
+
+                                        <li><a href="{{ url('category/'.$master_type_name.'/'.$type_name) }}">{{$clas->name}}</a>
                                         </li>
                                     @endforeach 
                                     </ul>
