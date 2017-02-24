@@ -102,12 +102,9 @@
                         </div>
                         <!-- /.row -->
 
-                        <hr>
-
-                        <div id="map">
-
-                        </div>
-
+                        @if(Auth::user() == null)
+                        
+                        @else
                         <hr>
                         <h2>Contact form</h2>
 
@@ -147,6 +144,7 @@
                             </div>
                             <!-- /.row -->
                         </form>
+                        @endif
 
 
                     </div>
