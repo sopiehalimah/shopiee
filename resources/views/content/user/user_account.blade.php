@@ -68,7 +68,7 @@
                                         @if($data->pict_user == null)
                                         <div class="form-group">
                                             <div class="image">
-                                                <img src="{{ url('admin/images/user.png')}}" width="250" height="250" alt="User" />
+                                                <img src="{{ url('img/user.png')}}" width="200" height="200" alt="User" />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -79,7 +79,7 @@
                                         @else
                                         <div class="form-group">
                                             <div class="image">
-                                                <img src="{{ url('pict_user/'.$data->pict_user) }}" width="250" height="250" alt="User" />
+                                                <img src="{{ url('pict_user/'.$data->pict_user) }}" width="200" height="200" alt="User" />
                                             </div>
                                         </div>
                                         <div class="form-group">

@@ -44,7 +44,7 @@ class ProductController extends Controller
         $category = category::all();
         $article = article::all();
         $article1 = array('article1'=>article::orderBy('id','desc')->limit(2)->get());
-        $advertisement = array('advertisement'=>advertisement::all());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
         // $product = array('product'=>product::all());
         $cart = session('cart');
         $product = product::where('sub_type_id',$sub_types)->orderBy('id','desc')->paginate(12);
@@ -75,7 +75,7 @@ class ProductController extends Controller
         $category = category::all();
         $article = article::all();
         $article1 = array('article1'=>article::orderBy('id','desc')->limit(2)->get());
-        $advertisement = array('advertisement'=>advertisement::all());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
         $cart = session('cart');
         $product = product::where('master_type_id',$m_types)->orderBy('id','desc')->paginate(12);
 
@@ -104,7 +104,7 @@ class ProductController extends Controller
         $category = category::all();
         $article = article::all();
         $article1 = array('article1'=>article::orderBy('id','desc')->limit(2)->get());
-        $advertisement = array('advertisement'=>advertisement::all());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
         $cart = session('cart');
         $product = product::where('type_id',$types)->orderBy('id','desc')->paginate(12);
 
@@ -124,7 +124,7 @@ class ProductController extends Controller
         $category = category::all();
         $article = article::all();
         $article1 = array('article1'=>article::orderBy('id','desc')->limit(2)->get());
-        $advertisement = array('advertisement'=>advertisement::all());
+        $advertisement = array('advertisement'=>advertisement::orderBy('id','desc')->limit(1)->get());
         $cart = session('cart');
         $product = product::where('code_merk', '=', $name)->orderBy('id','desc')->paginate(12);
         $request->session()->put('name',$name);

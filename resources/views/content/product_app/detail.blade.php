@@ -161,7 +161,7 @@
 
                                     <center>
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</button> 
-                                    <a href="basket.html" class="btn btn-default"><i class="fa fa-heart"></i> Add to wishlist</a>
+                                    <a href="{{url('/')}}" class="btn btn-default"><i class="fa fa-heart"></i> Add to wishlist</a>
                                     </center>
                                     </form>
 
