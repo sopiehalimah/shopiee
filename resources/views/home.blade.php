@@ -154,13 +154,13 @@
                                 @if($key == 0)
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                     <a href="{{ url('pict_product1/'.$product->pict_product1) }}"" data-sub-html="{{$product->name}}">
-                                        <img class="img-responsive thumbnail" src="{{ url('pict_product1/'.$product->pict_product1) }}">
+                                        <img class="img-responsive thumbnail" src="{{ url('pict_product1/'.$product->pict_product1) }}" style="height: 250px;">
                                     </a>
                                 </div>
                                 @else
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                     <a href="{{ url('pict_product1/'.$product->pict_product1) }}"" data-sub-html="{{$product->name}}">
-                                        <img class="img-responsive thumbnail" src="{{ url('pict_product1/'.$product->pict_product1) }}">
+                                        <img class="img-responsive thumbnail" src="{{ url('pict_product1/'.$product->pict_product1) }}" style="height: 250px;">
                                     </a>
                                 </div>
                                 @endif

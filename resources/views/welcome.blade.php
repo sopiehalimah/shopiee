@@ -182,7 +182,7 @@
                         <div class="col-sm-6">
                             <div class="post">
                                 <h4><a href="post.html">{{$article->title}}</a></h4>
-                                <p class="author-category">By <a href="#">{{$article->author}}</a> in <a href="">{{$article->id_category}}</a>
+                                <p class="author-category">By <a href="#">{{$article->author}}</a> in <a href="">{{$article->category_id}}</a>
                                 </p>
                                 <hr>
                                 <p class="intro"><?php echo substr("$article->content", 0,200);?>...</p>

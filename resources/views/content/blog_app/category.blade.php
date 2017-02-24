@@ -29,7 +29,11 @@
                     @foreach($article as $key => $articles)
                     <div class="post">
                         <h2><a href="post.html">{{$articles->title}}</a></h2>
-                        <p class="author-category">By <a href="#">{{$articles->author}}</a> in <a href="">{{$articles->category}}</a>
+                       
+                        <?php 
+                            $category_id = strtolower($articles->category_id)
+                        ?>
+                        <p class="author-category">By <a href="#">{{$articles->author}}</a> in <a href="{{url('/article/category/'.$category_id)}}">{{$articles->category_id}}</a>
                         </p>
                         <hr>
                         <p class="date-comments">
