@@ -69,7 +69,7 @@
                     <div class="panel panel-default sidebar-menu">
 
                         <div class="panel-heading">
-                            <h3 class="panel-title">article</h3>
+                            <h3 class="panel-title">Category</h3>
                         </div>
 
                         <div class="panel-body">
