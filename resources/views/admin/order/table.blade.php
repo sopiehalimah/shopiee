@@ -80,6 +80,7 @@
                                                 <input type="hidden" name="kuantitas" value="{{$order->kuantitas}}">
 
                                                 <input type="hidden" name="subtotal" value="{{$order->subtotal}}">
+                                                <input type="hidden" name="sub_total" value="{{$order->sub_total}}">
                                                 <input type="hidden" name="total" value="{{$order->total}}">
                                                 <input type="hidden" name="status" value="{{$order->status}}">
 
@@ -116,6 +117,8 @@
                                             <input type="hidden" name="kuantitas" value="{{$order->kuantitas}}">
 
                                             <input type="hidden" name="subtotal" value="{{$order->subtotal}}">
+                                            <input type="hidden" name="sub_total" value="{{$order->sub_total}}">
+
                                             <input type="hidden" name="total" value="{{$order->total}}">
                                             <input type="hidden" name="status" value="{{$order->status}}">
 
@@ -168,6 +171,7 @@
                                             <input type="hidden" name="kuantitas" value="{{$order->kuantitas}}">
 
                                             <input type="hidden" name="subtotal" value="{{$order->subtotal}}">
+                                            <input type="hidden" name="sub_total" value="{{$order->sub_total}}">
                                             <input type="hidden" name="total" value="{{$order->total}}">
                                             <input type="hidden" name="status" value="{{$order->status}}">
 

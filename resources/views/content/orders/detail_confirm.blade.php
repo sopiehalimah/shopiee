@@ -110,7 +110,7 @@
                                 @foreach($data2 as $total)
                                     <tr>
                                         <th colspan="5" class="text-right">Order subtotal</th>
-                                        <th>{{ "Rp.".number_format($order->subtotal,0,',','.').",-" }}</th>
+                                        <th>{{ "Rp.".number_format($order->sub_total,0,',','.').",-" }}</th>
                                     </tr>
                                     <tr>
                                         <th colspan="5" class="text-right">Shipping and handling</th>

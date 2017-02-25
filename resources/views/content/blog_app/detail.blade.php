@@ -48,7 +48,7 @@
                             <h4>{{count($comment)}} comments</h4>
 
                             @foreach($comment as $com)
-                            <div class="row comment" style="border-bottom: 1px solid#eee">
+                            <div class="row comment" style="border-bottom: 1px solid#eee;">
                                 <div class="col-sm-3 col-md-2 text-center-xs">
                                     <p>
                                         <img src="{{ url('pict_user/'.$com->pict_user) }}" class="img-responsive img-circle" alt="">

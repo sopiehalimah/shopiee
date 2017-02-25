@@ -100,8 +100,8 @@
                                         <tr>
                                             <th colspan="4">Subtotal</th>
                                             <th>
-                                                <input type="hidden" class="form-control" name="subtotal" value="{{ $total->subtotal }}" required>
-                                                {{ "Rp.".number_format($total->subtotal,0,',','.').",-" }}    
+                                                <input type="hidden" class="form-control" name="subtotal" value="{{ $total->sub_total }}" required>
+                                                {{ "Rp.".number_format($total->sub_total,0,',','.').",-" }}    
                                             </th>
                                         </tr>
                                         <tr>
