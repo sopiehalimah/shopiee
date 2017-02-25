@@ -57,7 +57,7 @@
                     @foreach($data1 as $to)
                         <h1>#{{$to->code_order}}</h1>
 
-                        <p class="lead">Order #{{$to->code_order}} was placed on <strong>{{ date_format(date_create($to->created_at),"D, h M Y") }}</strong> and is currently <strong>Being prepared</strong>.</p>
+                        <p class="lead">Order #{{$to->code_order}} was placed on <strong>{{ date_format(date_create($to->created_at),"D, d M Y") }}</strong> and is currently <strong>Being prepared</strong>.</p>
                         <p class="text-muted">If you have any questions, please feel free to <a href="{{url('/contact')}}">contact us</a>, our customer service center is working for you 24/7.</p>
 
                         <hr>

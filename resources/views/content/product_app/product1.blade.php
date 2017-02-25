@@ -165,6 +165,7 @@
                                         <input type="hidden" name="code_merk" value="{{ $productss->code_merk }}">
                                         <input type="hidden" name="pict_product1" value="{{ $productss->pict_product1 }}">
                                         <input type="hidden" name="pict_product2" value="{{ $productss->pict_product2 }}">
+                                        <input type="hidden" name="pict_product3" value="{{ $productss->pict_product3 }}">
                                         <input type="hidden" name="name" value="{{ $productss->name }}">
                                         <input type="hidden" name="desc" value="{{ $productss->desc }}">
                                         <input type="hidden" name="slug" value="{{ $productss->slug }}">

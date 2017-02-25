@@ -47,7 +47,7 @@
                                 <tbody>
                                 @foreach($data as $order)
                                     <tr>
-                                        <td>{{ date_format(date_create($order->created_at),"D, h M Y") }}</td>
+                                        <td>{{ date_format(date_create($order->created_at),"D, d M Y") }}</td>
                                         <td>{{$order->code_order}}</td>
                                         <td>{{$order->id_user}}</td>
                                         <td>{{ "Rp.".number_format($order->total,0,',','.').",-" }}</td>
@@ -77,6 +77,8 @@
                                             <input type="hidden" name="code_merk" value="{{$order->code_merk}}">
                                             <input type="hidden" name="pict_product1" value="{{$order->pict_product1}}">
                                             <input type="hidden" name="pict_product2" value="{{$order->pict_product2}}">
+                                            <input type="hidden" name="pict_product3" value="{{$order->pict_product3}}">
+
                                             <input type="hidden" name="name" value="{{$order->name}}">
                                             <input type="hidden" name="desc" value="{{$order->desc}}">
                                             <input type="hidden" name="price" value="{{$order->price}}">

@@ -19,6 +19,7 @@ use App\product;
 use App\shipping;
 use App\User;
 use App\order;
+use App\comment;
 use App\contact;
 use DB;
 use Auth;

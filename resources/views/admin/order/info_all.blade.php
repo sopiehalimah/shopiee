@@ -45,7 +45,7 @@
                                 <tbody>
                                 @foreach($data as $order)
                                     <tr>
-                                        <td>{{ date_format(date_create($order->created_at),"D, h M Y") }}</td>
+                                        <td>{{ date_format(date_create($order->created_at),"D, d M Y") }}</td>
                                         <td>{{$order->code_order}}</td>
                                         <td>{{$order->id_user}}</td>
                                         <td>{{$order->status}}</td>

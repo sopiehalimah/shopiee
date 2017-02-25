@@ -109,6 +109,12 @@
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
+                                    <label>Picture 3</label>
+                                    <input type="file" name="pict_product3" class="form-control"   required>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
                                         <input type="text" class="form-control" name="name" required>
                                         <label class="form-label">Name</label>
                                     </div>

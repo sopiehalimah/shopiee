@@ -94,6 +94,12 @@
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
+                                    <label>Picture 3</label>
+                                    <input type="file" name="pict_product3" value="{{ $data->pict_product3 }}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
                                         <label>Name</label>
                                         <input type="text" class="form-control" name="name"  value="{{ $data->name }}"  required>
                                     </div>

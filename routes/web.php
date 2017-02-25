@@ -91,6 +91,19 @@ Route::get('/pict_product2/{filename}',
 
 		return $response;
 	});
+Route::get('/pict_product3/{filename}',
+	function ($filename)
+
+	{
+		$path = storage_path() . '/' . $filename;
+		$file = File::get($path);
+		$type = File::mimeType($path);
+
+		$response = Response::make($file, 200);
+		$response->header("content-Type", $type);
+
+		return $response;
+	});
 Route::get('/evidence/{filename}',
 	function ($filename)
 
@@ -174,6 +187,8 @@ Route::get('/pict_user/{filename}',
 	Route::get('/articles', 'WelcomeController@articles');
 	Route::get('articles/{category_id}/{slug}', 'WelcomeController@articles_detail');
 	Route::get('article/category/{category_id}','WelcomeController@articles_category');
+	Route::post('article/comment','WelcomeController@articles_comment');
+
 
 
 

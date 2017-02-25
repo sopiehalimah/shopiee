@@ -24,12 +24,12 @@
                     @foreach($article as $key => $articles)
                     <div class="post">
                         <h2><a href="post.html">{{$articles->title}}</a></h2>
-                        <p class="author-category">By <a href="#">{{$articles->author}}</a> in <a href="">{{$articles->category}}</a>
+                        <p class="author-category">By <a href="#">{{$articles->author}}</a> in <a href="">{{$articles->category_id}}</a>
                         </p>
                         <hr>
                         <p class="date-comments">
-                            <a href="post.html"><i class="fa fa-calendar-o"></i>{{ date_format(date_create($articles->created_at),"D, h M Y") }}</a>
-                            <a href="post.html"><i class="fa fa-comment-o"></i> 8 Comments</a>
+                            <a href="post.html"><i class="fa fa-calendar-o"></i>{{ date_format(date_create($articles->created_at),"D, d M Y") }}</a>
+                            <a href="post.html"><i class="fa fa-comment-o"></i> Comments</a>
                         </p>
                         <div class="image">
                             <a href="post.html">

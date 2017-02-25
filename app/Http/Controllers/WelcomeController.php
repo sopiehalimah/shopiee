@@ -20,6 +20,7 @@ use App\User;
 use App\order;
 use App\contact;
 use App\category;
+use App\comment;
 use DB;
 use Auth;
 
@@ -126,13 +127,15 @@ class WelcomeController extends Controller
         $product = array('product'=>product::all());
         $cart = session('cart');
         $category = category::all();
+        $comment = array('comment'=>comment::where('article_id',$slug)->get());
+        // $com = array('com'=>comment::where('article_id',$slug));
         $data = array('data'=>article::where('slug',$slug)->where('category_id',$category_id)->first());
 
         $request->session()->put('category_id',$category_id);
         $request->session()->put('slug',$slug);
 
-        return view('content/blog_app/detail')->with($data)->with('categorys',$category)->with('master_types',$master_type)->with($type)->with($sub_type)->with('master_merks', $master_merk)->with('categorys', $category)->with($product)->with('cart',$cart)->with($advertisement);
-        // return $data;
+        return view('content/blog_app/detail')->with($data)->with('categorys',$category)->with('master_types',$master_type)->with($type)->with($sub_type)->with('master_merks', $master_merk)->with('categorys', $category)->with($product)->with('cart',$cart)->with($advertisement)->with($comment);
+        // return $com;
     }
 
     public function articles_category(Request $request, $category_id)
@@ -150,6 +153,23 @@ class WelcomeController extends Controller
 
         return view('content/blog_app/category')->with($article)->with('categorys',$category)->with('master_types',$master_type)->with($type)->with($sub_type)->with('master_merks', $master_merk)->with('cart',$cart)->with($advertisement);
         // return $article;
+
+    }
+
+    public function articles_comment()
+    {
+        $data = new comment;
+        $data->article_id = Input::get('article_id');
+        $data->id_user = Input::get('id_user');
+        $data->name_user = Input::get('name_user');
+        $data->pict_user = Input::get('pict_user');
+        $data->comment = Input::get('comment');
+
+        $data->save();
+
+
+        return redirect()->back();
+
 
     }
 
@@ -210,6 +230,7 @@ class WelcomeController extends Controller
         $array[$key+1]['code_merk'] = Input::get('code_merk');
         $array[$key+1]['pict_product1'] = Input::get('pict_product1');
         $array[$key+1]['pict_product2'] = Input::get('pict_product2');
+        $array[$key+1]['pict_product3'] = Input::get('pict_product3');
         $array[$key+1]['name'] = Input::get('name');
         $array[$key+1]['desc'] = Input::get('desc');
         $array[$key+1]['slug'] = Input::get('slug');
@@ -389,6 +410,7 @@ class WelcomeController extends Controller
                 $order->code_merk = $r->input('code_merk_'.$cart[$key]['id']);
                 $order->pict_product1 = $r->input('pict_product1_'.$cart[$key]['id']);
                 $order->pict_product2 = $r->input('pict_product2_'.$cart[$key]['id']);
+                $order->pict_product3 = $r->input('pict_product3_'.$cart[$key]['id']);
                 $order->name = $r->input('name_'.$cart[$key]['id']);
                 $order->desc = $r->input('desc_'.$cart[$key]['id']);
                 $order->price = $r->input('price_'.$cart[$key]['id']);
@@ -439,6 +461,7 @@ class WelcomeController extends Controller
         $array[$id]['code_merk'] = Input::get('code_merk');
         $array[$id]['pict_product1'] = Input::get('pict_product1');
         $array[$id]['pict_product2'] = Input::get('pict_product2');
+        $array[$id]['pict_product3'] = Input::get('pict_product3');
         $array[$id]['name'] = Input::get('name');
         $array[$id]['desc'] = Input::get('desc');
         $array[$id]['slug'] = Input::get('slug');
@@ -472,6 +495,7 @@ class WelcomeController extends Controller
         $array[$id]['code_merk'] = Input::get('code_merk');
         $array[$id]['pict_product1'] = Input::get('pict_product1');
         $array[$id]['pict_product2'] = Input::get('pict_product2');
+        $array[$id]['pict_product3'] = Input::get('pict_product3');
         $array[$id]['name'] = Input::get('name');
         $array[$id]['desc'] = Input::get('desc');
         $array[$id]['slug'] = Input::get('slug');

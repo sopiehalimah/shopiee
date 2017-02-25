@@ -114,7 +114,7 @@
                     <div class="row" id="productMain">
                         <div class="col-sm-6">
                             <div id="mainImage">
-                                <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="width:100%;  height: 500px;">
+                                <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="width:100%;  height: 450px;">
                             </div>
 
                             <div class="ribbon sale">
@@ -150,6 +150,7 @@
                                     <input type="hidden" name="code_merk" value="{{ $product->code_merk }}">
                                     <input type="hidden" name="pict_product1" value="{{ $product->pict_product1 }}">
                                     <input type="hidden" name="pict_product2" value="{{ $product->pict_product2 }}">
+                                    <input type="hidden" name="pict_product3" value="{{ $product->pict_product3 }}">
                                     <input type="hidden" name="name" value="{{ $product->name }}">
                                     <input type="hidden" name="desc" value="{{ $product->desc }}">
                                     <input type="hidden" name="slug" value="{{ $product->slug }}">
@@ -182,8 +183,8 @@
                                     </a>
                                 </div>
                                 <div class="col-xs-4">
-                                    <a href="{{ url('pict_product1/'.$product->pict_product1) }}" class="thumb">
-                                        <img src="{{ url('pict_product1/'.$product->pict_product1) }}" alt="" class="img-responsive" style="width:100%;  height: 100px;">
+                                    <a href="{{ url('pict_product3/'.$product->pict_product3) }}" class="thumb">
+                                        <img src="{{ url('pict_product3/'.$product->pict_product3) }}" alt="" class="img-responsive" style="width:100%;  height: 100px;">
                                     </a>
                                 </div>
                             </div>

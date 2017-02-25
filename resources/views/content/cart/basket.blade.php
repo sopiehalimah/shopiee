@@ -67,6 +67,7 @@
                                                 <input type="hidden" name="code_merk" value="{{$cart[$key]['code_merk']}}">
                                                 <input type="hidden" name="pict_product1" value="{{$cart[$key]['pict_product1']}}">
                                                 <input type="hidden" name="pict_product2" value="{{$cart[$key]['pict_product2']}}">
+                                                <input type="hidden" name="pict_product3" value="{{$cart[$key]['pict_product3']}}">
                                                 <input type="hidden" name="name" value="{{$cart[$key]['name']}}">
                                                 <input type="hidden" name="desc" value="{{$cart[$key]['desc']}}">
                                                 <input type="hidden" name="slug" value="{{$cart[$key]['slug']}}">

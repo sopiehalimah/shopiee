@@ -49,6 +49,7 @@
                                             <input type="hidden" name="code_merk" value="{{$conf->code_merk}}">
                                             <input type="hidden" name="pict_product1" value="{{$conf->pict_product1}}">
                                             <input type="hidden" name="pict_product2" value="{{$conf->pict_product2}}">
+                                            <input type="hidden" name="pict_product3" value="{{$conf->pict_product3}}">
                                             <input type="hidden" name="name" value="{{$conf->name}}">
                                             <input type="hidden" name="desc" value="{{$conf->desc}}">
                                             <input type="hidden" name="price" value="{{$conf->price}}">

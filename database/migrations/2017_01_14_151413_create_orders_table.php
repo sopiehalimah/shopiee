@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('code_merk');
             $table->string('pict_product1');
             $table->string('pict_product2');
+            $table->string('pict_product3');
             $table->string('name');
             $table->text('desc');
             $table->string('price');

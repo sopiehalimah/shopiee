@@ -20,6 +20,7 @@ use App\shipping;
 use App\User;
 use App\order;
 use App\contact;
+use App\comment;
 
 
 

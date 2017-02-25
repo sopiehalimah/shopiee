@@ -38,7 +38,11 @@
                         <hr>
                         <p class="date-comments">
                             <a href="post.html"><i class="fa fa-calendar-o"></i>{{ date_format(date_create($articles->created_at),"D, h M Y") }}</a>
-                            <a href="post.html"><i class="fa fa-comment-o"></i> 8 Comments</a>
+                            <?php
+                            $category_id = strtolower($articles->category_id);
+                            $slug = strtolower($articles->slug);
+                            ?>
+                            <a href="{{ url('articles/'.$category_id.'/'.$slug) }}"><i class="fa fa-comment-o"></i>Comments</a>
                         </p>
                         <div class="image">
                             <a href="post.html">

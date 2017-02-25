@@ -75,7 +75,7 @@
                                 @foreach($order1 as $orders)
                                     <tr>
                                         <td>{{$orders->code_order}}</td>
-                                        <td>{{ date_format(date_create($orders->created_at),"D, h M Y") }}</td>
+                                        <td>{{ date_format(date_create($orders->created_at),"D, d M Y") }}</td>
                                         <td>{{ "Rp.".number_format($orders->total,0,',','.').",-"}}</td>
                                         <td>
                                             @if($orders->status == 'Pending')
@@ -118,6 +118,7 @@
                                             <input type="hidden" name="code_merk" value="{{$orders->code_merk}}">
                                             <input type="hidden" name="pict_product1" value="{{$orders->pict_product1}}">
                                             <input type="hidden" name="pict_product2" value="{{$orders->pict_product2}}">
+                                            <input type="hidden" name="pict_product3" value="{{$orders->pict_product3}}">
                                             <input type="hidden" name="name" value="{{$orders->name}}">
                                             <input type="hidden" name="desc" value="{{$orders->desc}}">
                                             <input type="hidden" name="price" value="{{$orders->price}}">

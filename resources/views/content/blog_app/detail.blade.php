@@ -45,75 +45,60 @@
                         <!-- /#post-content -->
 
                         <div id="comments" data-animate="fadeInUp">
-                            <h4>2 comments</h4>
+                            <h4>{{count($comment)}} comments</h4>
 
-
+                            @foreach($comment as $com)
                             <div class="row comment">
                                 <div class="col-sm-3 col-md-2 text-center-xs">
                                     <p>
-                                        <img src="img/article-avatar2.jpg" class="img-responsive img-circle" alt="">
+                                        <img src="{{ url('pict_user/'.$com->pict_user) }}" class="img-responsive img-circle" alt="">
                                     </p>
                                 </div>
                                 <div class="col-sm-9 col-md-10">
-                                    <h5>Julie Alma</h5>
-                                    <p class="posted"><i class="fa fa-clock-o"></i> September 23, 2011 at 12:00 am</p>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
-                                        Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                    <p class="reply"><a href="#"><i class="fa fa-reply"></i> Reply</a>
-                                    </p>
+                                    <h5>{{$com->name_user}}</h5>
+                                    <p class="posted"><i class="fa fa-clock-o"></i> {{ date_format(date_create($data->created_at),"D, d M Y") }} at {{ date_format(date_create($data->created_at),"H:i:s") }}</p>
+                                    <p>{{$com->comment}}</p>
                                 </div>
                             </div>
                             <!-- /.comment -->
-
-
-                            <div class="row comment last">
-
-                                <div class="col-sm-3 col-md-2 text-center-xs">
-                                    <p>
-                                        <img src="img/article-avatar.jpg" class="img-responsive img-circle" alt="">
-                                    </p>
-                                </div>
-
-                                <div class="col-sm-9 col-md-10">
-                                    <h5>Louise Armero</h5>
-                                    <p class="posted"><i class="fa fa-clock-o"></i> September 23, 2012 at 12:00 am</p>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
-                                        Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                    <p class="reply"><a href="#"><i class="fa fa-reply"></i> Reply</a>
-                                    </p>
-                                </div>
-
-                            </div>
-                            <!-- /.comment -->
+                            
+                            @endforeach
 
                         </div>
                         <!-- /#comments -->
+
+                        @if(Auth::user() == null)
+                        
+                        @else
 
                         <div id="comment-form" data-animate="fadeInUp">
 
                             <h4>Leave comment</h4>
 
-                            <form>
+                            <form action="{{url('/article/comment')}}" method="post" enctype="multipart/form-data">
+
+                            {!! csrf_field() !!}
+
+                            <input type="hidden" name="pict_user" value="{{ Auth::user()->pict_user }}">
+                            <input type="hidden" name="article_id" value="{{ $data->slug }}">
+
                                 <div class="row">
 
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="name">Name <span class="required">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="name">
+                                            <input type="text" class="form-control" id="name" name="name_user" value="{{ Auth::user()->name }}" readonly>
                                         </div>
                                     </div>
-
-                                </div>
-
-                                <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="email">Email <span class="required">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="email">
+                                            <input type="text" class="form-control" id="email" name="id_user" value="{{ Auth::user()->email }}" readonly>
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <div class="row">
@@ -121,14 +106,14 @@
                                         <div class="form-group">
                                             <label for="comment">Comment <span class="required">*</span>
                                             </label>
-                                            <textarea class="form-control" id="comment" rows="4"></textarea>
+                                            <textarea class="form-control" id="comment" rows="4" name="comment"></textarea>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-12 text-right">
-                                        <button class="btn btn-primary"><i class="fa fa-comment-o"></i> Post comment</button>
+                                        <button class="btn btn-primary" type="submit"><i class="fa fa-comment-o"></i> Post comment</button>
                                     </div>
                                 </div>
 
@@ -137,6 +122,7 @@
 
                         </div>
                         <!-- /#comment-form -->
+                        @endif
 
                     </div>
                     <!-- /.box -->

@@ -23,6 +23,7 @@ use App\order;
 use App\contact;
 use App\category;
 use App\article;
+use App\comment;
 
 class HomeController extends Controller
 {
@@ -495,6 +496,17 @@ class HomeController extends Controller
 
          }
 
+         if(Input::hasFile('pict_product3')){
+            $pict_product3 = date('YmdHis')
+            .uniqid()
+            ."."
+            .Input::file('pict_product3')->getClientOriginalExtension();
+
+            Input::file('pict_product3')->move(storage_path(),$pict_product3);
+            $data->pict_product3 = $pict_product3;
+
+         }
+
         $data->save();
         return redirect(url('/product/table'));
     }
@@ -541,6 +553,16 @@ class HomeController extends Controller
 
             Input::file('pict_product2')->move(storage_path(),$pict_product2);
             $data->pict_product2 = $pict_product2;
+
+         }
+          if(Input::hasFile('pict_product3')){
+            $pict_product3 = date('YmdHis')
+            .uniqid()
+            ."."
+            .Input::file('pict_product3')->getClientOriginalExtension();
+
+            Input::file('pict_product3')->move(storage_path(),$pict_product3);
+            $data->pict_product3 = $pict_product3;
 
          }
          
