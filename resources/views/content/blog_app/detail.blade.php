@@ -48,7 +48,7 @@
                             <h4>{{count($comment)}} comments</h4>
 
                             @foreach($comment as $com)
-                            <div class="row comment">
+                            <div class="row comment" style="border-bottom: 1px solid#eee">
                                 <div class="col-sm-3 col-md-2 text-center-xs">
                                     <p>
                                         <img src="{{ url('pict_user/'.$com->pict_user) }}" class="img-responsive img-circle" alt="">
@@ -86,16 +86,16 @@
 
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="name">Name <span class="required">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="name" name="name_user" value="{{ Auth::user()->name }}" readonly>
+                                            <!-- <label for="name">Name <span class="required">*</span>
+                                            </label> -->
+                                            <input type="hidden" class="form-control" id="name" name="name_user" value="{{ Auth::user()->name }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="email">Email <span class="required">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="email" name="id_user" value="{{ Auth::user()->email }}" readonly>
+                                            <!-- <label for="email">Email <span class="required">*</span>
+                                            </label> -->
+                                            <input type="hidden" class="form-control" id="email" name="id_user" value="{{ Auth::user()->email }}" readonly>
                                         </div>
                                     </div>
 
