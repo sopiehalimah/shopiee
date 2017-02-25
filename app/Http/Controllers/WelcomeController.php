@@ -581,7 +581,7 @@ class WelcomeController extends Controller
         // $order->save();
 
         // $r->save()->put('order',  $array);
-        return redirect()->back()->with('status','Success');
+        return redirect()->back()->with('status','Success Confirmed Order');
 
     }
 
