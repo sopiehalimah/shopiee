@@ -498,7 +498,7 @@
         <div id="copyright">
             <div class="container">
                 <div class="col-md-6">
-                    <p class="pull-left">© 2015 Your name goes here.</p>
+                    <p class="pull-left">© 2015 SH.</p>
 
                 </div>
                 <div class="col-md-6">

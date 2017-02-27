@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="col-sm-9 col-md-10">
                                     <h5>{{$com->name_user}}</h5>
-                                    <p class="posted"><i class="fa fa-clock-o"></i> {{ date_format(date_create($data->created_at),"D, d M Y") }} at {{ date_format(date_create($data->created_at),"H:i:s") }}</p>
+                                    <p class="posted"><i class="fa fa-clock-o"></i> {{ date_format(date_create($com->created_at),"D, d M Y") }} at {{ date_format(date_create($com->created_at),"H:i:s") }}</p>
                                     <p>{{$com->comment}}</p>
                                 </div>
                             </div>
